@@ -78,5 +78,4 @@ public class MyBlockInfo {
         this.previousHash = BlockHelper.bytesToHex(blockInfo.getPreviousHash());
         this.transactions = blockInfo.getEnvelopeInfo(0).getTransactionID();
     }
-
 }

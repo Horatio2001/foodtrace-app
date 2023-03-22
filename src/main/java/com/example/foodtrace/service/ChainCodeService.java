@@ -79,10 +79,11 @@ public class ChainCodeService {
         return JSON.parseObject(info);
     }
 
-    public JSONObject ReadFruitInfoHistory(String fruitInfoID) throws ContractException,InterruptedException,TimeoutException {
+    public JSONArray ReadFruitInfoHistory(String fruitInfoID) throws ContractException,InterruptedException,TimeoutException {
         byte[] ccResult = foodtraceContract.createTransaction("ReadHistory")
                 .submit(fruitInfoID);
-        return JSON.parseObject(new String(ccResult, StandardCharsets.UTF_8));
+//        System.out.println(new String(ccResult, StandardCharsets.UTF_8));
+        return JSON.parseArray(new String(ccResult, StandardCharsets.UTF_8));
     }
 
     public String DeleteFruitInfo(String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {

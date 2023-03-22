@@ -64,7 +64,7 @@ public class BlockController {
     }
 
     @ApiOperation(value = "分页获取区块信息第一页")
-    @GetMapping("Blockchain/GetBlockInfoByPage")
+    @GetMapping("Blockchain/GetBlockInfoByFirstPage")
     public Map<String, Object> GetBlockInfoByFirstPage() throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("BlockInfoList", blockService.ReadBlockByPage(1));
@@ -80,10 +80,45 @@ public class BlockController {
     }
 
     @ApiOperation(value = "分页获取节点信息第一页")
-    @GetMapping("Blockchain/GetNetInfoByPage")
+    @GetMapping("Blockchain/GetNetInfoByFirstPage")
     public Map<String, Object> GetNetInfoByFirstPage() throws InvalidArgumentException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("NetInfoList", blockService.ReadNetworkInfoByPage(1));
+        return map;
+    }
+
+    @ApiOperation(value = "根据交易号获取交易信息")
+    @GetMapping("Blockchain/GetTxInfo/{TxId}")
+    public Map<String, Object> GetTxInfoById(@PathVariable String TxId) throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("TxInfo", blockService.ReadTxInfoById(TxId));
+        return map;
+    }
+
+    @ApiOperation(value = "分页获取交易信息")
+    @GetMapping("Blockchain/GetTxInfoByPage/{PageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "PageNum", value = "页码", required = true)
+    })
+    public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("BlockInfoList", blockService.ReadTxInfoByPage(PageNum));
+        return map;
+    }
+
+    @ApiOperation(value = "分页获取交易信息第一页")
+    @GetMapping("Blockchain/GetTxInfoByFirstPage")
+    public Map<String, Object> GetTxInfoByFirstPage() throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("BlockInfoList", blockService.ReadTxInfoByPage(1));
+        return map;
+    }
+
+    @ApiOperation(value = "获得所以部署的链码名称")
+    @GetMapping("Blockchain/GetAllChainCodeName")
+    public Map<String, Object> GetAllChainCodeName() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("ChainCodeList", blockService.ReadAllBootChainCodeName());
         return map;
     }
 }

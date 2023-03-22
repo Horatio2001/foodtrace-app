@@ -3,6 +3,7 @@ package com.example.foodtrace.service;
 import com.alibaba.fastjson.JSONArray;
 import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.pojo.MyNetworkInfo;
+import com.example.foodtrace.pojo.MyTxInfo;
 import com.example.foodtrace.util.BlockHelper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.apache.commons.codec.binary.Hex;
@@ -11,6 +12,7 @@ import org.hyperledger.fabric.sdk.BlockchainInfo;
 import org.hyperledger.fabric.sdk.Channel;
 import org.hyperledger.fabric.sdk.Orderer;
 import org.hyperledger.fabric.sdk.Peer;
+import org.hyperledger.fabric.sdk.TransactionInfo;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,5 +66,26 @@ public class BlockService {
         int index0 = (PageNum - 1) * 5;
         int index1 = min(PageNum * 5, myNetworkInfos.size());
         return myNetworkInfos.subList(index0, index1);
+    }
+
+    public MyTxInfo ReadTxInfoById(String TxId) throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException {
+        BlockInfo blockInfo = mychannel.queryBlockByTransactionID(TxId);
+        return new MyTxInfo(blockInfo);
+    }
+
+    public List<MyTxInfo> ReadTxInfoByPage(long PageNum) throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException {
+        long currentHeight = mychannel.queryBlockchainInfo().getHeight();
+        long index0 = (PageNum - 1) * 5;
+        long index1 = min(PageNum * 5, currentHeight);
+        ArrayList<MyTxInfo> myTxInfos = new ArrayList<>();
+        for (long i = index0; i < index1; i++) {
+            BlockInfo blockInfo = mychannel.queryBlockByNumber(i);
+            myTxInfos.add(new MyTxInfo(blockInfo));
+        }
+        return myTxInfos;
+    }
+
+    public Collection<String> ReadAllBootChainCodeName() {
+        return mychannel.getDiscoveredChaincodeNames();
     }
 }
