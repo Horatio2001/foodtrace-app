@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.foodtrace.dao.SaveDao">
+    <insert id="addSaveInfo">
+        insert
+        ignore into SaveInfo(SaveID, MainPreference, MainUse, PreservationFacility, GermplasmType
+            , SaveQuantity, MeasuringUnit, SaveUnit, SaveVault, SavePlace, WarehousingYear, SaveProperty
+            , ResourceDescription, ResourceRemark, GermplasmImage)
+            VALUES (
+        #{saveInfo.SaveID},
+        #{saveInfo.MainPreference},
+        #{saveInfo.MainUse},
+        #{saveInfo.PreservationFacility},
+        #{saveInfo.GermplasmType},
+        #{saveInfo.SaveQuantity},
+        #{saveInfo.MeasuringUnit},
+        #{saveInfo.SaveUnit},
+        #{saveInfo.SaveVault},
+        #{saveInfo.SavePlace},
+        #{saveInfo.WarehousingYear},
+        #{saveInfo.SaveProperty},
+        #{saveInfo.ResourceDescription},
+        #{saveInfo.ResourceRemark},
+        #{saveInfo.GermplasmImage}
+        )
+    </insert>
+</mapper>

@@ -12,7 +12,10 @@ public class MyNetworkInfo {
     private String requestUrl;
     private PeerType peerType;
     private String MSPId;
-    private Long high;
+    private String high;
+
+    private String low;
+    private String unsigned;
 
     public String getPeerName() {
         return peerName;
@@ -38,20 +41,36 @@ public class MyNetworkInfo {
         this.MSPId = MSPId;
     }
 
-    public Long getHigh() {
-        return high;
-    }
-
-    public void setHigh(Long high) {
-        this.high = high;
-    }
-
     public PeerType getPeerType() {
         return peerType;
     }
 
     public void setPeerType(PeerType peerType) {
         this.peerType = peerType;
+    }
+
+    public String getHigh() {
+        return high;
+    }
+
+    public void setHigh(String high) {
+        this.high = high;
+    }
+
+    public String getLow() {
+        return low;
+    }
+
+    public void setLow(String low) {
+        this.low = low;
+    }
+
+    public String getUnsigned() {
+        return unsigned;
+    }
+
+    public void setUnsigned(String unsigned) {
+        this.unsigned = unsigned;
     }
 
     public enum PeerType {
@@ -63,8 +82,9 @@ public class MyNetworkInfo {
         this.requestUrl = peer.getUrl();
         this.peerType = PeerType.PEER;
         this.MSPId = peer.getProperties().getProperty("org.hyperledger.fabric.sdk.peer.organization_mspid");
-        this.high = channel.queryBlockchainInfo(peer).getHeight();
-
+        this.low = String.valueOf(channel.queryBlockchainInfo(peer).getHeight());
+        this.high = String.valueOf(0);
+        this.unsigned = "true";
     }
 
     public MyNetworkInfo(Orderer orderer) {
@@ -72,6 +92,8 @@ public class MyNetworkInfo {
         this.requestUrl = orderer.getUrl();
         this.peerType = PeerType.ORDERER;
         this.MSPId = orderer.getProperties().getProperty("org.hyperledger.fabric.sdk.orderer.organization_mspid");
-
+        this.high = "-";
+        this.low = "-";
+        this.unsigned = "-";
     }
 }

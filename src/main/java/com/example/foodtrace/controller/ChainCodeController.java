@@ -8,14 +8,11 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.hyperledger.fabric.gateway.ContractException;
-import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
-import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,38 +25,18 @@ public class ChainCodeController {
     @Autowired
     private ChainCodeService chainCodeService;
 
-    @ApiOperation(value = "创建水果信息")
-    @PostMapping("/createFruitInfo")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
-            @ApiImplicitParam(name = "processID", value = "过程ID", required = true),
-            @ApiImplicitParam(name = "collectID", value = "采集ID", required = true)
-    })
-    public JSONObject CreateFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
-                                      @RequestParam("processID") String processID,
-                                      @RequestParam("collectID") String collectID) {
-        JSONObject ret = new JSONObject();
-        try {
-            ret.put("data", chainCodeService.CreateFruitInfo(fruitInfoID, processID, collectID));
-            ret.put("code", 200);
-        } catch (ContractException | TimeoutException | InterruptedException e) {
-            e.printStackTrace();
-            ret.put("code", -200);
-        }
-        return ret;
-    }
 
-    @ApiOperation(value = "设定采集信息")
-    @PostMapping("/setCollectInfo")
+    @ApiOperation(value = "创建水果信息")
+    @PostMapping("/CreateFruitInfo")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
             @ApiImplicitParam(name = "args", value = "采集信息字符串数组", required = true)
     })
-    public JSONObject SetCollectInfo(@RequestParam("fruitInfoID") String fruitInfoID,
-                                     @RequestParam("args") String[] args) {
+    public JSONObject CreateFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                      @RequestParam("args") String[] args) {
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.SetCollectInfo(fruitInfoID, args));
+            ret.put("data", chainCodeService.CreateFruitInfo(fruitInfoID, args));
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -68,17 +45,15 @@ public class ChainCodeController {
         return ret;
     }
 
-    @ApiOperation(value = "设定物种信息")
-    @PostMapping("/setSpeciesInfo")
+    @ApiOperation(value = "拒绝创建信息")
+    @PostMapping("/RejectCreate")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
-            @ApiImplicitParam(name = "args", value = "物种信息数组", required = true)
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
     })
-    public JSONObject SetSpeciesInfo(@RequestParam("fruitInfoID") String fruitInfoID,
-                                     @RequestParam("args") String[] args) {
+    public JSONObject RejectCreate(@RequestParam("fruitInfoID") String fruitInfoID) {
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.SetSpeciesInfo(fruitInfoID, args));
+            ret.put("data", chainCodeService.RejectCreate(fruitInfoID));
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -87,17 +62,36 @@ public class ChainCodeController {
         return ret;
     }
 
-    @ApiOperation(value = "设定来源信息")
-    @PostMapping("/setSourceInfo")
+    @ApiOperation(value = "修改创建水果信息")
+    @PostMapping("/ModifyCreateFruitInfo")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
-            @ApiImplicitParam(name = "args", value = "来源信息数组", required = true)
+            @ApiImplicitParam(name = "args", value = "采集信息字符串数组", required = true)
     })
-    public JSONObject SetSourceInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+    public JSONObject ModifyCreateFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                            @RequestParam("args") String[] args) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.ModifyCreateFruitInfo(fruitInfoID, args));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "保存水果信息")
+    @PostMapping("/SaveFruitInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
+            @ApiImplicitParam(name = "args", value = "保存信息字符串数组", required = true)
+    })
+    public JSONObject SaveFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
                                     @RequestParam("args") String[] args) {
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.SetSourceInfo(fruitInfoID, args));
+            ret.put("data", chainCodeService.SaveFruitInfo(fruitInfoID, args));
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -106,17 +100,15 @@ public class ChainCodeController {
         return ret;
     }
 
-    @ApiOperation(value = "增加物流信息")
-    @PostMapping("/addTransportInfo")
+    @ApiOperation(value = "拒绝保存信息")
+    @PostMapping("/RejectSave")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
-            @ApiImplicitParam(name = "args", value = "物流信息数组", required = true)
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
     })
-    public JSONObject AddTransportInfo(@RequestParam("fruitInfoID") String fruitInfoID,
-                                       @RequestParam("args") String[] args) {
+    public JSONObject RejectSave(@RequestParam("fruitInfoID") String fruitInfoID) {
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.AddTransportInfo(fruitInfoID, args));
+            ret.put("data", chainCodeService.RejectSave(fruitInfoID));
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -125,17 +117,17 @@ public class ChainCodeController {
         return ret;
     }
 
-    @ApiOperation(value = "更新过程ID")
-    @PostMapping("/updateProcessID")
+    @ApiOperation(value = "修改保存信息")
+    @PostMapping("/ModifySaveFruitInfo")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
-            @ApiImplicitParam(name = "processID", value = "过程ID", required = true)
+            @ApiImplicitParam(name = "args", value = "保存信息字符串数组", required = true)
     })
-    public JSONObject UpdateProcessID(@RequestParam("fruitInfoID") String fruitInfoID,
-                                      @RequestParam("processID") String processID) {
+    public JSONObject ModifySaveFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                          @RequestParam("args") String[] args) {
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.UpdateProcessID(fruitInfoID, processID));
+            ret.put("data", chainCodeService.ModifySaveFruitInfo(fruitInfoID, args));
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -144,17 +136,125 @@ public class ChainCodeController {
         return ret;
     }
 
-    @ApiOperation(value = "更新采集ID")
-    @PostMapping("/updateCollectID")
+    @ApiOperation(value = "录入水果信息")
+    @PostMapping("/EnterFruitInfo")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
-            @ApiImplicitParam(name = "collectID", value = "采集ID", required = true)
+            @ApiImplicitParam(name = "args", value = "录入信息字符串数组", required = true)
     })
-    public JSONObject UpdateCollectID(@RequestParam("fruitInfoID") String fruitInfoID,
-                                      @RequestParam("collectID") String collectID) {
+    public JSONObject EnterFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                     @RequestParam("args") String[] args) {
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.UpdateCollectID(fruitInfoID, collectID));
+            ret.put("data", chainCodeService.EnterFruitInfo(fruitInfoID, args));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "拒绝录入信息")
+    @PostMapping("/RejectEnter")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
+    })
+    public JSONObject RejectEnter(@RequestParam("fruitInfoID") String fruitInfoID) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.RejectEnter(fruitInfoID));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "修改录入信息")
+    @PostMapping("/ModifyEnterFruitInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
+            @ApiImplicitParam(name = "args", value = "录入信息字符串数组", required = true)
+    })
+    public JSONObject ModifyEnterFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                           @RequestParam("args") String[] args) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.ModifyEnterFruitInfo(fruitInfoID, args));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "共享水果信息")
+    @PostMapping("/ShareFruitInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
+            @ApiImplicitParam(name = "args", value = "共享信息字符串数组", required = true)
+    })
+    public JSONObject ShareFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                     @RequestParam("args") String[] args) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.ShareFruitInfo(fruitInfoID, args));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "拒绝共享信息")
+    @PostMapping("/RejectShare")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
+    })
+    public JSONObject RejectShare(@RequestParam("fruitInfoID") String fruitInfoID) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.RejectShare(fruitInfoID));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "修改共享信息")
+    @PostMapping("/ModifyShareFruitInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true),
+            @ApiImplicitParam(name = "args", value = "共享信息字符串数组", required = true)
+    })
+    public JSONObject ModifyShareFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID,
+                                           @RequestParam("args") String[] args) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.ModifyShareFruitInfo(fruitInfoID, args));
+            ret.put("code", 200);
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "信息存证")
+    @PostMapping("/LoadFruitInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
+    })
+    public JSONObject LoadFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.LoadFruitInfo(fruitInfoID));
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -164,7 +264,7 @@ public class ChainCodeController {
     }
 
     @ApiOperation(value = "获得水果信息")
-    @GetMapping("/readFruitInfo")
+    @GetMapping("/ReadFruitInfo")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
     })
@@ -181,7 +281,7 @@ public class ChainCodeController {
     }
 
     @ApiOperation(value = "根据ID范围获得水果信息")
-    @GetMapping("/readFruitInfoByRange")
+    @GetMapping("/ReadFruitInfoByRange")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoStartID", value = "水果ID1", required = true),
             @ApiImplicitParam(name = "fruitInfoEndID", value = "水果ID2", required = true)
@@ -200,7 +300,7 @@ public class ChainCodeController {
     }
 
     @ApiOperation(value = "获得水果信息历史修改记录")
-    @GetMapping("/readFruitInfoHistory")
+    @GetMapping("/ReadFruitInfoHistory")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
     })
@@ -228,6 +328,7 @@ public class ChainCodeController {
             ret.put("code", 200);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
+            ret.put("data", "你无法删除已经存证的信息！");
             ret.put("code", -200);
         }
         return ret;

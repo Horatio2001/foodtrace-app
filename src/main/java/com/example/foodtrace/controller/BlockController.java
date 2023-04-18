@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,9 +47,28 @@ public class BlockController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "BlockNum", value = "块号", required = true)
     })
-    public Map<String, Object> GetBlockInfoByNum(@PathVariable Long BlockNum) throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException {
+    public Map<String, Object> GetBlockInfoByNum(@PathVariable Long BlockNum) throws InvalidArgumentException, ProposalException, IOException {
         Map<String, Object> map = new HashMap<>();
         map.put("BlockInfo", blockService.ReadBlockByNum(BlockNum));
+        return map;
+    }
+
+    @ApiOperation(value = "根据哈希获取区块")
+    @GetMapping("Blockchain/GetBlockInfoByHash/{BlockHash}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "BlockHash", value = "哈希", required = true)
+    })
+    public Map<String, Object> GetBlockInfoByHash(@PathVariable String BlockHash) throws InvalidArgumentException, ProposalException, IOException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("BlockInfo", blockService.ReadBlockByHash(BlockHash));
+        return map;
+    }
+
+    @ApiOperation(value = "获取最新三个区块信息")
+    @GetMapping("Blockchain/GetNewestBlockInfo")
+    public Map<String, Object> GetNewestBlockInfo() throws InvalidArgumentException, IOException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("BlockInfoList", blockService.ReadNewestBlock());
         return map;
     }
 
@@ -57,7 +77,7 @@ public class BlockController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "PageNum", value = "页码", required = true)
     })
-    public Map<String, Object> GetBlockInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+    public Map<String, Object> GetBlockInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("BlockInfoList", blockService.ReadBlockByPage(PageNum));
         return map;
@@ -65,9 +85,17 @@ public class BlockController {
 
     @ApiOperation(value = "分页获取区块信息第一页")
     @GetMapping("Blockchain/GetBlockInfoByFirstPage")
-    public Map<String, Object> GetBlockInfoByFirstPage() throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+    public Map<String, Object> GetBlockInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("BlockInfoList", blockService.ReadBlockByPage(1));
+        return map;
+    }
+
+    @ApiOperation(value = "获取全部节点名称")
+    @GetMapping("Blockchain/GetAllPeerName")
+    public Map<String, Object> GetAllPeerName() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("NetInfoList", blockService.ReadAllPeerName());
         return map;
     }
 
@@ -114,11 +142,13 @@ public class BlockController {
         return map;
     }
 
-    @ApiOperation(value = "获得所以部署的链码名称")
+    @ApiOperation(value = "获得所有部署的链码名称")
     @GetMapping("Blockchain/GetAllChainCodeName")
     public Map<String, Object> GetAllChainCodeName() {
         Map<String, Object> map = new HashMap<>();
         map.put("ChainCodeList", blockService.ReadAllBootChainCodeName());
         return map;
     }
+
+
 }

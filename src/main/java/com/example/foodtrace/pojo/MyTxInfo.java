@@ -1,5 +1,6 @@
 package com.example.foodtrace.pojo;
 
+import com.example.foodtrace.util.BlockHelper;
 import com.google.protobuf.InvalidProtocolBufferException;
 import org.hyperledger.fabric.gateway.Transaction;
 import org.hyperledger.fabric.sdk.BlockInfo;
@@ -17,6 +18,8 @@ public class MyTxInfo {
     private String type;
     private String chainCode;
     private Date timeStamp;
+    private String payloadProposalHash;
+    private String validationCode;
 
     public String getCreator() {
         return creator;
@@ -66,12 +69,31 @@ public class MyTxInfo {
         this.timeStamp = timeStamp;
     }
 
-    public MyTxInfo(BlockInfo blockInfo) throws InvalidProtocolBufferException, InvalidArgumentException, ProposalException {
+    public String getPayloadProposalHash() {
+        return payloadProposalHash;
+    }
+
+    public void setPayloadProposalHash(String payloadProposalHash) {
+        this.payloadProposalHash = payloadProposalHash;
+    }
+
+    public String getValidationCode() {
+        return validationCode;
+    }
+
+    public void setValidationCode(String validationCode) {
+        this.validationCode = validationCode;
+    }
+
+    public MyTxInfo(BlockInfo blockInfo, TransactionInfo transactionInfo) throws InvalidProtocolBufferException, InvalidArgumentException, ProposalException {
         this.creator = blockInfo.getEnvelopeInfo(0).getCreator().getMspid();
         this.channelName = blockInfo.getChannelId();
         this.txID = blockInfo.getEnvelopeInfo(0).getTransactionID();
         this.type = "ENDORSER_TRANSACTION";
-        this.chainCode = "foodtrace";
+        this.chainCode = transactionInfo.getEnvelope().getPayload().toStringUtf8().charAt(104) != 'f' ? "_lifestyle" : "foodtrace";
+//        this.chainCode = transactionInfo.getEnvelope().getPayload().toStringUtf8().substring(104,114);
+        this.validationCode = transactionInfo.getValidationCode().name();
+        this.payloadProposalHash = BlockHelper.bytesToHex(BlockHelper.toSHA256ByteArray(transactionInfo.getEnvelope().getPayload().toByteArray()));
         this.timeStamp = blockInfo.getEnvelopeInfo(0).getTimestamp();
     }
 }

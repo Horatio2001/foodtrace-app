@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.foodtrace.dao.CollectDao">
+    <insert id="addCreateInfo">
+        insert
+        ignore into CollectInfo(CollectID, Type, Name, GermplasmName, GermplasmNameEn
+            , SectionName, GenericName, ScientificName, ResourceType, CollectMethod, GermplasmSource
+            , SourceCountry, SourceProvince, Source, SourceOrg, OriginCountry, OriginPlace
+            , CollectPlaceLongitude, CollectPlaceLatitude, CollectPlaceAltitude, CollectPlaceSoilType
+            , CollectPlaceEcologyType, CollectMaterialType, CollectPeople, CollectUnit
+            , CollectTime, SpeciesName, Image, CollectRemark)
+            VALUES (
+        #{CollectID},
+        #{Type},
+        #{Name},
+        #{GermplasmName},
+        #{GermplasmNameEn},
+        #{SectionName},
+        #{GenericName},
+        #{ScientificName},
+        #{ResourceType},
+        #{CollectMethod},
+        #{GermplasmSource},
+        #{SourceCountry},
+        #{SourceProvince},
+        #{Source},
+        #{SourceOrg},
+        #{OriginCountry},
+        #{OriginPlace},
+        #{CollectPlaceLongitude},
+        #{CollectPlaceLatitude},
+        #{CollectPlaceAltitude},
+        #{CollectPlaceSoilType},
+        #{CollectPlaceEcologyType},
+        #{CollectMaterialType},
+        #{CollectPeople},
+        #{CollectUnit},
+        #{CollectTime},
+        #{SpeciesName},
+        #{Image},
+        #{CollectRemark}
+        )
+    </insert>
+</mapper>
