@@ -26,7 +26,7 @@
     <update id="modifyShareInfo">
         update ShareInfo
         set ShareObj       = #{shareInfo.ShareObj},
-            ContactInfo   = #{shareInfo.ContactInfo},
+            ContactInfo    = #{shareInfo.ContactInfo},
             ShareMode      = #{shareInfo.ShareMode},
             ShareUse       = #{shareInfo.ShareUse},
             ShareNum       = #{shareInfo.ShareNum},
@@ -34,4 +34,21 @@
             ShareEndTime   = #{shareInfo.ShareEndTime}
         where ShareID = #{shareInfo.ShareID}
     </update>
+
+    <resultMap id="shareMap" type="com.example.foodtrace.entity.ShareInfo">
+        <id column="ShareID" property="ShareID"/>
+        <result column="ShareObj" property="ShareObj"/>
+        <result column="ContactInfo" property="ContactInfo"/>
+        <result column="ShareMode" property="ShareMode"/>
+        <result column="ShareUse" property="ShareUse"/>
+        <result column="ShareNum" property="ShareNum"/>
+        <result column="ShareBeginTime" property="ShareBeginTime"/>
+        <result column="ShareEndTime" property="ShareEndTime"/>
+    </resultMap>
+
+    <select id="queryShareInfo" resultMap="shareMap">
+        select ShareID, ShareObj, ContactInfo, ShareMode, ShareUse, ShareNum , ShareBeginTime, ShareEndTime
+        from ShareInfo
+        where ShareID = #{fruitInfoID}
+    </select>
 </mapper>

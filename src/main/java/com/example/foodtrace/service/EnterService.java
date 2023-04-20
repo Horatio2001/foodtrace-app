@@ -3,6 +3,7 @@ package com.example.foodtrace.service;
 import com.example.foodtrace.dao.EnterDao;
 import com.example.foodtrace.entity.EnterInfo;
 import com.example.foodtrace.entity.SaveInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,10 @@ public class EnterService {
     public Integer modifyEnterInfo(EnterInfo enterInfo) {
         return enterDao.modifyEnterInfo(enterInfo);
     }
+
+    public EnterInfo queryEnterInfo(String fruitInfoID) {
+        return enterDao.queryEnterInfo(fruitInfoID);
+    }
+
 
 }

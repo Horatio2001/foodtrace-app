@@ -15,4 +15,5 @@ public interface ShareDao {
 
     Integer modifyShareInfo(@Param("shareInfo") ShareInfo shareInfo);
 
+    ShareInfo queryShareInfo(@Param("fruitInfoID") String fruitInfoID);
 }

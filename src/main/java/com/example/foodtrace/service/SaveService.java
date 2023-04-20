@@ -21,4 +21,8 @@ public class SaveService {
     public Integer modifySaveInfo(SaveInfo saveInfo) {
         return saveDao.modifySaveInfo(saveInfo);
     }
+
+    public SaveInfo querySaveInfo(String fruitInfoID) {
+        return saveDao.querySaveInfo(fruitInfoID);
+    }
 }

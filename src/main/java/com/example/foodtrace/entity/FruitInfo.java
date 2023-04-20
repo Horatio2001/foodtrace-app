@@ -5,10 +5,6 @@ import java.sql.Timestamp;
 public class FruitInfo {
     private String ID;
     private int Status;
-    private CollectInfo collectInfo;
-    private EnterInfo enterInfo;
-    private SaveInfo saveInfo;
-    private ShareInfo shareInfo;
     private int IsContradict;
     private int IsDeleted;
     private int IsLoaded;
@@ -69,38 +65,6 @@ public class FruitInfo {
 
     public void setBlockHash(String blockHash) {
         BlockHash = blockHash;
-    }
-
-    public CollectInfo getCollectInfo() {
-        return collectInfo;
-    }
-
-    public void setCollectInfo(CollectInfo collectInfo) {
-        this.collectInfo = collectInfo;
-    }
-
-    public EnterInfo getEnterInfo() {
-        return enterInfo;
-    }
-
-    public void setEnterInfo(EnterInfo enterInfo) {
-        this.enterInfo = enterInfo;
-    }
-
-    public SaveInfo getSaveInfo() {
-        return saveInfo;
-    }
-
-    public void setSaveInfo(SaveInfo saveInfo) {
-        this.saveInfo = saveInfo;
-    }
-
-    public ShareInfo getShareInfo() {
-        return shareInfo;
-    }
-
-    public void setShareInfo(ShareInfo shareInfo) {
-        this.shareInfo = shareInfo;
     }
 
 }

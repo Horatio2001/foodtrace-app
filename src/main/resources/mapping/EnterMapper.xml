@@ -30,4 +30,20 @@
             EnterRemark    = #{enterInfo.EnterRemark}
         where EnterID = #{enterInfo.EnterID}
     </update>
+
+    <resultMap id="enterMap" type="com.example.foodtrace.entity.EnterInfo">
+        <id column="EnterID" property="EnterID"/>
+        <result column="Certifier" property="Certifier"/>
+        <result column="CertifyOrg" property="CertifyOrg"/>
+        <result column="CertifyPlace" property="CertifyPlace"/>
+        <result column="CertifyYear" property="CertifyYear"/>
+        <result column="OperationRange" property="OperationRange"/>
+        <result column="EnterRemark" property="EnterRemark"/>
+    </resultMap>
+
+    <select id="queryEnterInfo" resultMap="enterMap">
+        select Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
+        from EnterInfo
+        where EnterID = #{fruitInfoID}
+    </select>
 </mapper>

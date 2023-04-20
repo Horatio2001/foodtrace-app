@@ -22,4 +22,7 @@ public class ShareService {
         return shareDao.modifyShareInfo(saveInfo);
     }
 
+    public ShareInfo queryShareInfo(String fruitInfoID) {
+        return shareDao.queryShareInfo(fruitInfoID);
+    }
 }

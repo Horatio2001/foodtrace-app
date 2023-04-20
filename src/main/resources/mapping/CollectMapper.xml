@@ -75,4 +75,70 @@
             CollectRemark = #{collectInfo.CollectRemark}
         where CollectID = #{collectInfo.CollectID}
     </update>
+
+    <resultMap id="collectMap" type="com.example.foodtrace.entity.CollectInfo">
+        <id column="CollectID" property="CollectID"/>
+        <result column="Type" property="Type"/>
+        <result column="Name" property="Name"/>
+        <result column="GermplasmName" property="GermplasmName"/>
+        <result column="GermplasmNameEn" property="GermplasmNameEn"/>
+        <result column="SectionName" property="SectionName"/>
+        <result column="GenericName" property="GenericName"/>
+        <result column="ScientificName" property="ScientificName"/>
+        <result column="ResourceType" property="ResourceType"/>
+        <result column="CollectMethod" property="CollectMethod"/>
+        <result column="GermplasmSource" property="GermplasmSource"/>
+        <result column="SourceCountry" property="SourceCountry"/>
+        <result column="SourceProvince" property="SourceProvince"/>
+        <result column="Source" property="Source"/>
+        <result column="SourceOrg" property="SourceOrg"/>
+        <result column="OriginCountry" property="OriginCountry"/>
+        <result column="OriginPlace" property="OriginPlace"/>
+        <result column="CollectPlaceLongitude" property="CollectPlaceLongitude"/>
+        <result column="CollectPlaceLatitude" property="CollectPlaceLatitude"/>
+        <result column="CollectPlaceAltitude" property="CollectPlaceAltitude"/>
+        <result column="CollectPlaceSoilType" property="CollectPlaceSoilType"/>
+        <result column="CollectPlaceEcologyType" property="CollectPlaceEcologyType"/>
+        <result column="CollectMaterialType" property="CollectMaterialType"/>
+        <result column="CollectPeople" property="CollectPeople"/>
+        <result column="CollectUnit" property="CollectUnit"/>
+        <result column="CollectTime" property="CollectTime"/>
+        <result column="SpeciesName" property="SpeciesName"/>
+        <result column="Image" property="Image"/>
+        <result column="CollectRemark" property="CollectRemark"/>
+    </resultMap>
+
+    <select id="queryCollectInfo" resultMap="collectMap">
+        select Type,
+               Name,
+               GermplasmName,
+               GermplasmNameEn,
+               SectionName,
+               GenericName,
+               ScientificName,
+               ResourceType,
+               CollectMethod,
+               GermplasmSource,
+               SourceCountry,
+               SourceProvince,
+               Source,
+               SourceOrg,
+               OriginCountry,
+               OriginPlace,
+               CollectPlaceLongitude,
+               CollectPlaceLatitude,
+               CollectPlaceAltitude,
+               CollectPlaceSoilType,
+               CollectPlaceEcologyType,
+               CollectMaterialType,
+               CollectPeople,
+               CollectUnit,
+               CollectTime,
+               SpeciesName,
+               Image,
+               CollectRemark
+
+        from CollectInfo
+        where CollectID = #{fruitInfoID}
+    </select>
 </mapper>

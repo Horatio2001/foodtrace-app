@@ -47,4 +47,41 @@
             GermplasmImage = #{saveInfo.GermplasmImage}
         where SaveID = #{saveInfo.SaveID}
     </update>
+
+    <resultMap id="saveMap" type="com.example.foodtrace.entity.SaveInfo">
+        <id column="SaveID" property="SaveID"/>
+        <result column="MainPreference" property="MainPreference"/>
+        <result column="MainUse" property="MainUse"/>
+        <result column="PreservationFacility" property="PreservationFacility"/>
+        <result column="GermplasmType" property="GermplasmType"/>
+        <result column="SaveQuantity" property="SaveQuantity"/>
+        <result column="MeasuringUnit" property="MeasuringUnit"/>
+        <result column="SaveUnit" property="SaveUnit"/>
+        <result column="SaveVault" property="SaveVault"/>
+        <result column="SavePlace" property="SavePlace"/>
+        <result column="WarehousingYear" property="WarehousingYear"/>
+        <result column="SaveProperty" property="SaveProperty"/>
+        <result column="ResourceDescription" property="ResourceDescription"/>
+        <result column="ResourceRemark" property="ResourceRemark"/>
+        <result column="GermplasmImage" property="GermplasmImage"/>
+    </resultMap>
+
+    <select id="querySaveInfo" resultMap="saveMap">
+        select MainPreference
+             , MainUse
+             , PreservationFacility
+             , GermplasmType
+             , SaveQuantity
+             , MeasuringUnit
+             , SaveUnit
+             , SaveVault
+             , SavePlace
+             , WarehousingYear
+             , SaveProperty
+             , ResourceDescription
+             , ResourceRemark
+             , GermplasmImage
+        from SaveInfo
+        where SaveID = #{fruitInfoID}
+    </select>
 </mapper>

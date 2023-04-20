@@ -24,14 +24,18 @@ public class CollectService {
                 , collectInfo.getCollectMaterialType(), collectInfo.getCollectPeople(), collectInfo.getCollectUnit()
                 , collectInfo.getCollectTime(), collectInfo.getSpeciesName(), collectInfo.getImage()
                 , collectInfo.getCollectRemark()
-                );
+        );
     }
 
     public void deleteCollectInfo(String fruitInfoID) {
         collectDao.deleteCollectInfo(fruitInfoID);
     }
+
     public void modifyCollectInfo(CollectInfo collectInfo) {
         collectDao.modifyCollectInfo(collectInfo);
     }
 
+    public CollectInfo queryCollectInfo(String fruitInfoID) {
+        return collectDao.queryCollectInfo(fruitInfoID);
+    }
 }

@@ -29,4 +29,6 @@ public interface CollectDao {
     Integer deleteCollectInfo(@Param("fruitInfoID") String fruitInfoID);
 
     Integer modifyCollectInfo(@Param("collectInfo") CollectInfo collectInfo);
+
+    CollectInfo queryCollectInfo(@Param("fruitInfoID") String fruitInfoID);
 }

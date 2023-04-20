@@ -16,4 +16,8 @@ public interface SaveDao {
     Integer deleteSaveInfo(@Param("fruitInfoID") String fruitInfoID);
 
     Integer modifySaveInfo(@Param("saveInfo") SaveInfo saveInfo);
+
+    SaveInfo querySaveInfo(@Param("fruitInfoID") String fruitInfoID);
+
+
 }

@@ -15,4 +15,6 @@ public interface EnterDao {
 
     Integer modifyEnterInfo(@Param("enterInfo") EnterInfo enterInfo);
 
+    EnterInfo queryEnterInfo(@Param("fruitInfoID") String fruitInfoID);
+
 }

@@ -52,6 +52,13 @@ public class FruitInfoController {
     })
     public Map<String, Object> deleteFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID) {
         Map<String, Object> ret = new HashMap<>();
+        FruitInfo previousStatus = fruitInfoService.getStatus(fruitInfoID);
+        if (previousStatus.getIsLoaded() == 1) {
+            ret.put("msg", "-200");
+            ret.put("description", "无法删除已经存证的收集信息");
+            return ret;
+        }
+
         fruitInfoService.deleteFruitInfo(fruitInfoID);
         collectService.deleteCollectInfo(fruitInfoID);
         enterService.deleteEnterInfo(fruitInfoID);
@@ -697,13 +704,13 @@ public class FruitInfoController {
 
     })
     public Map<String, Object> modifyShareInfoInSql(@RequestParam("ShareID") String ShareID,
-                                                 @RequestParam("ShareObj") String ShareObj,
-                                                 @RequestParam("ContactInfo") String ContactInfo,
-                                                 @RequestParam("ShareMode") int ShareMode,
-                                                 @RequestParam("ShareUse") int ShareUse,
-                                                 @RequestParam("ShareNum") int ShareNum,
-                                                 @RequestParam("ShareBeginTime") String ShareBeginTime,
-                                                 @RequestParam("ShareEndTime") String ShareEndTime) {
+                                                    @RequestParam("ShareObj") String ShareObj,
+                                                    @RequestParam("ContactInfo") String ContactInfo,
+                                                    @RequestParam("ShareMode") int ShareMode,
+                                                    @RequestParam("ShareUse") int ShareUse,
+                                                    @RequestParam("ShareNum") int ShareNum,
+                                                    @RequestParam("ShareBeginTime") String ShareBeginTime,
+                                                    @RequestParam("ShareEndTime") String ShareEndTime) {
         Map<String, Object> ret = new HashMap<>();
 
         FruitInfo previousStatus = fruitInfoService.getStatus(ShareID);
@@ -794,4 +801,29 @@ public class FruitInfoController {
         ret.put("description", "存证成功");
         return ret;
     }
+
+    @ApiOperation(value = "根据id查询信息")
+    @PostMapping("Info/QueryInfoByID{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> queryInfoByID(@PathVariable String fruitInfoID) {
+        Map<String, Object> ret = new HashMap<>();
+        CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
+        if (collectInfo==null) {
+            ret.put("msg", "-200");
+            ret.put("description", "该信息不存在");
+            return ret;
+        }
+        ret.put("CollectInfo", collectInfo);
+        ret.put("SaveInfo", saveService.querySaveInfo(fruitInfoID));
+        ret.put("EnterInfo", enterService.queryEnterInfo(fruitInfoID));
+        ret.put("ShareInfo", shareService.queryShareInfo(fruitInfoID));
+        ret.put("Status", fruitInfoService.getStatus(fruitInfoID));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+
 }
