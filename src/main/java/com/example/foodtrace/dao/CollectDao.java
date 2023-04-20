@@ -1,5 +1,6 @@
 package com.example.foodtrace.dao;
 
+import com.example.foodtrace.entity.CollectInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -25,4 +26,7 @@ public interface CollectDao {
             , @Param("SpeciesName") String SpeciesName, @Param("Image") String Image
             , @Param("CollectRemark") String CollectRemark);
 
+    Integer deleteCollectInfo(@Param("fruitInfoID") String fruitInfoID);
+
+    Integer modifyCollectInfo(@Param("collectInfo") CollectInfo collectInfo);
 }

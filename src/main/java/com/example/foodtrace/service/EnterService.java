@@ -14,4 +14,13 @@ public class EnterService {
     public Integer addEnterInfo(EnterInfo enterInfo) {
         return enterDao.addEnterInfo(enterInfo);
     }
+
+    public void deleteEnterInfo(String fruitInfoID) {
+        enterDao.deleteEnterInfo(fruitInfoID);
+    }
+
+    public Integer modifyEnterInfo(EnterInfo enterInfo) {
+        return enterDao.modifyEnterInfo(enterInfo);
+    }
+
 }

@@ -15,4 +15,19 @@
         #{enterInfo.EnterRemark}
         )
     </insert>
+
+    <delete id="deleteEnterInfo">
+        delete from EnterInfo where EnterID = #{fruitInfoID}
+    </delete>
+
+    <update id="modifyEnterInfo">
+        update EnterInfo
+        set Certifier      = #{enterInfo.Certifier},
+            CertifyOrg     = #{enterInfo.CertifyOrg},
+            CertifyPlace   = #{enterInfo.CertifyPlace},
+            CertifyYear    = #{enterInfo.EnterYear},
+            OperationRange = #{enterInfo.OperationRange},
+            EnterRemark    = #{enterInfo.EnterRemark}
+        where EnterID = #{enterInfo.EnterID}
+    </update>
 </mapper>

@@ -41,4 +41,38 @@
         #{CollectRemark}
         )
     </insert>
+
+    <delete id="deleteCollectInfo">
+        delete from CollectInfo where CollectID = #{fruitInfoID}
+    </delete>
+
+    <update id="modifyCollectInfo">
+        update CollectInfo
+        set GermplasmName = #{collectInfo.GermplasmName},
+            GermplasmNameEn = #{collectInfo.GermplasmNameEn},
+            SectionName = #{collectInfo.SectionName},
+            GenericName = #{collectInfo.GenericName},
+            ScientificName = #{collectInfo.ScientificName},
+            ResourceType = #{collectInfo.ResourceType},
+            GermplasmSource = #{collectInfo.GermplasmSource},
+            SourceCountry = #{collectInfo.SourceCountry},
+            SourceProvince = #{collectInfo.SourceProvince},
+            Source = #{collectInfo.Source},
+            SourceOrg = #{collectInfo.SourceOrg},
+            OriginCountry = #{collectInfo.OriginCountry},
+            OriginPlace = #{collectInfo.OriginPlace},
+            CollectPlaceLongitude = #{collectInfo.CollectPlaceLongitude},
+            CollectPlaceLatitude = #{collectInfo.CollectPlaceLatitude},
+            CollectPlaceAltitude = #{collectInfo.CollectPlaceAltitude},
+            CollectPlaceSoilType = #{collectInfo.CollectPlaceSoilType},
+            CollectPlaceEcologyType = #{collectInfo.CollectPlaceEcologyType},
+            CollectMaterialType = #{collectInfo.CollectMaterialType},
+            CollectPeople = #{collectInfo.CollectPeople},
+            CollectUnit = #{collectInfo.CollectUnit},
+            CollectTime = #{collectInfo.CollectTime},
+            SpeciesName = #{collectInfo.SpeciesName},
+            Image = #{collectInfo.Image},
+            CollectRemark = #{collectInfo.CollectRemark}
+        where CollectID = #{collectInfo.CollectID}
+    </update>
 </mapper>

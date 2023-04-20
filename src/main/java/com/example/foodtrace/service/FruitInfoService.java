@@ -14,4 +14,36 @@ public class FruitInfoService {
     public void createFruitInfo(String fruitInfoID) {
         fruitInfoDao.createFruitInfo(fruitInfoID);
     }
+
+    public void deleteFruitInfo(String fruitInfoID) {
+        fruitInfoDao.deleteFruitInfo(fruitInfoID);
+    }
+
+    public void refuseCollect(String fruitInfoID) {
+        fruitInfoDao.refuseCollect(fruitInfoID);
+    }
+
+    public void refuseSave(String fruitInfoID) {
+        fruitInfoDao.refuseSave(fruitInfoID);
+    }
+
+    public void refuseEnter(String fruitInfoID) {
+        fruitInfoDao.refuseEnter(fruitInfoID);
+    }
+
+    public void refuseShare(String fruitInfoID) {
+        fruitInfoDao.refuseShare(fruitInfoID);
+    }
+
+    public FruitInfo getStatus(String fruitInfoID) {
+        return fruitInfoDao.getStatus(fruitInfoID);
+    }
+
+    public void setStatus(String fruitInfoID, int status) {
+        fruitInfoDao.setStatus(fruitInfoID, status);
+    }
+
+    public void loadInfo(String fruitInfoID) {
+        fruitInfoDao.loadInfo(fruitInfoID);
+    }
 }

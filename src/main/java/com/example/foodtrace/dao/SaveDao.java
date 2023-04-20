@@ -1,5 +1,6 @@
 package com.example.foodtrace.dao;
 
+import com.example.foodtrace.entity.CollectInfo;
 import com.example.foodtrace.entity.SaveInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -11,4 +12,8 @@ import java.util.Date;
 @Mapper
 public interface SaveDao {
     Integer addSaveInfo(@Param("saveInfo") SaveInfo saveInfo);
+
+    Integer deleteSaveInfo(@Param("fruitInfoID") String fruitInfoID);
+
+    Integer modifySaveInfo(@Param("saveInfo") SaveInfo saveInfo);
 }

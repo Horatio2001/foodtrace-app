@@ -24,4 +24,27 @@
         #{saveInfo.GermplasmImage}
         )
     </insert>
+
+    <delete id="deleteSaveInfo">
+        delete from SaveInfo where SaveID = #{fruitInfoID}
+    </delete>
+
+    <update id="modifySaveInfo">
+        update SaveInfo
+        set MainPreference = #{saveInfo.MainPreference},
+            MainUse = #{saveInfo.MainUse},
+            PreservationFacility = #{saveInfo.PreservationFacility},
+            GermplasmType = #{saveInfo.GermplasmType},
+            SaveQuantity = #{saveInfo.SaveQuantity},
+            MeasuringUnit = #{saveInfo.MeasuringUnit},
+            SaveUnit = #{saveInfo.SaveUnit},
+            SaveVault = #{saveInfo.SaveVault},
+            SavePlace = #{saveInfo.SavePlace},
+            WarehousingYear = #{saveInfo.SaveYear},
+            SaveProperty = #{saveInfo.SaveProperty},
+            ResourceDescription = #{saveInfo.ResourceDescription},
+            ResourceRemark = #{saveInfo.ResourceRemark},
+            GermplasmImage = #{saveInfo.GermplasmImage}
+        where SaveID = #{saveInfo.SaveID}
+    </update>
 </mapper>

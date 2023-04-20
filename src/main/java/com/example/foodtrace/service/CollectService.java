@@ -26,4 +26,12 @@ public class CollectService {
                 , collectInfo.getCollectRemark()
                 );
     }
+
+    public void deleteCollectInfo(String fruitInfoID) {
+        collectDao.deleteCollectInfo(fruitInfoID);
+    }
+    public void modifyCollectInfo(CollectInfo collectInfo) {
+        collectDao.modifyCollectInfo(collectInfo);
+    }
+
 }

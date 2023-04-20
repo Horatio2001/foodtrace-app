@@ -13,4 +13,12 @@ public class SaveService {
     public Integer addSaveInfo(SaveInfo saveInfo) {
         return saveDao.addSaveInfo(saveInfo);
     }
+
+    public void deleteSaveInfo(String fruitInfoID) {
+        saveDao.deleteSaveInfo(fruitInfoID);
+    }
+
+    public Integer modifySaveInfo(SaveInfo saveInfo) {
+        return saveDao.modifySaveInfo(saveInfo);
+    }
 }

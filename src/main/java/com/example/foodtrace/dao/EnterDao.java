@@ -10,4 +10,9 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface EnterDao {
     Integer addEnterInfo(@Param("enterInfo") EnterInfo enterInfo);
+
+    Integer deleteEnterInfo(@Param("fruitInfoID") String fruitInfoID);
+
+    Integer modifyEnterInfo(@Param("enterInfo") EnterInfo enterInfo);
+
 }

@@ -13,4 +13,13 @@ public class ShareService {
     public Integer addShareInfo(ShareInfo saveInfo) {
         return shareDao.addShareInfo(saveInfo);
     }
+
+    public void deleteShareInfo(String fruitInfoID) {
+        shareDao.deleteShareInfo(fruitInfoID);
+    }
+
+    public Integer modifyShareInfo(ShareInfo saveInfo) {
+        return shareDao.modifyShareInfo(saveInfo);
+    }
+
 }

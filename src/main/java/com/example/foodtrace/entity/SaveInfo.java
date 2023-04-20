@@ -23,6 +23,7 @@ public class SaveInfo {
     private String ResourceRemark;
     private String GermplasmImage;
     private String SaveHash;
+    private int SaveYear;
     private Map<String, Timestamp> SaveTransactions;
 
     public String getSaveID() {
@@ -151,5 +152,13 @@ public class SaveInfo {
 
     public void setSaveHash(String saveHash) {
         SaveHash = saveHash;
+    }
+
+    public int getSaveYear() {
+        return SaveYear;
+    }
+
+    public void setSaveYear(int saveYear) {
+        SaveYear = saveYear;
     }
 }

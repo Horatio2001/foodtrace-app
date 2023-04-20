@@ -2,6 +2,72 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.foodtrace.dao.FruitInfoDao">
     <insert id="createFruitInfo">
-        insert ignore into FruitInfo(ID, Status, IsContradict, Isdeleted, IsLoaded) VALUES (#{fruitInfoID}, 0,0,0,0)
+        insert
+        ignore into FruitInfo(ID, Status, IsContradict, Isdeleted, IsLoaded) VALUES (
+        #{fruitInfoID},
+        0,
+        0,
+        0,
+        0
+        )
     </insert>
+
+    <resultMap id="statusMap" type="com.example.foodtrace.entity.FruitInfo">
+        <id column="ID" property="ID"/>
+        <result column="Status" property="Status"/>
+        <result column="IsContradict" property="IsContradict"/>
+        <result column="IsLoaded" property="IsLoaded"/>
+    </resultMap>
+
+    <delete id="deleteFruitInfo">
+        delete
+        from FruitInfo
+        where ID = #{fruitInfoID}
+    </delete>
+
+    <update id="refuseCollect">
+        update FruitInfo
+        set IsContradict = 1
+        where ID = #{fruitInfoID}
+    </update>
+
+    <update id="refuseSave">
+        update FruitInfo
+        set IsContradict = 1,
+            Status       = 0
+        where ID = #{fruitInfoID}
+    </update>
+
+    <update id="refuseEnter">
+        update FruitInfo
+        set IsContradict = 1,
+            Status       = 1
+        where ID = #{fruitInfoID}
+    </update>
+
+    <update id="refuseShare">
+        update FruitInfo
+        set IsContradict = 1,
+            Status       = 2
+        where ID = #{fruitInfoID}
+    </update>
+
+    <select id="getStatus" resultMap="statusMap">
+        select ID, Status, IsContradict, IsLoaded
+        from FruitInfo
+        where ID = #{fruitInfoID}
+    </select>
+
+    <update id="setStatus">
+        update FruitInfo
+        set Status       = #{status},
+            IsContradict = 0
+        where ID = #{fruitInfoID}
+    </update>
+
+    <update id="loadInfo">
+        update FruitInfo
+        set IsLoaded = 1
+        where ID = #{fruitInfoID}
+    </update>
 </mapper>

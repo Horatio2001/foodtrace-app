@@ -16,6 +16,8 @@ public class EnterInfo {
     private String EnterRemark;
     private String EnterHash;
 
+    private int EnterYear;
+
     private Map<String, Timestamp> EnterTransactions;
 
 
@@ -83,5 +85,11 @@ public class EnterInfo {
         EnterHash = enterHash;
     }
 
+    public int getEnterYear() {
+        return EnterYear;
+    }
 
+    public void setEnterYear(int enterYear) {
+        EnterYear = enterYear;
+    }
 }

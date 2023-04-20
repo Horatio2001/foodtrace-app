@@ -16,4 +16,22 @@
         #{shareInfo.ShareEndTime}
         )
     </insert>
+
+    <delete id="deleteShareInfo">
+        delete
+        from ShareInfo
+        where ShareID = #{fruitInfoID}
+    </delete>
+
+    <update id="modifyShareInfo">
+        update ShareInfo
+        set ShareObj       = #{shareInfo.ShareObj},
+            ContactInfo   = #{shareInfo.ContactInfo},
+            ShareMode      = #{shareInfo.ShareMode},
+            ShareUse       = #{shareInfo.ShareUse},
+            ShareNum       = #{shareInfo.ShareNum},
+            ShareBeginTime = #{shareInfo.ShareBeginTime},
+            ShareEndTime   = #{shareInfo.ShareEndTime}
+        where ShareID = #{shareInfo.ShareID}
+    </update>
 </mapper>

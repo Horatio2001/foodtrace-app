@@ -10,4 +10,9 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface ShareDao {
     Integer addShareInfo(@Param("shareInfo") ShareInfo shareInfo);
+
+    Integer deleteShareInfo(@Param("fruitInfoID") String fruitInfoID);
+
+    Integer modifyShareInfo(@Param("shareInfo") ShareInfo shareInfo);
+
 }
