@@ -141,4 +141,19 @@
         from CollectInfo
         where CollectID = #{fruitInfoID}
     </select>
+
+    <select id="queryInfosByPage" resultMap="collectMap">
+        select CollectID, Name
+        from CollectInfo limit #{pageNum} ,10
+    </select>
+
+    <select id="queryDocumentedInfosByPage" resultMap="collectMap">
+        select CollectID, Name
+        from CollectInfo
+        where CollectID in (select ID
+                            from FruitInfo
+                            where IsLoaded = 1)
+            limit #{pageNum}
+            , 10
+    </select>
 </mapper>

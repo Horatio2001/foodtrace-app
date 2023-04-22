@@ -43,7 +43,7 @@ public class FruitInfoService {
         fruitInfoDao.setStatus(fruitInfoID, status);
     }
 
-    public void loadInfo(String fruitInfoID) {
-        fruitInfoDao.loadInfo(fruitInfoID);
+    public void loadInfo(String fruitInfoID, String txHash) {
+        fruitInfoDao.loadInfo(fruitInfoID, txHash);
     }
 }

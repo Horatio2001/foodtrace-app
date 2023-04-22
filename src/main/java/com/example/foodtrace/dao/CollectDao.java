@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 @Mapper
@@ -31,4 +32,9 @@ public interface CollectDao {
     Integer modifyCollectInfo(@Param("collectInfo") CollectInfo collectInfo);
 
     CollectInfo queryCollectInfo(@Param("fruitInfoID") String fruitInfoID);
+
+    List<CollectInfo> queryInfosByPage(@Param("pageNum") int pageNum);
+
+    List<CollectInfo> queryDocumentedInfosByPage(@Param("pageNum") int pageNum);
 }
+

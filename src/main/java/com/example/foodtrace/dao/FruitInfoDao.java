@@ -33,6 +33,6 @@ public interface FruitInfoDao {
 
     int setStatus(@Param("fruitInfoID") String fruitInfoID, @Param("status") int status);
 
-    int loadInfo(@Param("fruitInfoID") String fruitInfoID);
+    int loadInfo(@Param("fruitInfoID") String fruitInfoID, @Param("TxHash") String TxHash);
 
 }

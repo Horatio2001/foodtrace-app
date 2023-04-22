@@ -53,7 +53,7 @@
     </update>
 
     <select id="getStatus" resultMap="statusMap">
-        select ID, Status, IsContradict, IsLoaded
+        select ID, Status, IsContradict, IsLoaded, BlockHash
         from FruitInfo
         where ID = #{fruitInfoID}
     </select>
@@ -67,7 +67,8 @@
 
     <update id="loadInfo">
         update FruitInfo
-        set IsLoaded = 1
+        set IsLoaded = 1,
+            BlockHash = #{TxHash}
         where ID = #{fruitInfoID}
     </update>
 </mapper>

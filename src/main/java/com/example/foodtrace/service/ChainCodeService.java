@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.hyperledger.fabric.gateway.Contract;
 import org.hyperledger.fabric.gateway.ContractException;
+import org.hyperledger.fabric.gateway.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -89,10 +90,16 @@ public class ChainCodeService {
         return new String(ccResult, StandardCharsets.UTF_8);
     }
 
-    public String LoadFruitInfo(String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {
-        byte[] ccResult = foodtraceContract.createTransaction("LoadFruitInfo")
-                .submit(fruitInfoID);
-        return new String(ccResult, StandardCharsets.UTF_8);
+    public String[] LoadFruitInfo(String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {
+        Transaction transaction = foodtraceContract.createTransaction("LoadFruitInfo");
+        String TxID = transaction.getTransactionId();
+        byte[] ccResult = transaction.submit(fruitInfoID);
+//        byte[] ccResult = foodtraceContract.createTransaction("LoadFruitInfo")
+//                .submit(fruitInfoID);
+        String[] ret;
+        ret = new String[]{new String(ccResult, StandardCharsets.UTF_8), TxID};
+//        ret = new String[]{"this is a test", TxID};
+        return ret;
     }
 //
 //    public String SetCollectInfo(String fruitInfoID, String[] args) throws ContractException, InterruptedException, TimeoutException {
@@ -157,4 +164,9 @@ public class ChainCodeService {
         return new String(ccResult, StandardCharsets.UTF_8);
     }
 
+    public String DeleteFruitInfoByAdmin(String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {
+        byte[] ccResult = foodtraceContract.createTransaction("ProgrammerDeleteFruitInfo")
+                .submit(fruitInfoID);
+        return new String(ccResult, StandardCharsets.UTF_8);
+    }
 }

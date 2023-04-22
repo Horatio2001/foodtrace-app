@@ -9,12 +9,14 @@ import org.hyperledger.fabric.sdk.TransactionInfo;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 
+import java.io.IOException;
 import java.util.Date;
 
 public class MyTxInfo {
     private String creator;
     private String channelName;
     private String txID;
+    private String blockHash;
     private String type;
     private String chainCode;
     private Date timeStamp;
@@ -85,10 +87,22 @@ public class MyTxInfo {
         this.validationCode = validationCode;
     }
 
-    public MyTxInfo(BlockInfo blockInfo, TransactionInfo transactionInfo) throws InvalidProtocolBufferException, InvalidArgumentException, ProposalException {
+    public String getBlockHash() {
+        return blockHash;
+    }
+
+    public void setBlockHash(String blockHash) {
+        this.blockHash = blockHash;
+    }
+
+    public MyTxInfo(BlockInfo blockInfo, TransactionInfo transactionInfo) throws IOException, InvalidArgumentException, ProposalException {
         this.creator = blockInfo.getEnvelopeInfo(0).getCreator().getMspid();
         this.channelName = blockInfo.getChannelId();
         this.txID = blockInfo.getEnvelopeInfo(0).getTransactionID();
+        this.blockHash = BlockHelper.bytesToHex(BlockHelper.calculateBlockHash(blockInfo.getBlockNumber()
+                , blockInfo.getPreviousHash()
+                , blockInfo.getDataHash()
+        ));
         this.type = "ENDORSER_TRANSACTION";
         this.chainCode = transactionInfo.getEnvelope().getPayload().toStringUtf8().charAt(104) != 'f' ? "_lifestyle" : "foodtrace";
 //        this.chainCode = transactionInfo.getEnvelope().getPayload().toStringUtf8().substring(104,114);

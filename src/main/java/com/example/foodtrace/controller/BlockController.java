@@ -117,7 +117,7 @@ public class BlockController {
 
     @ApiOperation(value = "根据交易号获取交易信息")
     @GetMapping("Blockchain/GetTxInfo/{TxId}")
-    public Map<String, Object> GetTxInfoById(@PathVariable String TxId) throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+    public Map<String, Object> GetTxInfoById(@PathVariable String TxId) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("TxInfo", blockService.ReadTxInfoById(TxId));
         return map;
@@ -128,7 +128,7 @@ public class BlockController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "PageNum", value = "页码", required = true)
     })
-    public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+    public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("BlockInfoList", blockService.ReadTxInfoByPage(PageNum));
         return map;
@@ -136,7 +136,7 @@ public class BlockController {
 
     @ApiOperation(value = "分页获取交易信息第一页")
     @GetMapping("Blockchain/GetTxInfoByFirstPage")
-    public Map<String, Object> GetTxInfoByFirstPage() throws InvalidArgumentException, InvalidProtocolBufferException, ProposalException {
+    public Map<String, Object> GetTxInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("BlockInfoList", blockService.ReadTxInfoByPage(1));
         return map;

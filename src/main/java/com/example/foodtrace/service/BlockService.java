@@ -92,7 +92,7 @@ public class BlockService {
         return myNetworkInfos;
     }
 
-    public MyTxInfo ReadTxInfoById(String TxId) throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException {
+    public MyTxInfo ReadTxInfoById(String TxId) throws InvalidArgumentException, ProposalException, IOException {
         BlockInfo blockInfo = mychannel.queryBlockByTransactionID(TxId);
         TransactionInfo transactionInfo = mychannel.queryTransactionByID(TxId);
 //        System.out.println(transactionInfo.getEnvelope().getPayload().toStringUtf8().substring(104,114));
@@ -102,7 +102,7 @@ public class BlockService {
         return new MyTxInfo(blockInfo, transactionInfo);
     }
 
-    public List<MyTxInfo> ReadTxInfoByPage(long PageNum) throws InvalidArgumentException, ProposalException, InvalidProtocolBufferException {
+    public List<MyTxInfo> ReadTxInfoByPage(long PageNum) throws InvalidArgumentException, ProposalException, IOException {
         long currentHeight = mychannel.queryBlockchainInfo().getHeight();
         long index0 = (PageNum - 1) * 5;
         long index1 = min(PageNum * 5, currentHeight);

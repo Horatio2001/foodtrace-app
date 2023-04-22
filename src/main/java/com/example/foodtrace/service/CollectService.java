@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.List;
 
 @Service
 public class CollectService {
@@ -37,5 +38,15 @@ public class CollectService {
 
     public CollectInfo queryCollectInfo(String fruitInfoID) {
         return collectDao.queryCollectInfo(fruitInfoID);
+    }
+
+    public List<CollectInfo> queryInfosByPage(int pageNum) {
+        int index = (pageNum - 1) * 10;
+        return collectDao.queryInfosByPage(index);
+    }
+
+    public List<CollectInfo> queryDocumentedInfosByPage(int pageNum) {
+        int index = (pageNum - 1) * 10;
+        return collectDao.queryDocumentedInfosByPage(index);
     }
 }

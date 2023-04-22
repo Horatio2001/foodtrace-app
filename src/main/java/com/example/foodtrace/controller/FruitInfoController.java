@@ -2,12 +2,15 @@ package com.example.foodtrace.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.example.foodtrace.entity.*;
+import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.service.*;
 import com.example.foodtrace.util.DateParser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.hyperledger.fabric.gateway.ContractException;
+import org.hyperledger.fabric.sdk.BlockInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +19,7 @@ import java.sql.Date;
 import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeoutException;
 
 @CrossOrigin
 @RestController
@@ -31,6 +35,10 @@ public class FruitInfoController {
     private EnterService enterService;
     @Autowired
     private ShareService shareService;
+    @Autowired
+    private CertificateService certificateService;
+    @Autowired
+    private ChainCodeService chainCodeService;
 
 //    @ApiOperation(value = "创建初始化信息")
 //    @PostMapping("Info/CreateFruitInfoInSql")
@@ -776,9 +784,11 @@ public class FruitInfoController {
     @ApiOperation(value = "信息存证")
     @PostMapping("Info/LoadInfoInSql")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true),
+            @ApiImplicitParam(name = "txHash", value = "交易哈希", required = true)
+
     })
-    public Map<String, Object> loadInfoInSql(@RequestParam("fruitInfoID") String fruitInfoID) {
+    public Map<String, Object> loadInfoInSql(@RequestParam("fruitInfoID") String fruitInfoID, @RequestParam("txHash") String txHash) {
         Map<String, Object> ret = new HashMap<>();
         FruitInfo previousStatus = fruitInfoService.getStatus(fruitInfoID);
         if (previousStatus.getIsLoaded() == 1) {
@@ -796,21 +806,75 @@ public class FruitInfoController {
             ret.put("description", "当前状态并非分享，无法存证！");
             return ret;
         }
-        fruitInfoService.loadInfo(fruitInfoID);
+        fruitInfoService.loadInfo(fruitInfoID, txHash);
         ret.put("msg", "200");
         ret.put("description", "存证成功");
         return ret;
     }
 
+    @ApiOperation(value = "生成数权证书")
+    @PostMapping("Info/generateCertificate/{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> generateCertificate(@PathVariable String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {
+        Map<String, Object> ret = new HashMap<>();
+        FruitInfo fruitInfo = fruitInfoService.getStatus(fruitInfoID);
+        if (fruitInfo==null) {
+            ret.put("msg", "404");
+            ret.put("description", "对象不存在");
+            return ret;
+        }
+        if (fruitInfo.getIsLoaded() == 0) {
+            ret.put("msg", "-200");
+            ret.put("description", "尚未存证");
+            return ret;
+        }
+        Certificate certificate = new Certificate();
+        CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
+        SaveInfo saveInfo = saveService.querySaveInfo(fruitInfoID);
+        certificate.setID(fruitInfoID);
+        certificate.setHash(fruitInfo.getBlockHash());
+        certificate.setName(collectInfo.getName());
+        certificate.setCollectUnit(collectInfo.getCollectUnit());
+        certificate.setMainUse(saveInfo.getMainUse());
+        certificate.setResourceRemark(saveInfo.getResourceRemark());
+
+//        MyBlockInfo myBlockInfo = chainCodeService.ReadFruitInfo(fruitInfoID)
+        certificateService.generateCertificate(certificate);
+        ret.put("msg", "200");
+        ret.put("description", "证书生成成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "查询证书")
+    @GetMapping("Info/queryCertificate/{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> queryCertificate(@PathVariable String fruitInfoID) {
+        Map<String, Object> ret = new HashMap<>();
+        Certificate certificate = certificateService.queryCertificate(fruitInfoID);
+        if (certificate == null) {
+            ret.put("msg", "-200");
+            ret.put("description", "证书不存在");
+            return ret;
+        }
+        ret.put("certificate", certificate);
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
     @ApiOperation(value = "根据id查询信息")
-    @PostMapping("Info/QueryInfoByID{fruitInfoID}")
+    @PostMapping("Info/QueryInfoByID/{fruitInfoID}")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
     })
     public Map<String, Object> queryInfoByID(@PathVariable String fruitInfoID) {
         Map<String, Object> ret = new HashMap<>();
         CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
-        if (collectInfo==null) {
+        if (collectInfo == null) {
             ret.put("msg", "-200");
             ret.put("description", "该信息不存在");
             return ret;
@@ -825,5 +889,49 @@ public class FruitInfoController {
         return ret;
     }
 
+    @ApiOperation(value = "根据page查询信息")
+    @GetMapping("Info/QueryInfoByPage/{pageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+    })
+    public Map<String, Object> queryInfoByPage(@PathVariable int pageNum) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("infoList", collectService.queryInfosByPage(pageNum));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 
+    @ApiOperation(value = "根据page查询信息(第一页)")
+    @GetMapping("Info/QueryInfoByFirstPage")
+    public Map<String, Object> queryInfoByFirstPage() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("infoList", collectService.queryInfosByPage(1));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据page查询已存证信息")
+    @GetMapping("Info/QueryDocumentedInfoByPage/{pageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+    })
+    public Map<String, Object> queryDocumentedInfoByPage(@PathVariable int pageNum) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("infoList", collectService.queryDocumentedInfosByPage(pageNum));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据page查询已存证信息{第一页}")
+    @GetMapping("Info/QueryDocumentedInfoByFirstPage")
+    public Map<String, Object> queryDocumentedInfoByFirstPage() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("infoList", collectService.queryDocumentedInfosByPage(1));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

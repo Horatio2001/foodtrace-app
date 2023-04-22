@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.foodtrace.dao.CertificateDao">
+    <insert id="generateCertificate">
+        insert
+        ignore into Certificate(ID, Name, Hash, CollectUnit, MainUse, ResourceRemark)
+        VALUES (
+        #{certificate.ID},
+        #{certificate.Name},
+        #{certificate.Hash},
+        #{certificate.CollectUnit},
+        #{certificate.MainUse},
+        #{certificate.ResourceRemark}
+        )
+    </insert>
+
+    <resultMap id="certificateMap" type="com.example.foodtrace.entity.Certificate">
+        <id column="ID" property="ID"/>
+        <result column="Name" property="Name"/>
+        <result column="Hash" property="Hash"/>
+        <result column="CollectUnit" property="CollectUnit"/>
+        <result column="MainUse" property="MainUse"/>
+        <result column="ResourceRemark" property="ResourceRemark"/>
+    </resultMap>
+
+    <select id="queryCertificate" resultMap="certificateMap">
+        select ID, Name, Hash, CollectUnit, MainUse, ResourceRemark
+        from Certificate
+        where ID = #{fruitInfoID}
+    </select>
+</mapper>

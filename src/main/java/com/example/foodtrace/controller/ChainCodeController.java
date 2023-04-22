@@ -3,6 +3,7 @@ package com.example.foodtrace.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.foodtrace.service.ChainCodeService;
+import com.example.foodtrace.service.FruitInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -24,7 +25,8 @@ import java.util.concurrent.TimeoutException;
 public class ChainCodeController {
     @Autowired
     private ChainCodeService chainCodeService;
-
+    @Autowired
+    private FruitInfoService fruitInfoService;
 
     @ApiOperation(value = "创建水果信息")
     @PostMapping("/CreateFruitInfo")
@@ -252,10 +254,13 @@ public class ChainCodeController {
             @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
     })
     public JSONObject LoadFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID) {
+
         JSONObject ret = new JSONObject();
         try {
-            ret.put("data", chainCodeService.LoadFruitInfo(fruitInfoID));
+            String[] loadConfig = chainCodeService.LoadFruitInfo(fruitInfoID);
+            ret.put("data", loadConfig[0]);
             ret.put("code", 200);
+            fruitInfoService.loadInfo(fruitInfoID, loadConfig[1]);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
@@ -334,6 +339,22 @@ public class ChainCodeController {
         return ret;
     }
 
+    @ApiOperation(value = "强制删除")
+    @DeleteMapping("/DeleteFruitInfoByAdmin")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "水果ID", required = true)
+    })
+    public JSONObject DeleteFruitInfoByAdmin(@RequestParam("fruitInfoID") String fruitInfoID) {
+        JSONObject ret = new JSONObject();
+        try {
+            ret.put("data", chainCodeService.DeleteFruitInfoByAdmin(fruitInfoID));
+            ret.put("code", 200);
+        } catch (ContractException | InterruptedException | TimeoutException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
+        return ret;
+    }
 }
 
 
