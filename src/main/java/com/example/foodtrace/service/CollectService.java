@@ -49,4 +49,9 @@ public class CollectService {
         int index = (pageNum - 1) * 10;
         return collectDao.queryDocumentedInfosByPage(index);
     }
+
+    public List<CollectInfo> queryCollectInfosByPage(int pageNum) {
+        int index = (pageNum - 1) * 10;
+        return collectDao.queryCollectInfosByPage(index);
+    }
 }

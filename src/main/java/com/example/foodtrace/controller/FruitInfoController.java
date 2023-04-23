@@ -934,4 +934,27 @@ public class FruitInfoController {
         ret.put("description", "查询成功");
         return ret;
     }
+
+    @ApiOperation(value = "根据page查询收集信息")
+    @GetMapping("Info/QueryCollectInfosByPage/{pageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+    })
+    public Map<String, Object> queryCollectInfosByPage(@PathVariable int pageNum) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("CollectList", collectService.queryCollectInfosByPage(pageNum));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据page查询收集信息{第一页}")
+    @GetMapping("Info/QueryCollectInfosByFirstPage")
+    public Map<String, Object> queryCollectInfosByFirstPage() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("CollectList", collectService.queryCollectInfosByPage(1));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

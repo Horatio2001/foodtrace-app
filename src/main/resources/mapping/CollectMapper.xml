@@ -156,4 +156,22 @@
             limit #{pageNum}
             , 10
     </select>
+
+    <select id="queryCollectInfosByPage" resultMap="collectMap">
+        select CollectID,
+               Type,
+               Name,
+               GermplasmName,
+               SectionName,
+               GenericName,
+               ScientificName,
+               ResourceType,
+               CollectMethod,
+               CollectPeople,
+               CollectUnit,
+               Image,
+               SpeciesName
+        from CollectInfo limit #{pageNum}
+            , 10
+    </select>
 </mapper>
