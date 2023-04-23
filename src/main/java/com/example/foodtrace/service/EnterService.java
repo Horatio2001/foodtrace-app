@@ -35,4 +35,9 @@ public class EnterService {
         return enterDao.queryEnterInfosByPage(index);
     }
 
+    public int enterCount() {
+        return enterDao.enterCount();
+    }
+
+
 }

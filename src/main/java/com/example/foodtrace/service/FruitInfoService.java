@@ -46,4 +46,9 @@ public class FruitInfoService {
     public void loadInfo(String fruitInfoID, String txHash) {
         fruitInfoDao.loadInfo(fruitInfoID, txHash);
     }
+
+    public int fruitCount() {
+        return fruitInfoDao.fruitCount();
+    }
+
 }

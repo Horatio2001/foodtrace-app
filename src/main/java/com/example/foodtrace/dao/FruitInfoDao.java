@@ -35,4 +35,6 @@ public interface FruitInfoDao {
 
     int loadInfo(@Param("fruitInfoID") String fruitInfoID, @Param("TxHash") String TxHash);
 
+    int fruitCount();
+
 }

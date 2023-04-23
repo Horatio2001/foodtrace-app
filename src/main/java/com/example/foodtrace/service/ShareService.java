@@ -32,4 +32,9 @@ public class ShareService {
         int index = (pageNum - 1) * 10;
         return shareDao.queryShareInfosByPage(index);
     }
+
+    public int shareCount() {
+        return shareDao.shareCount();
+    }
+
 }

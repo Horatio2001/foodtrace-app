@@ -71,4 +71,9 @@
             BlockHash = #{TxHash}
         where ID = #{fruitInfoID}
     </update>
+
+    <select id="fruitCount" resultType="int">
+        select COUNT(*)
+        from FruitInfo
+    </select>
 </mapper>

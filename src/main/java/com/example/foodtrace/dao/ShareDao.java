@@ -20,4 +20,7 @@ public interface ShareDao {
     ShareInfo queryShareInfo(@Param("fruitInfoID") String fruitInfoID);
 
     List<ShareInfo> queryShareInfosByPage(@Param("pageNum") int pageNum);
+
+    int shareCount();
+
 }

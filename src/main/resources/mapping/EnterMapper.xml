@@ -51,4 +51,9 @@
         select Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
         from EnterInfo limit #{pageNum}, 10
     </select>
+
+    <select id="enterCount" resultType="int">
+        select COUNT(*)
+        from EnterInfo
+    </select>
 </mapper>

@@ -63,4 +63,9 @@
                ShareEndTime
         from ShareInfo limit #{pageNum}, 10
     </select>
+
+    <select id="shareCount" resultType="int">
+        select COUNT(*)
+        from ShareInfo
+    </select>
 </mapper>

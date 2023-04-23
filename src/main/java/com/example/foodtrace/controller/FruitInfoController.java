@@ -1026,4 +1026,54 @@ public class FruitInfoController {
         ret.put("description", "查询成功");
         return ret;
     }
+
+    @ApiOperation(value = "查寻水果信息数量")
+    @GetMapping("Info/fruitCount")
+    public Map<String, Object> fruitCount() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("count", fruitInfoService.fruitCount());
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "查寻采集信息数量")
+    @GetMapping("Info/collectCount")
+    public Map<String, Object> collectCount() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("count", collectService.collectCount());
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "查寻保存信息数量")
+    @GetMapping("Info/saveCount")
+    public Map<String, Object> saveCount() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("count", saveService.saveCount());
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "查寻录入信息数量")
+    @GetMapping("Info/enterCount")
+    public Map<String, Object> enterCount() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("count", enterService.enterCount());
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "查寻共享信息数量")
+    @GetMapping("Info/shareCount")
+    public Map<String, Object> shareCount() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("count", shareService.shareCount());
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

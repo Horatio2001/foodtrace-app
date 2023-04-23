@@ -102,4 +102,9 @@
              , GermplasmImage
         from SaveInfo limit #{pageNum}, 10
     </select>
+
+    <select id="saveCount" resultType="int">
+        select COUNT(*)
+        from SaveInfo
+    </select>
 </mapper>

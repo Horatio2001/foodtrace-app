@@ -33,4 +33,9 @@ public class SaveService {
         int index = (pageNum - 1) * 10;
         return saveDao.querySaveInfosByPage(index);
     }
+
+    public int saveCount() {
+        return saveDao.saveCount();
+    }
+
 }

@@ -21,4 +21,6 @@ public interface EnterDao {
 
     List<EnterInfo> queryEnterInfosByPage(@Param("pageNum") int pageNum);
 
+    int enterCount();
+
 }

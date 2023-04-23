@@ -54,4 +54,8 @@ public class CollectService {
         int index = (pageNum - 1) * 10;
         return collectDao.queryCollectInfosByPage(index);
     }
+
+    public int collectCount() {
+        return collectDao.collectCount();
+    }
 }
