@@ -6,6 +6,8 @@ import com.example.foodtrace.entity.ShareInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ShareService {
     @Autowired
@@ -24,5 +26,10 @@ public class ShareService {
 
     public ShareInfo queryShareInfo(String fruitInfoID) {
         return shareDao.queryShareInfo(fruitInfoID);
+    }
+
+    public List<ShareInfo> queryShareInfosByPage(int pageNum) {
+        int index = (pageNum - 1) * 10;
+        return shareDao.queryShareInfosByPage(index);
     }
 }

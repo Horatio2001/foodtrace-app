@@ -1003,4 +1003,27 @@ public class FruitInfoController {
         ret.put("description", "查询成功");
         return ret;
     }
+
+    @ApiOperation(value = "根据page查询分享信息")
+    @GetMapping("Info/QueryShareInfosByPage/{pageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+    })
+    public Map<String, Object> queryShareInfosByPage(@PathVariable int pageNum) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("ShareList", shareService.queryShareInfosByPage(pageNum));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据page查询分享信息")
+    @GetMapping("Info/QueryShareInfosByFirstPage")
+    public Map<String, Object> queryShareInfosByFirstPage() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("ShareList", shareService.queryShareInfosByPage(1));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

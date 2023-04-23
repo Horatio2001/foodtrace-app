@@ -51,4 +51,16 @@
         from ShareInfo
         where ShareID = #{fruitInfoID}
     </select>
+
+    <select id="queryShareInfosByPage" resultMap="shareMap">
+        select ShareID,
+               ShareObj,
+               ContactInfo,
+               ShareMode,
+               ShareUse,
+               ShareNum,
+               ShareBeginTime,
+               ShareEndTime
+        from ShareInfo limit #{pageNum}, 10
+    </select>
 </mapper>
