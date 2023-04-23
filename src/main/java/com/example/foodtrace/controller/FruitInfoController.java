@@ -957,4 +957,27 @@ public class FruitInfoController {
         ret.put("description", "查询成功");
         return ret;
     }
+
+    @ApiOperation(value = "根据page查询保存信息")
+    @GetMapping("Info/QuerySaveInfosByPage/{pageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+    })
+    public Map<String, Object> querySaveInfosByPage(@PathVariable int pageNum) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("SaveList", saveService.querySaveInfosByPage(pageNum));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据page查询保存信息{第一页}")
+    @GetMapping("Info/QuerySaveInfosByFirstPage")
+    public Map<String, Object> querySaveInfosByFirstPage() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("SaveList", saveService.querySaveInfosByPage(1));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

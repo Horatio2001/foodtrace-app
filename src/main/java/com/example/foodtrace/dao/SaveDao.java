@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository
 @Mapper
@@ -19,5 +20,5 @@ public interface SaveDao {
 
     SaveInfo querySaveInfo(@Param("fruitInfoID") String fruitInfoID);
 
-
+    List<SaveInfo> querySaveInfosByPage(@Param("pageNum") int pageNum);
 }

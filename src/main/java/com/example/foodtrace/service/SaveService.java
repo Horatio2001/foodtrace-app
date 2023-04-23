@@ -2,8 +2,11 @@ package com.example.foodtrace.service;
 
 import com.example.foodtrace.dao.SaveDao;
 import com.example.foodtrace.entity.SaveInfo;
+import org.bouncycastle.asn1.pkcs.SafeBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SaveService {
@@ -24,5 +27,10 @@ public class SaveService {
 
     public SaveInfo querySaveInfo(String fruitInfoID) {
         return saveDao.querySaveInfo(fruitInfoID);
+    }
+
+    public List<SaveInfo> querySaveInfosByPage(int pageNum) {
+        int index = (pageNum - 1) * 10;
+        return saveDao.querySaveInfosByPage(index);
     }
 }

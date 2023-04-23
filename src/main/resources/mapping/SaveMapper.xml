@@ -84,4 +84,22 @@
         from SaveInfo
         where SaveID = #{fruitInfoID}
     </select>
+
+    <select id="querySaveInfosByPage" resultMap="saveMap">
+        select MainPreference
+             , MainUse
+             , PreservationFacility
+             , GermplasmType
+             , SaveQuantity
+             , MeasuringUnit
+             , SaveUnit
+             , SaveVault
+             , SavePlace
+             , WarehousingYear
+             , SaveProperty
+             , ResourceDescription
+             , ResourceRemark
+             , GermplasmImage
+        from SaveInfo limit #{pageNum}, 10
+    </select>
 </mapper>
