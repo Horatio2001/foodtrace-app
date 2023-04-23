@@ -980,4 +980,27 @@ public class FruitInfoController {
         ret.put("description", "查询成功");
         return ret;
     }
+
+    @ApiOperation(value = "根据page查询录入信息")
+    @GetMapping("Info/QueryEnterInfosByPage/{pageNum}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+    })
+    public Map<String, Object> queryEnterInfosByPage(@PathVariable int pageNum) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("EnterList", enterService.queryEnterInfosByPage(pageNum));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据page查询录入信息{第一页}")
+    @GetMapping("Info/QueryEnterInfosByPage")
+    public Map<String, Object> queryEnterInfosByFirstPage() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("EnterList", enterService.queryEnterInfosByPage(1));
+        ret.put("msg", "200");
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

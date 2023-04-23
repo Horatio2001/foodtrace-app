@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @Mapper
 public interface EnterDao {
@@ -16,5 +18,7 @@ public interface EnterDao {
     Integer modifyEnterInfo(@Param("enterInfo") EnterInfo enterInfo);
 
     EnterInfo queryEnterInfo(@Param("fruitInfoID") String fruitInfoID);
+
+    List<EnterInfo> queryEnterInfosByPage(@Param("pageNum") int pageNum);
 
 }

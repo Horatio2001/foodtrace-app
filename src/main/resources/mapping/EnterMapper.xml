@@ -46,4 +46,9 @@
         from EnterInfo
         where EnterID = #{fruitInfoID}
     </select>
+
+    <select id="queryEnterInfosByPage" resultMap="enterMap">
+        select Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
+        from EnterInfo limit #{pageNum}, 10
+    </select>
 </mapper>
