@@ -166,7 +166,6 @@ public class FruitInfoController {
         collectInfo.setCollectMaterialType(CollectMaterialType);
         collectInfo.setCollectPeople(CollectPeople);
         collectInfo.setCollectUnit(CollectUnit);
-
         if (CollectTime != null) {
             DateParser dateParser = new DateParser();
             collectInfo.setCollectTime(dateParser.convert(CollectTime));
@@ -175,11 +174,36 @@ public class FruitInfoController {
         collectInfo.setSpeciesName(SpeciesName);
         collectInfo.setImage(Image);
         collectInfo.setCollectRemark(CollectRemark);
+        String[] args = new String[]{CollectID==null?"\"\"":"\""+CollectID+"\"", Type==null?"\"\"":"\""+Type+"\""
+                , Name==null?"\"\"":"\""+Name+"\"", GermplasmName==null?"\"\"":"\""+GermplasmName+"\""
+                , GermplasmNameEn==null?"\"\"":"\""+GermplasmNameEn+"\"", SectionName==null?"\"\"":"\""+SectionName+"\""
+                , GenericName==null?"\"\"":"\""+GenericName+"\"", ScientificName==null?"\"\"":"\""+ScientificName+"\""
+                , ResourceType==null?"\"\"":"\""+ResourceType+"\"", CollectMethod==null?"\"\"":"\""+CollectMethod+"\""
+                , GermplasmSource==null?"\"\"":"\""+GermplasmSource+"\"", SourceCountry==null?"\"\"":"\""+SourceCountry+"\""
+                , SourceProvince==null?"\"\"":"\""+SourceProvince+"\"", Source==null?"\"\"":"\""+Source+"\""
+                , SourceOrg==null?"\"\"":"\""+SourceOrg+"\"", OriginCountry==null?"\"\"":"\""+OriginCountry+"\""
+                , OriginPlace==null?"\"\"":"\""+OriginPlace+"\""
+                , CollectPlaceLongitude==null?"\"\"":"\""+CollectPlaceLongitude+"\""
+                , CollectPlaceLatitude==null?"\"\"":"\""+CollectPlaceLatitude+"\""
+                , CollectPlaceAltitude==null?"\"\"":"\""+CollectPlaceAltitude+"\""
+                , CollectPlaceSoilType==null?"\"\"":"\""+CollectPlaceSoilType+"\""
+                , CollectPlaceEcologyType==null?"\"\"":"\""+CollectPlaceEcologyType+"\""
+                , CollectMaterialType==null?"\"\"":"\""+CollectMaterialType+"\""
+                , CollectPeople==null?"\"\"":"\""+CollectPeople+"\"", CollectUnit==null?"\"\"":"\""+CollectUnit+"\""
+                , CollectTime==null?"\"\"":"\""+CollectTime+"\"", SpeciesName==null?"\"\"":"\""+SpeciesName+"\""
+                , Image==null?"\"\"":"\""+Image+"\"", CollectRemark==null?"\"\"":"\""+CollectRemark+"\""
+        };
+        try {
+            fruitInfoService.createFruitInfo(CollectID);
+            collectService.addCollectInfo(collectInfo);
+            ret.put("ContractData", chainCodeService.CreateFruitInfo(CollectID, args));
+            ret.put("msg", "200");
+            ret.put("description", "成功添加收集信息");
+        } catch (ContractException | TimeoutException | InterruptedException e) {
+            e.printStackTrace();
+            ret.put("code", -200);
+        }
 
-        fruitInfoService.createFruitInfo(CollectID);
-        collectService.addCollectInfo(collectInfo);
-        ret.put("msg", "200");
-        ret.put("description", "成功添加收集信息");
         return ret;
     }
 
@@ -820,7 +844,7 @@ public class FruitInfoController {
     public Map<String, Object> generateCertificate(@PathVariable String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {
         Map<String, Object> ret = new HashMap<>();
         FruitInfo fruitInfo = fruitInfoService.getStatus(fruitInfoID);
-        if (fruitInfo==null) {
+        if (fruitInfo == null) {
             ret.put("msg", "404");
             ret.put("description", "对象不存在");
             return ret;
