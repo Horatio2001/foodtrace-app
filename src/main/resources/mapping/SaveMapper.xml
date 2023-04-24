@@ -86,21 +86,25 @@
     </select>
 
     <select id="querySaveInfosByPage" resultMap="saveMap">
-        select MainPreference
-             , MainUse
-             , PreservationFacility
-             , GermplasmType
-             , SaveQuantity
-             , MeasuringUnit
-             , SaveUnit
-             , SaveVault
-             , SavePlace
-             , WarehousingYear
-             , SaveProperty
-             , ResourceDescription
-             , ResourceRemark
-             , GermplasmImage
-        from SaveInfo limit #{pageNum}, 10
+        select a.MainPreference
+             , a.MainUse
+             , a.PreservationFacility
+             , a.GermplasmType
+             , a.SaveQuantity
+             , a.MeasuringUnit
+             , a.SaveUnit
+             , a.SaveVault
+             , a.SavePlace
+             , a.WarehousingYear
+             , a.SaveProperty
+             , a.ResourceDescription
+             , a.ResourceRemark
+             , a.GermplasmImage
+        FROM SaveInfo as a,
+             FruitInfo as b
+        where a.SaveID = b.ID
+        ORDER BY IF(b.status = 1, 0, 1), a.SaveID ASC
+            limit #{pageNum}, 10
     </select>
 
     <select id="saveCount" resultType="int">

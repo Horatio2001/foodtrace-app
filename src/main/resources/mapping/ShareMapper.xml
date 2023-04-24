@@ -53,15 +53,19 @@
     </select>
 
     <select id="queryShareInfosByPage" resultMap="shareMap">
-        select ShareID,
-               ShareObj,
-               ContactInfo,
-               ShareMode,
-               ShareUse,
-               ShareNum,
-               ShareBeginTime,
-               ShareEndTime
-        from ShareInfo limit #{pageNum}, 10
+        select a.ShareID,
+               a.ShareObj,
+               a.ContactInfo,
+               a.ShareMode,
+               a.ShareUse,
+               a.ShareNum,
+               a.ShareBeginTime,
+               a.ShareEndTime
+        FROM ShareInfo as a,
+             FruitInfo as b
+        where a.ShareID = b.ID
+        ORDER BY IF(b.status = 3, 0, 1), a.ShareID ASC
+            limit #{pageNum}, 10
     </select>
 
     <select id="shareCount" resultType="int">

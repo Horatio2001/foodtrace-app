@@ -48,8 +48,12 @@
     </select>
 
     <select id="queryEnterInfosByPage" resultMap="enterMap">
-        select Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
-        from EnterInfo limit #{pageNum}, 10
+        select a.Certifier, a.CertifyOrg, a.CertifyPlace, a.CertifyYear, a.OperationRange, a.EnterRemark
+        FROM EnterInfo as a,
+             FruitInfo as b
+        where a.EnterID = b.ID
+        ORDER BY IF(b.status = 2, 0, 1), a.EnterID ASC
+            limit #{pageNum}, 10
     </select>
 
     <select id="enterCount" resultType="int">
