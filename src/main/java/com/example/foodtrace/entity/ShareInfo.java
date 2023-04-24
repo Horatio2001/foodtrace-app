@@ -9,9 +9,9 @@ public class ShareInfo {
     private String ShareID;
     private String ShareObj;
     private String ContactInfo;
-    private int ShareMode;
-    private int ShareUse;
-    private int ShareNum;
+    private Integer ShareMode;
+    private Integer ShareUse;
+    private Integer ShareNum;
     private Date ShareBeginTime;
     private Date ShareEndTime;
     private String ShareHash;
@@ -43,27 +43,27 @@ public class ShareInfo {
         ContactInfo = contactInfo;
     }
 
-    public int getShareMode() {
+    public Integer getShareMode() {
         return ShareMode;
     }
 
-    public void setShareMode(int shareMode) {
+    public void setShareMode(Integer shareMode) {
         ShareMode = shareMode;
     }
 
-    public int getShareUse() {
+    public Integer getShareUse() {
         return ShareUse;
     }
 
-    public void setShareUse(int shareUse) {
+    public void setShareUse(Integer shareUse) {
         ShareUse = shareUse;
     }
 
-    public int getShareNum() {
+    public Integer getShareNum() {
         return ShareNum;
     }
 
-    public void setShareNum(int shareNum) {
+    public void setShareNum(Integer shareNum) {
         ShareNum = shareNum;
     }
 

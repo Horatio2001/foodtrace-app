@@ -9,11 +9,11 @@ import java.util.Map;
 public class SaveInfo {
     private String SaveID;
     private String MainPreference;
-    private int MainUse;
-    private int PreservationFacility;
-    private int GermplasmType;
-    private int SaveQuantity;
-    private int MeasuringUnit;
+    private Integer MainUse;
+    private Integer PreservationFacility;
+    private Integer GermplasmType;
+    private Integer SaveQuantity;
+    private Integer MeasuringUnit;
     private String SaveUnit;
     private String SaveVault;
     private String SavePlace;
@@ -23,7 +23,7 @@ public class SaveInfo {
     private String ResourceRemark;
     private String GermplasmImage;
     private String SaveHash;
-    private int SaveYear;
+    private Integer SaveYear;
     private Map<String, Timestamp> SaveTransactions;
 
     public String getSaveID() {
@@ -42,43 +42,43 @@ public class SaveInfo {
         MainPreference = mainPreference;
     }
 
-    public int getMainUse() {
+    public Integer getMainUse() {
         return MainUse;
     }
 
-    public void setMainUse(int mainUse) {
+    public void setMainUse(Integer mainUse) {
         MainUse = mainUse;
     }
 
-    public int getPreservationFacility() {
+    public Integer getPreservationFacility() {
         return PreservationFacility;
     }
 
-    public void setPreservationFacility(int preservationFacility) {
+    public void setPreservationFacility(Integer preservationFacility) {
         PreservationFacility = preservationFacility;
     }
 
-    public int getGermplasmType() {
+    public Integer getGermplasmType() {
         return GermplasmType;
     }
 
-    public void setGermplasmType(int germplasmType) {
+    public void setGermplasmType(Integer germplasmType) {
         GermplasmType = germplasmType;
     }
 
-    public int getSaveQuantity() {
+    public Integer getSaveQuantity() {
         return SaveQuantity;
     }
 
-    public void setSaveQuantity(int saveQuantity) {
+    public void setSaveQuantity(Integer saveQuantity) {
         SaveQuantity = saveQuantity;
     }
 
-    public int getMeasuringUnit() {
+    public Integer getMeasuringUnit() {
         return MeasuringUnit;
     }
 
-    public void setMeasuringUnit(int measuringUnit) {
+    public void setMeasuringUnit(Integer measuringUnit) {
         MeasuringUnit = measuringUnit;
     }
 
@@ -154,11 +154,11 @@ public class SaveInfo {
         SaveHash = saveHash;
     }
 
-    public int getSaveYear() {
+    public Integer getSaveYear() {
         return SaveYear;
     }
 
-    public void setSaveYear(int saveYear) {
+    public void setSaveYear(Integer saveYear) {
         SaveYear = saveYear;
     }
 }
