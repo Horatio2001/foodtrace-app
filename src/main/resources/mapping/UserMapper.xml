@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.foodtrace.dao.UserDao">
+    <resultMap id="userMap" type="com.example.foodtrace.entity.User">
+        <id column="ID" property="ID"/>
+        <result column="Pwd" property="Pwd"/>
+        <result column="token" property="token"/>
+    </resultMap>
+
+    <insert id="register">
+        insert
+        ignore into UserTable(ID, Pwd)
+            VALUES (
+        #{ID},
+        #{Pwd}
+        )
+    </insert>
+
+    <delete id="logOff">
+        delete
+        from UserTable
+        where ShareID = #{ID}
+    </delete>
+
+    <select id="logIn" resultType="String">
+        select Pwd
+        from UserTable
+        where ID = #{ID}
+    </select>
+</mapper>
