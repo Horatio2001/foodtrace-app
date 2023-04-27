@@ -92,6 +92,13 @@ public class BlockService {
         return myNetworkInfos;
     }
 
+    public int getPeerNums() {
+        int ret = 0;
+        ret += mychannel.getPeers().size();
+        ret += mychannel.getOrderers().size();
+        return ret;
+    }
+
     public MyTxInfo ReadTxInfoById(String TxId) throws InvalidArgumentException, ProposalException, IOException {
         BlockInfo blockInfo = mychannel.queryBlockByTransactionID(TxId);
         TransactionInfo transactionInfo = mychannel.queryTransactionByID(TxId);

@@ -43,10 +43,11 @@ public class UserController {
     })
     public SaResult doLogin(@RequestParam("ID") String ID, @RequestParam("PWD")String PWD) {
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
+        Map<String, Object> ret = new HashMap<>();
         String tmp = userService.logIn(ID);
         if (tmp.equals(PWD)) {
             StpUtil.login(ID);
-            return SaResult.ok("登录成功");
+            return SaResult.data(StpUtil.getTokenInfo().getTokenValue());
         }
         return SaResult.error("登录失败");
     }

@@ -150,5 +150,11 @@ public class BlockController {
         return map;
     }
 
-
+    @ApiOperation(value = "获得节点数量")
+    @GetMapping("Blockchain/GetAllPeers")
+    public Map<String, Object> GetAllPeers() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("PeerNum", blockService.getPeerNums());
+        return map;
+    }
 }
