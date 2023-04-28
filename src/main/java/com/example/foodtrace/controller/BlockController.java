@@ -49,7 +49,8 @@ public class BlockController {
     })
     public Map<String, Object> GetBlockInfoByNum(@PathVariable Long BlockNum) throws InvalidArgumentException, ProposalException, IOException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfo", blockService.ReadBlockByNum(BlockNum));
+        map.put("data", blockService.ReadBlockByNum(BlockNum));
+        map.put("code", 200);
         return map;
     }
 
@@ -60,7 +61,8 @@ public class BlockController {
     })
     public Map<String, Object> GetBlockInfoByHash(@PathVariable String BlockHash) throws InvalidArgumentException, ProposalException, IOException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfo", blockService.ReadBlockByHash(BlockHash));
+        map.put("data", blockService.ReadBlockByHash(BlockHash));
+        map.put("code", 200);
         return map;
     }
 
@@ -68,7 +70,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetNewestBlockInfo")
     public Map<String, Object> GetNewestBlockInfo() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfoList", blockService.ReadNewestBlock());
+        map.put("data", blockService.ReadNewestBlock());
+        map.put("code", 200);
         return map;
     }
 
@@ -79,7 +82,8 @@ public class BlockController {
     })
     public Map<String, Object> GetBlockInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfoList", blockService.ReadBlockByPage(PageNum));
+        map.put("data", blockService.ReadBlockByPage(PageNum));
+        map.put("code", 200);
         return map;
     }
 
@@ -87,7 +91,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetBlockInfoByFirstPage")
     public Map<String, Object> GetBlockInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfoList", blockService.ReadBlockByPage(1));
+        map.put("data", blockService.ReadBlockByPage(1));
+        map.put("code", 200);
         return map;
     }
 
@@ -95,7 +100,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetAllPeerName")
     public Map<String, Object> GetAllPeerName() {
         Map<String, Object> map = new HashMap<>();
-        map.put("NetInfoList", blockService.ReadAllPeerName());
+        map.put("data", blockService.ReadAllPeerName());
+        map.put("code", 200);
         return map;
     }
 
@@ -103,7 +109,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetNetInfoByPage/{PageNum}")
     public Map<String, Object> GetNetInfoByPage(@PathVariable int PageNum) throws InvalidArgumentException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("NetInfoList", blockService.ReadNetworkInfoByPage(PageNum));
+        map.put("data", blockService.ReadNetworkInfoByPage(PageNum));
+        map.put("code", 200);
         return map;
     }
 
@@ -111,7 +118,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetNetInfoByFirstPage")
     public Map<String, Object> GetNetInfoByFirstPage() throws InvalidArgumentException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("NetInfoList", blockService.ReadNetworkInfoByPage(1));
+        map.put("data", blockService.ReadNetworkInfoByPage(1));
+        map.put("code", 200);
         return map;
     }
 
@@ -119,7 +127,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetTxInfo/{TxId}")
     public Map<String, Object> GetTxInfoById(@PathVariable String TxId) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("TxInfo", blockService.ReadTxInfoById(TxId));
+        map.put("data", blockService.ReadTxInfoById(TxId));
+        map.put("code", 200);
         return map;
     }
 
@@ -130,7 +139,8 @@ public class BlockController {
     })
     public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfoList", blockService.ReadTxInfoByPage(PageNum));
+        map.put("data", blockService.ReadTxInfoByPage(PageNum));
+        map.put("code", 200);
         return map;
     }
 
@@ -138,7 +148,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetTxInfoByFirstPage")
     public Map<String, Object> GetTxInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("BlockInfoList", blockService.ReadTxInfoByPage(1));
+        map.put("data", blockService.ReadTxInfoByPage(1));
+        map.put("code", 200);
         return map;
     }
 
@@ -146,7 +157,8 @@ public class BlockController {
     @GetMapping("Blockchain/GetAllChainCodeName")
     public Map<String, Object> GetAllChainCodeName() {
         Map<String, Object> map = new HashMap<>();
-        map.put("ChainCodeList", blockService.ReadAllBootChainCodeName());
+        map.put("data", blockService.ReadAllBootChainCodeName());
+        map.put("code", 200);
         return map;
     }
 
@@ -154,7 +166,17 @@ public class BlockController {
     @GetMapping("Blockchain/GetAllPeers")
     public Map<String, Object> GetAllPeers() {
         Map<String, Object> map = new HashMap<>();
-        map.put("PeerNum", blockService.getPeerNums());
+        map.put("data", blockService.getPeerNums());
+        map.put("code", 200);
+        return map;
+    }
+
+    @ApiOperation(value = "获得组织交易数")
+    @GetMapping("Blockchain/GetTxByOrg")
+    public Map<String, Object> GetTxByOrg() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", blockService.readTransactionByOrg());
+        map.put("code", 200);
         return map;
     }
 }

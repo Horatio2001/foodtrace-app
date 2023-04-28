@@ -204,7 +204,7 @@ public class FruitInfoController {
         try {
             fruitInfoService.createFruitInfo(CollectID);
             collectService.addCollectInfo(collectInfo);
-            ret.put("ContractData", chainCodeService.CreateFruitInfo(CollectID, args));
+            ret.put("data", chainCodeService.CreateFruitInfo(CollectID, args));
             ret.put("code", "200");
             ret.put("description", "成功添加收集信息");
         } catch (ContractException | TimeoutException | InterruptedException e) {
@@ -1055,7 +1055,7 @@ public class FruitInfoController {
             ret.put("description", "证书不存在");
             return ret;
         }
-        ret.put("certificate", certificate);
+        ret.put("data", certificate);
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1074,11 +1074,12 @@ public class FruitInfoController {
             ret.put("description", "该信息不存在");
             return ret;
         }
-        ret.put("CollectInfo", collectInfo);
-        ret.put("SaveInfo", saveService.querySaveInfo(fruitInfoID));
-        ret.put("EnterInfo", enterService.queryEnterInfo(fruitInfoID));
-        ret.put("ShareInfo", shareService.queryShareInfo(fruitInfoID));
-        ret.put("Status", fruitInfoService.getStatus(fruitInfoID));
+        FruitInfo fruitInfo = fruitInfoService.getStatus(fruitInfoID);
+        fruitInfo.setCollectInfo(collectInfo);
+        fruitInfo.setSaveInfo(saveService.querySaveInfo(fruitInfoID));
+        fruitInfo.setEnterInfo(enterService.queryEnterInfo(fruitInfoID));
+        fruitInfo.setShareInfo(shareService.queryShareInfo(fruitInfoID));
+        ret.put("data", fruitInfo);
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1091,7 +1092,7 @@ public class FruitInfoController {
     })
     public Map<String, Object> queryInfoByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("infoList", collectService.queryInfosByPage(pageNum));
+        ret.put("data", collectService.queryInfosByPage(pageNum));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1101,7 +1102,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryInfoByFirstPage")
     public Map<String, Object> queryInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("infoList", collectService.queryInfosByPage(1));
+        ret.put("data", collectService.queryInfosByPage(1));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1114,7 +1115,7 @@ public class FruitInfoController {
     })
     public Map<String, Object> queryDocumentedInfoByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("infoList", collectService.queryDocumentedInfosByPage(pageNum));
+        ret.put("data", collectService.queryDocumentedInfosByPage(pageNum));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1124,7 +1125,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryDocumentedInfoByFirstPage")
     public Map<String, Object> queryDocumentedInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("infoList", collectService.queryDocumentedInfosByPage(1));
+        ret.put("data", collectService.queryDocumentedInfosByPage(1));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1137,7 +1138,7 @@ public class FruitInfoController {
     })
     public Map<String, Object> queryCollectInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("CollectList", collectService.queryCollectInfosByPage(pageNum));
+        ret.put("data", collectService.queryCollectInfosByPage(pageNum));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1147,7 +1148,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryCollectInfosByFirstPage")
     public Map<String, Object> queryCollectInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("CollectList", collectService.queryCollectInfosByPage(1));
+        ret.put("data", collectService.queryCollectInfosByPage(1));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1160,7 +1161,7 @@ public class FruitInfoController {
     })
     public Map<String, Object> querySaveInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("SaveList", saveService.querySaveInfosByPage(pageNum));
+        ret.put("data", saveService.querySaveInfosByPage(pageNum));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1170,7 +1171,7 @@ public class FruitInfoController {
     @GetMapping("Info/QuerySaveInfosByFirstPage")
     public Map<String, Object> querySaveInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("SaveList", saveService.querySaveInfosByPage(1));
+        ret.put("data", saveService.querySaveInfosByPage(1));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1183,7 +1184,7 @@ public class FruitInfoController {
     })
     public Map<String, Object> queryEnterInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("EnterList", enterService.queryEnterInfosByPage(pageNum));
+        ret.put("data", enterService.queryEnterInfosByPage(pageNum));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1193,7 +1194,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryEnterInfosByPage")
     public Map<String, Object> queryEnterInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("EnterList", enterService.queryEnterInfosByPage(1));
+        ret.put("data", enterService.queryEnterInfosByPage(1));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1206,7 +1207,7 @@ public class FruitInfoController {
     })
     public Map<String, Object> queryShareInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("ShareList", shareService.queryShareInfosByPage(pageNum));
+        ret.put("data", shareService.queryShareInfosByPage(pageNum));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1216,7 +1217,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryShareInfosByFirstPage")
     public Map<String, Object> queryShareInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("ShareList", shareService.queryShareInfosByPage(1));
+        ret.put("data", shareService.queryShareInfosByPage(1));
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1226,7 +1227,7 @@ public class FruitInfoController {
     @GetMapping("Info/fruitCount")
     public Map<String, Object> fruitCount() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("count", fruitInfoService.fruitCount());
+        ret.put("data", fruitInfoService.fruitCount());
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1236,7 +1237,7 @@ public class FruitInfoController {
     @GetMapping("Info/collectCount")
     public Map<String, Object> collectCount() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("count", collectService.collectCount());
+        ret.put("data", collectService.collectCount());
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1246,7 +1247,7 @@ public class FruitInfoController {
     @GetMapping("Info/saveCount")
     public Map<String, Object> saveCount() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("count", saveService.saveCount());
+        ret.put("data", saveService.saveCount());
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1256,7 +1257,7 @@ public class FruitInfoController {
     @GetMapping("Info/enterCount")
     public Map<String, Object> enterCount() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("count", enterService.enterCount());
+        ret.put("data", enterService.enterCount());
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;
@@ -1266,7 +1267,7 @@ public class FruitInfoController {
     @GetMapping("Info/shareCount")
     public Map<String, Object> shareCount() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("count", shareService.shareCount());
+        ret.put("data", shareService.shareCount());
         ret.put("code", "200");
         ret.put("description", "查询成功");
         return ret;

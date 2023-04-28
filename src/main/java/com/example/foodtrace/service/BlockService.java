@@ -1,5 +1,7 @@
 package com.example.foodtrace.service;
 
+import com.example.foodtrace.dao.BlockDao;
+import com.example.foodtrace.entity.Organization;
 import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.pojo.MyNetworkInfo;
 import com.example.foodtrace.pojo.MyTxInfo;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.*;
 
 import static java.lang.Math.min;
@@ -26,6 +29,8 @@ import static java.lang.Math.min;
 public class BlockService {
     @Autowired
     private Channel mychannel;
+    @Autowired
+    private BlockDao blockDao;
 
     public Long ReadBlockHeight() throws InvalidArgumentException, ProposalException {
         BlockchainInfo blockchainInfo = mychannel.queryBlockchainInfo();
@@ -47,7 +52,7 @@ public class BlockService {
         long index0 = (PageNum - 1) * 5;
         long index1 = min(PageNum * 5, currentHeight);
         ArrayList<MyBlockInfo> blockInfos = new ArrayList<>();
-        for (long i = index0, j = currentHeight - 1; i < index1; i++, j--) {
+        for (long i = index0, j = currentHeight - 1 - index0; i < index1; i++, j--) {
             BlockInfo blockInfo = mychannel.queryBlockByNumber(j);
             blockInfos.add(new MyBlockInfo(blockInfo));
         }
@@ -114,7 +119,7 @@ public class BlockService {
         long index0 = (PageNum - 1) * 5;
         long index1 = min(PageNum * 5, currentHeight);
         ArrayList<MyTxInfo> myTxInfos = new ArrayList<>();
-        for (long i = index0, j = currentHeight - 1; i < index1; i++, j--) {
+        for (long i = index0, j = currentHeight - 1 - index0; i < index1; i++, j--) {
             BlockInfo blockInfo = mychannel.queryBlockByNumber(j);
             TransactionInfo transactionInfo = mychannel.queryTransactionByID(blockInfo.getEnvelopeInfo(0).getTransactionID());
             myTxInfos.add(new MyTxInfo(blockInfo, transactionInfo));
@@ -126,5 +131,9 @@ public class BlockService {
         return mychannel.getDiscoveredChaincodeNames();
     }
 
+    public List<Organization> readTransactionByOrg() {
+        return blockDao.getTxByOrg();
+    }
 
+    //todo: add date
 }

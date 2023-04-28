@@ -9,15 +9,11 @@ public class FruitInfo {
     private int IsDeleted;
     private int IsLoaded;
     private String BlockHash;
-    private Timestamp CreateTime;
 
-    public Timestamp getCreateTime() {
-        return CreateTime;
-    }
-
-    public void setCreateTime(Timestamp createTime) {
-        CreateTime = createTime;
-    }
+    private CollectInfo collectInfo;
+    private SaveInfo saveInfo;
+    private EnterInfo enterInfo;
+    private ShareInfo shareInfo;
 
     public String getID() {
         return ID;
@@ -67,4 +63,35 @@ public class FruitInfo {
         BlockHash = blockHash;
     }
 
+    public CollectInfo getCollectInfo() {
+        return collectInfo;
+    }
+
+    public void setCollectInfo(CollectInfo collectInfo) {
+        this.collectInfo = collectInfo;
+    }
+
+    public SaveInfo getSaveInfo() {
+        return saveInfo;
+    }
+
+    public void setSaveInfo(SaveInfo saveInfo) {
+        this.saveInfo = saveInfo;
+    }
+
+    public EnterInfo getEnterInfo() {
+        return enterInfo;
+    }
+
+    public void setEnterInfo(EnterInfo enterInfo) {
+        this.enterInfo = enterInfo;
+    }
+
+    public ShareInfo getShareInfo() {
+        return shareInfo;
+    }
+
+    public void setShareInfo(ShareInfo shareInfo) {
+        this.shareInfo = shareInfo;
+    }
 }
