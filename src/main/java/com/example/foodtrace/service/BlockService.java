@@ -59,6 +59,16 @@ public class BlockService {
         return blockInfos;
     }
 
+    public ArrayList<MyBlockInfo> ReadAllBlock() throws InvalidArgumentException, ProposalException, IOException {
+        long currentHeight = mychannel.queryBlockchainInfo().getHeight();
+        ArrayList<MyBlockInfo> blockInfos = new ArrayList<>();
+        for (long i = 0, j = currentHeight - 1; i < 50;i++, j--) {
+            BlockInfo blockInfo = mychannel.queryBlockByNumber(j);
+            blockInfos.add(new MyBlockInfo(blockInfo));
+        }
+        return blockInfos;
+    }
+
     public ArrayList<MyBlockInfo> ReadNewestBlock() throws InvalidArgumentException, ProposalException, IOException {
         long currentHeight = mychannel.queryBlockchainInfo().getHeight();
         ArrayList<MyBlockInfo> blockInfos = new ArrayList<>();
@@ -82,6 +92,19 @@ public class BlockService {
         int index0 = (PageNum - 1) * 5;
         int index1 = min(PageNum * 5, myNetworkInfos.size());
         return myNetworkInfos.subList(index0, index1);
+    }
+
+    public List<MyNetworkInfo> ReadAllNetworkInfos() throws InvalidArgumentException, ProposalException {
+        List<MyNetworkInfo> myNetworkInfos = new ArrayList<>();
+        Collection<Peer> peers = mychannel.getPeers();
+        for (Peer peer : peers) {
+            myNetworkInfos.add(new MyNetworkInfo(peer, mychannel));
+        }
+        Collection<Orderer> orderers = mychannel.getOrderers();
+        for (Orderer orderer : orderers) {
+            myNetworkInfos.add(new MyNetworkInfo(orderer));
+        }
+        return myNetworkInfos;
     }
 
     public List<String> ReadAllPeerName() {
@@ -121,6 +144,17 @@ public class BlockService {
         ArrayList<MyTxInfo> myTxInfos = new ArrayList<>();
         for (long i = index0, j = currentHeight - 1 - index0; i < index1; i++, j--) {
             BlockInfo blockInfo = mychannel.queryBlockByNumber(j);
+            TransactionInfo transactionInfo = mychannel.queryTransactionByID(blockInfo.getEnvelopeInfo(0).getTransactionID());
+            myTxInfos.add(new MyTxInfo(blockInfo, transactionInfo));
+        }
+        return myTxInfos;
+    }
+
+    public List<MyTxInfo> ReadAllTxInfos() throws InvalidArgumentException, ProposalException, IOException {
+        long currentHeight = mychannel.queryBlockchainInfo().getHeight();
+        ArrayList<MyTxInfo> myTxInfos = new ArrayList<>();
+        for (long i = 0; i < currentHeight; i++) {
+            BlockInfo blockInfo = mychannel.queryBlockByNumber(i);
             TransactionInfo transactionInfo = mychannel.queryTransactionByID(blockInfo.getEnvelopeInfo(0).getTransactionID());
             myTxInfos.add(new MyTxInfo(blockInfo, transactionInfo));
         }

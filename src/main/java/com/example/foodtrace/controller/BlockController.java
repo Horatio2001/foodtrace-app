@@ -1,6 +1,9 @@
 package com.example.foodtrace.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.foodtrace.pojo.MyBlockInfo;
+import com.example.foodtrace.pojo.MyNetworkInfo;
+import com.example.foodtrace.pojo.MyTxInfo;
 import com.example.foodtrace.service.BlockService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import io.swagger.annotations.Api;
@@ -87,6 +90,17 @@ public class BlockController {
         return map;
     }
 
+    @ApiOperation(value = "获取全部区块信息")
+    @GetMapping("Blockchain/GetAllBlockInfo")
+    public Map<String, Object> GetAllBlockInfo() throws InvalidArgumentException, IOException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        List<MyBlockInfo> list = blockService.ReadAllBlock();
+        map.put("data", list);
+        map.put("total", list.size());
+        map.put("code", 200);
+        return map;
+    }
+
     @ApiOperation(value = "分页获取区块信息第一页")
     @GetMapping("Blockchain/GetBlockInfoByFirstPage")
     public Map<String, Object> GetBlockInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
@@ -110,6 +124,17 @@ public class BlockController {
     public Map<String, Object> GetNetInfoByPage(@PathVariable int PageNum) throws InvalidArgumentException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("data", blockService.ReadNetworkInfoByPage(PageNum));
+        map.put("code", 200);
+        return map;
+    }
+
+    @ApiOperation(value = "获取全部节点信息")
+    @GetMapping("Blockchain/GetAllNetInfos")
+    public Map<String, Object> GetAllNetInfos() throws InvalidArgumentException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        List<MyNetworkInfo> list = blockService.ReadAllNetworkInfos();
+        map.put("data", list);
+        map.put("total", list.size());
         map.put("code", 200);
         return map;
     }
@@ -140,6 +165,17 @@ public class BlockController {
     public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
         map.put("data", blockService.ReadTxInfoByPage(PageNum));
+        map.put("code", 200);
+        return map;
+    }
+
+    @ApiOperation(value = "获取全部交易信息")
+    @GetMapping("Blockchain/GetAllTxInfoByPage")
+    public Map<String, Object> GetTxInfoByPage() throws InvalidArgumentException, IOException, ProposalException {
+        Map<String, Object> map = new HashMap<>();
+        List<MyTxInfo> list = blockService.ReadAllTxInfos();
+        map.put("data", list);
+        map.put("total", list.size());
         map.put("code", 200);
         return map;
     }
