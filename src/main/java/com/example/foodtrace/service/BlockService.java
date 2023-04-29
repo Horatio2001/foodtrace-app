@@ -1,6 +1,8 @@
 package com.example.foodtrace.service;
 
 import com.example.foodtrace.dao.BlockDao;
+import com.example.foodtrace.dao.ChaincodesDao;
+import com.example.foodtrace.entity.Chaincodes;
 import com.example.foodtrace.entity.Organization;
 import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.pojo.MyNetworkInfo;
@@ -31,6 +33,8 @@ public class BlockService {
     private Channel mychannel;
     @Autowired
     private BlockDao blockDao;
+    @Autowired
+    private ChaincodesDao chaincodesDao;
 
     public Long ReadBlockHeight() throws InvalidArgumentException, ProposalException {
         BlockchainInfo blockchainInfo = mychannel.queryBlockchainInfo();
@@ -47,10 +51,10 @@ public class BlockService {
         return new MyBlockInfo(blockInfo);
     }
 
-    public ArrayList<MyBlockInfo> ReadBlockByPage(long PageNum) throws InvalidArgumentException, ProposalException, IOException {
+    public ArrayList<MyBlockInfo> ReadBlockByPage(long PageNum, int PageIdx) throws InvalidArgumentException, ProposalException, IOException {
         long currentHeight = mychannel.queryBlockchainInfo().getHeight();
-        long index0 = (PageNum - 1) * 5;
-        long index1 = min(PageNum * 5, currentHeight);
+        long index0 = (PageNum - 1) * PageIdx;
+        long index1 = min(PageNum * PageIdx, currentHeight);
         ArrayList<MyBlockInfo> blockInfos = new ArrayList<>();
         for (long i = index0, j = currentHeight - 1 - index0; i < index1; i++, j--) {
             BlockInfo blockInfo = mychannel.queryBlockByNumber(j);
@@ -79,7 +83,7 @@ public class BlockService {
         return blockInfos;
     }
 
-    public List<MyNetworkInfo> ReadNetworkInfoByPage(int PageNum) throws InvalidArgumentException, ProposalException {
+    public List<MyNetworkInfo> ReadNetworkInfoByPage(int PageNum, int PageIdx) throws InvalidArgumentException, ProposalException {
         List<MyNetworkInfo> myNetworkInfos = new ArrayList<>();
         Collection<Peer> peers = mychannel.getPeers();
         for (Peer peer : peers) {
@@ -89,8 +93,8 @@ public class BlockService {
         for (Orderer orderer : orderers) {
             myNetworkInfos.add(new MyNetworkInfo(orderer));
         }
-        int index0 = (PageNum - 1) * 5;
-        int index1 = min(PageNum * 5, myNetworkInfos.size());
+        int index0 = (PageNum - 1) * PageIdx;
+        int index1 = min(PageNum * PageIdx, myNetworkInfos.size());
         return myNetworkInfos.subList(index0, index1);
     }
 
@@ -137,10 +141,10 @@ public class BlockService {
         return new MyTxInfo(blockInfo, transactionInfo);
     }
 
-    public List<MyTxInfo> ReadTxInfoByPage(long PageNum) throws InvalidArgumentException, ProposalException, IOException {
+    public List<MyTxInfo> ReadTxInfoByPage(long PageNum, int PageIdx) throws InvalidArgumentException, ProposalException, IOException {
         long currentHeight = mychannel.queryBlockchainInfo().getHeight();
-        long index0 = (PageNum - 1) * 5;
-        long index1 = min(PageNum * 5, currentHeight);
+        long index0 = (PageNum - 1) * PageIdx;
+        long index1 = min(PageNum * PageIdx, currentHeight);
         ArrayList<MyTxInfo> myTxInfos = new ArrayList<>();
         for (long i = index0, j = currentHeight - 1 - index0; i < index1; i++, j--) {
             BlockInfo blockInfo = mychannel.queryBlockByNumber(j);
@@ -167,6 +171,11 @@ public class BlockService {
 
     public List<Organization> readTransactionByOrg() {
         return blockDao.getTxByOrg();
+    }
+
+    public List<Chaincodes> queryChaincodesByPage(int pageNum, int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return chaincodesDao.queryChaincodesByPage(index, pageIdx);
     }
 
     //todo: add date

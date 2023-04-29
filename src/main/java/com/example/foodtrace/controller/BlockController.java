@@ -5,12 +5,10 @@ import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.pojo.MyNetworkInfo;
 import com.example.foodtrace.pojo.MyTxInfo;
 import com.example.foodtrace.service.BlockService;
-import com.google.protobuf.InvalidProtocolBufferException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.hyperledger.fabric.sdk.BlockInfo;
 import org.hyperledger.fabric.sdk.exception.InvalidArgumentException;
 import org.hyperledger.fabric.sdk.exception.ProposalException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,13 +77,14 @@ public class BlockController {
     }
 
     @ApiOperation(value = "分页获取区块信息")
-    @GetMapping("Blockchain/GetBlockInfoByPage/{PageNum}")
+    @GetMapping("Blockchain/GetBlockInfoByPage/{PageNum}/{PageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "PageNum", value = "页码", required = true)
+            @ApiImplicitParam(name = "PageNum", value = "页码", required = true),
+            @ApiImplicitParam(name = "PageIdx", value = "每页多少个", required = true)
     })
-    public Map<String, Object> GetBlockInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
+    public Map<String, Object> GetBlockInfoByPage(@PathVariable long PageNum, @PathVariable int PageIdx) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("data", blockService.ReadBlockByPage(PageNum));
+        map.put("data", blockService.ReadBlockByPage(PageNum, PageIdx));
         map.put("code", 200);
         return map;
     }
@@ -105,7 +104,7 @@ public class BlockController {
     @GetMapping("Blockchain/GetBlockInfoByFirstPage")
     public Map<String, Object> GetBlockInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("data", blockService.ReadBlockByPage(1));
+        map.put("data", blockService.ReadBlockByPage(1, 5));
         map.put("code", 200);
         return map;
     }
@@ -120,10 +119,14 @@ public class BlockController {
     }
 
     @ApiOperation(value = "分页获取节点信息")
-    @GetMapping("Blockchain/GetNetInfoByPage/{PageNum}")
-    public Map<String, Object> GetNetInfoByPage(@PathVariable int PageNum) throws InvalidArgumentException, ProposalException {
+    @GetMapping("Blockchain/GetNetInfoByPage/{PageNum}/{PageIdx}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "PageNum", value = "页码", required = true),
+            @ApiImplicitParam(name = "PageIdx", value = "每页多少个", required = true)
+    })
+    public Map<String, Object> GetNetInfoByPage(@PathVariable int PageNum, @PathVariable int PageIdx) throws InvalidArgumentException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("data", blockService.ReadNetworkInfoByPage(PageNum));
+        map.put("data", blockService.ReadNetworkInfoByPage(PageNum, PageIdx));
         map.put("code", 200);
         return map;
     }
@@ -143,7 +146,7 @@ public class BlockController {
     @GetMapping("Blockchain/GetNetInfoByFirstPage")
     public Map<String, Object> GetNetInfoByFirstPage() throws InvalidArgumentException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("data", blockService.ReadNetworkInfoByPage(1));
+        map.put("data", blockService.ReadNetworkInfoByPage(1,5));
         map.put("code", 200);
         return map;
     }
@@ -158,13 +161,14 @@ public class BlockController {
     }
 
     @ApiOperation(value = "分页获取交易信息")
-    @GetMapping("Blockchain/GetTxInfoByPage/{PageNum}")
+    @GetMapping("Blockchain/GetTxInfoByPage/{PageNum}/{PageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "PageNum", value = "页码", required = true)
+            @ApiImplicitParam(name = "PageNum", value = "页码", required = true),
+            @ApiImplicitParam(name = "PageIdx", value = "每页多少个", required = true)
     })
-    public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum) throws InvalidArgumentException, IOException, ProposalException {
+    public Map<String, Object> GetTxInfoByPage(@PathVariable long PageNum, @PathVariable int PageIdx) throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("data", blockService.ReadTxInfoByPage(PageNum));
+        map.put("data", blockService.ReadTxInfoByPage(PageNum, PageIdx));
         map.put("code", 200);
         return map;
     }
@@ -184,7 +188,20 @@ public class BlockController {
     @GetMapping("Blockchain/GetTxInfoByFirstPage")
     public Map<String, Object> GetTxInfoByFirstPage() throws InvalidArgumentException, IOException, ProposalException {
         Map<String, Object> map = new HashMap<>();
-        map.put("data", blockService.ReadTxInfoByPage(1));
+        map.put("data", blockService.ReadTxInfoByPage(1,5));
+        map.put("code", 200);
+        return map;
+    }
+
+    @ApiOperation(value = "分页获取链码信息")
+    @GetMapping("Blockchain/GetChaincodesInfoByPage/{PageNum}/{PageIdx}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "PageNum", value = "页码", required = true),
+            @ApiImplicitParam(name = "PageIdx", value = "每页多少个", required = true)
+    })
+    public Map<String, Object> GetChaincodesInfoByPage(@PathVariable int PageNum, @PathVariable int PageIdx) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("data", blockService.queryChaincodesByPage(PageNum, PageIdx));
         map.put("code", 200);
         return map;
     }
@@ -215,4 +232,6 @@ public class BlockController {
         map.put("code", 200);
         return map;
     }
+
+
 }

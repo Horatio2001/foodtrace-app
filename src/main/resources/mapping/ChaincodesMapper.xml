@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.foodtrace.dao.ChaincodesDao">
+
+    <resultMap id="chaincodesMap" type="com.example.foodtrace.entity.Chaincodes">
+        <result column="ChaincodeName" property="ChaincodeName"/>
+        <result column="ChannelName" property="ChannelName"/>
+        <result column="Path" property="Path"/>
+        <result column="TransactionCount" property="TransactionCount"/>
+        <result column="Version" property="Version"/>
+    </resultMap>
+
+    <select id="queryChaincodesByPage" resultMap="chaincodesMap">
+        select *
+        from Chaincodes
+        limit #{pageNum}, #{pageIdx};
+    </select>
+</mapper>
