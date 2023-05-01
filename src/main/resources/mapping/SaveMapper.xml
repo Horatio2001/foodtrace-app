@@ -67,7 +67,8 @@
     </resultMap>
 
     <select id="querySaveInfo" resultMap="saveMap">
-        select MainPreference
+        select SaveID
+             , MainPreference
              , MainUse
              , PreservationFacility
              , GermplasmType

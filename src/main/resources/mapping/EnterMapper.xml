@@ -42,7 +42,7 @@
     </resultMap>
 
     <select id="queryEnterInfo" resultMap="enterMap">
-        select Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
+        select EnterID, Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
         from EnterInfo
         where EnterID = #{fruitInfoID}
     </select>

@@ -38,6 +38,9 @@ public class CollectInfo {
     private String CollectRemark;
     private String CollectHash;
     private Map<String, Timestamp> CollectTransactions;
+    private int IsLoaded;
+    private int IsContradict;
+    private int Status;
     public String getCollectID() {
         return CollectID;
     }
@@ -276,5 +279,29 @@ public class CollectInfo {
 
     public void setCollectHash(String collectHash) {
         CollectHash = collectHash;
+    }
+
+    public int getIsLoaded() {
+        return IsLoaded;
+    }
+
+    public void setIsLoaded(int isLoaded) {
+        IsLoaded = isLoaded;
+    }
+
+    public int getIsContradict() {
+        return IsContradict;
+    }
+
+    public void setIsContradict(int isContradict) {
+        IsContradict = isContradict;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
     }
 }

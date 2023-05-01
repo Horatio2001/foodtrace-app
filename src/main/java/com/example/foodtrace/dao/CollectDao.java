@@ -35,9 +35,9 @@ public interface CollectDao {
 
     List<CollectInfo> queryInfosByPage(@Param("pageNum") int pageNum);
 
-    List<CollectInfo> queryDocumentedInfosByPage(@Param("pageNum") int pageNum);
+    List<CollectInfo> queryDocumentedInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
-    List<CollectInfo> queryCollectInfosByPage(@Param("pageNum") int pageNum);
+    List<CollectInfo> queryCollectInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
     int collectCount();
 }

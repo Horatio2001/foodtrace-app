@@ -108,77 +108,44 @@
         <result column="SpeciesName" property="SpeciesName"/>
         <result column="Image" property="Image"/>
         <result column="CollectRemark" property="CollectRemark"/>
+        <result column="IsLoaded" property="IsLoaded"/>
+        <result column="IsContradict" property="IsContradict"/>
+        <result column="Status" property="Status"/>
+
     </resultMap>
 
     <select id="queryCollectInfo" resultMap="collectMap">
-        select Type,
-               Name,
-               GermplasmName,
-               GermplasmNameEn,
-               SectionName,
-               GenericName,
-               ScientificName,
-               ResourceType,
-               CollectMethod,
-               GermplasmSource,
-               SourceCountry,
-               SourceProvince,
-               Source,
-               SourceOrg,
-               OriginCountry,
-               OriginPlace,
-               CollectPlaceLongitude,
-               CollectPlaceLatitude,
-               CollectPlaceAltitude,
-               CollectPlaceSoilType,
-               CollectPlaceEcologyType,
-               CollectMaterialType,
-               CollectPeople,
-               CollectUnit,
-               CollectTime,
-               SpeciesName,
-               Image,
-               CollectRemark
-
+        select *
         from CollectInfo
         where CollectID = #{fruitInfoID}
     </select>
 
     <select id="queryInfosByPage" resultMap="collectMap">
-        select CollectID, Name
+        select *
         from CollectInfo limit #{pageNum} ,10
     </select>
 
     <select id="queryDocumentedInfosByPage" resultMap="collectMap">
-        select CollectID, Name
+        select *
         from CollectInfo
         where CollectID in (select ID
                             from FruitInfo
                             where IsLoaded = 1)
             limit #{pageNum}
-            , 10
+            , #{pageIdx}
     </select>
 
     <select id="queryCollectInfosByPage" resultMap="collectMap">
-        select a.CollectID,
-               a.Type,
-               a.Name,
-               a.GermplasmName,
-               a.SectionName,
-               a.GenericName,
-               a.ScientificName,
-               a.ResourceType,
-               a.CollectMethod,
-               a.CollectPeople,
-               a.CollectUnit,
-               a.Image,
-               a.SpeciesName
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status
         FROM CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID
         ORDER BY IF(b.status = 0, 0, 1), a.CollectID ASC
         limit
-        #{pageNum}, 10
+        #{pageNum}, #{pageIdx}
     </select>
 
     <select id="collectCount" resultType="int">

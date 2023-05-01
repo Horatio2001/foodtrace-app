@@ -49,7 +49,7 @@ public class FruitInfoController {
 //    public Map<String, Object> createFruitInfo(@RequestParam("fruitInfoID") String fruitInfoID) {
 //        Map<String, Object> ret = new HashMap<>();
 //        fruitInfoService.createFruitInfo(fruitInfoID);
-//        ret.put("code", "200");
+//        ret.put("code", 200);
 //        ret.put("description", "发布商品成功");
 //        return ret;
 //    }
@@ -205,7 +205,7 @@ public class FruitInfoController {
             fruitInfoService.createFruitInfo(CollectID);
             collectService.addCollectInfo(collectInfo);
             ret.put("data", chainCodeService.CreateFruitInfo(CollectID, args));
-            ret.put("code", "200");
+            ret.put("code", 200);
             ret.put("description", "成功添加收集信息");
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
@@ -520,7 +520,7 @@ public class FruitInfoController {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        ret.put("code", "200");
+        ret.put("code", 200);
         return ret;
     }
 
@@ -1012,7 +1012,7 @@ public class FruitInfoController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
     })
-    public Map<String, Object> generateCertificate(@PathVariable String fruitInfoID) throws ContractException, InterruptedException, TimeoutException {
+    public Map<String, Object> generateCertificate(@PathVariable String fruitInfoID) {
         Map<String, Object> ret = new HashMap<>();
         FruitInfo fruitInfo = fruitInfoService.getStatus(fruitInfoID);
         if (fruitInfo == null) {
@@ -1037,7 +1037,7 @@ public class FruitInfoController {
 
 //        MyBlockInfo myBlockInfo = chainCodeService.ReadFruitInfo(fruitInfoID)
         certificateService.generateCertificate(certificate);
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "证书生成成功");
         return ret;
     }
@@ -1056,7 +1056,7 @@ public class FruitInfoController {
             return ret;
         }
         ret.put("data", certificate);
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1080,7 +1080,83 @@ public class FruitInfoController {
         fruitInfo.setEnterInfo(enterService.queryEnterInfo(fruitInfoID));
         fruitInfo.setShareInfo(shareService.queryShareInfo(fruitInfoID));
         ret.put("data", fruitInfo);
-        ret.put("code", "200");
+        ret.put("code", 200);
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据id查询采集信息")
+    @GetMapping("Info/QueryCollectInfoByID/{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> queryCollectInfoByID(@PathVariable String fruitInfoID) {
+        Map<String, Object> ret = new HashMap<>();
+        CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
+        if (collectInfo == null) {
+            ret.put("code", "-200");
+            ret.put("description", "该信息不存在");
+            return ret;
+        }
+        ret.put("data", collectInfo);
+        ret.put("code", 200);
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据id查询保存信息")
+    @GetMapping("Info/QuerySaveInfoByID/{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> querySaveInfoByID(@PathVariable String fruitInfoID) {
+        Map<String, Object> ret = new HashMap<>();
+        CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
+        if (collectInfo == null) {
+            ret.put("code", "-200");
+            ret.put("description", "该信息不存在");
+            return ret;
+        }
+        ret.put("data", saveService.querySaveInfo(fruitInfoID));
+        ret.put("code", 200);
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据id查询录入信息")
+    @GetMapping("Info/QueryEnterInfoByID/{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> queryEnterInfoByID(@PathVariable String fruitInfoID) {
+        Map<String, Object> ret = new HashMap<>();
+        CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
+        if (collectInfo == null) {
+            ret.put("code", "-200");
+            ret.put("description", "该信息不存在");
+            return ret;
+        }
+        ret.put("data", enterService.queryEnterInfo(fruitInfoID));
+        ret.put("code", 200);
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "根据id查询分享信息")
+    @GetMapping("Info/QueryShareInfoByID/{fruitInfoID}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "fruitInfoID", value = "ID", required = true)
+    })
+    public Map<String, Object> queryShareInfoByID(@PathVariable String fruitInfoID) {
+        Map<String, Object> ret = new HashMap<>();
+        CollectInfo collectInfo = collectService.queryCollectInfo(fruitInfoID);
+        if (collectInfo == null) {
+            ret.put("code", "-200");
+            ret.put("description", "该信息不存在");
+            return ret;
+        }
+        ret.put("data", shareService.queryShareInfo(fruitInfoID));
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1093,7 +1169,7 @@ public class FruitInfoController {
     public Map<String, Object> queryInfoByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", collectService.queryInfosByPage(pageNum));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1103,20 +1179,21 @@ public class FruitInfoController {
     public Map<String, Object> queryInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", collectService.queryInfosByPage(1));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
 
     @ApiOperation(value = "根据page查询已存证信息")
-    @GetMapping("Info/QueryDocumentedInfoByPage/{pageNum}")
+    @GetMapping("Info/QueryDocumentedInfoByPage/{pageNum}/{pageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true),
+            @ApiImplicitParam(name = "pageIdx", value = "每页多少个", required = true)
     })
-    public Map<String, Object> queryDocumentedInfoByPage(@PathVariable int pageNum) {
+    public Map<String, Object> queryDocumentedInfoByPage(@PathVariable int pageNum, @PathVariable int pageIdx) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryDocumentedInfosByPage(pageNum));
-        ret.put("code", "200");
+        ret.put("data", collectService.queryDocumentedInfosByPage(pageNum, pageIdx));
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1125,21 +1202,22 @@ public class FruitInfoController {
     @GetMapping("Info/QueryDocumentedInfoByFirstPage")
     public Map<String, Object> queryDocumentedInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryDocumentedInfosByPage(1));
-        ret.put("code", "200");
+        ret.put("data", collectService.queryDocumentedInfosByPage(1,10));
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
 
     @ApiOperation(value = "根据page查询收集信息")
-    @GetMapping("Info/QueryCollectInfosByPage/{pageNum}")
+    @GetMapping("Info/QueryCollectInfosByPage/{pageNum}/{pageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true),
+            @ApiImplicitParam(name = "pageIdx", value = "每页多少个", required = true)
     })
-    public Map<String, Object> queryCollectInfosByPage(@PathVariable int pageNum) {
+    public Map<String, Object> queryCollectInfosByPage(@PathVariable int pageNum, @PathVariable int pageIdx) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryCollectInfosByPage(pageNum));
-        ret.put("code", "200");
+        ret.put("data", collectService.queryCollectInfosByPage(pageNum, pageIdx));
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1148,8 +1226,8 @@ public class FruitInfoController {
     @GetMapping("Info/QueryCollectInfosByFirstPage")
     public Map<String, Object> queryCollectInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryCollectInfosByPage(1));
-        ret.put("code", "200");
+        ret.put("data", collectService.queryCollectInfosByPage(1, 10));
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1162,7 +1240,7 @@ public class FruitInfoController {
     public Map<String, Object> querySaveInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", saveService.querySaveInfosByPage(pageNum));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1172,7 +1250,7 @@ public class FruitInfoController {
     public Map<String, Object> querySaveInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", saveService.querySaveInfosByPage(1));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1185,7 +1263,7 @@ public class FruitInfoController {
     public Map<String, Object> queryEnterInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", enterService.queryEnterInfosByPage(pageNum));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1195,7 +1273,7 @@ public class FruitInfoController {
     public Map<String, Object> queryEnterInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", enterService.queryEnterInfosByPage(1));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1208,17 +1286,17 @@ public class FruitInfoController {
     public Map<String, Object> queryShareInfosByPage(@PathVariable int pageNum) {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", shareService.queryShareInfosByPage(pageNum));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
 
-    @ApiOperation(value = "根据page查询分享信息")
+    @ApiOperation(value = "根据page查询分享信息{第一页}")
     @GetMapping("Info/QueryShareInfosByFirstPage")
     public Map<String, Object> queryShareInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", shareService.queryShareInfosByPage(1));
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1228,7 +1306,7 @@ public class FruitInfoController {
     public Map<String, Object> fruitCount() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", fruitInfoService.fruitCount());
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1238,7 +1316,7 @@ public class FruitInfoController {
     public Map<String, Object> collectCount() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", collectService.collectCount());
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1248,7 +1326,7 @@ public class FruitInfoController {
     public Map<String, Object> saveCount() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", saveService.saveCount());
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1258,7 +1336,7 @@ public class FruitInfoController {
     public Map<String, Object> enterCount() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", enterService.enterCount());
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
@@ -1268,7 +1346,7 @@ public class FruitInfoController {
     public Map<String, Object> shareCount() {
         Map<String, Object> ret = new HashMap<>();
         ret.put("data", shareService.shareCount());
-        ret.put("code", "200");
+        ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }

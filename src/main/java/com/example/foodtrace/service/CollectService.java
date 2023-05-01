@@ -2,6 +2,7 @@ package com.example.foodtrace.service;
 
 import com.example.foodtrace.dao.CollectDao;
 import com.example.foodtrace.entity.CollectInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,14 +46,14 @@ public class CollectService {
         return collectDao.queryInfosByPage(index);
     }
 
-    public List<CollectInfo> queryDocumentedInfosByPage(int pageNum) {
-        int index = (pageNum - 1) * 10;
-        return collectDao.queryDocumentedInfosByPage(index);
+    public List<CollectInfo> queryDocumentedInfosByPage(int pageNum,int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return collectDao.queryDocumentedInfosByPage(index, pageIdx);
     }
 
-    public List<CollectInfo> queryCollectInfosByPage(int pageNum) {
-        int index = (pageNum - 1) * 10;
-        return collectDao.queryCollectInfosByPage(index);
+    public List<CollectInfo> queryCollectInfosByPage(int pageNum,int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return collectDao.queryCollectInfosByPage(index,pageIdx);
     }
 
     public int collectCount() {
