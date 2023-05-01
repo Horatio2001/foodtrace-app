@@ -8,7 +8,7 @@ public class Certificate {
     private String Hash;
     private String CollectUnit;
     private Timestamp CertifyTime;
-    private Integer MainUse;
+    private String MainUse;
     private String ResourceRemark;
 
     public String getID() {
@@ -51,11 +51,11 @@ public class Certificate {
         CertifyTime = certifyTime;
     }
 
-    public Integer getMainUse() {
+    public String getMainUse() {
         return MainUse;
     }
 
-    public void setMainUse(Integer mainUse) {
+    public void setMainUse(String mainUse) {
         MainUse = mainUse;
     }
 

@@ -8,10 +8,10 @@ import java.util.Map;
 
 public class SaveInfo {
     private String SaveID;
-    private String MainPreference;
-    private Integer MainUse;
-    private Integer PreservationFacility;
-    private Integer GermplasmType;
+    private Integer MainPreference;
+    private String MainUse;
+    private String PreservationFacility;
+    private String GermplasmType;
     private Integer SaveQuantity;
     private Integer MeasuringUnit;
     private String SaveUnit;
@@ -32,38 +32,6 @@ public class SaveInfo {
 
     public void setSaveID(String saveID) {
         SaveID = saveID;
-    }
-
-    public String getMainPreference() {
-        return MainPreference;
-    }
-
-    public void setMainPreference(String mainPreference) {
-        MainPreference = mainPreference;
-    }
-
-    public Integer getMainUse() {
-        return MainUse;
-    }
-
-    public void setMainUse(Integer mainUse) {
-        MainUse = mainUse;
-    }
-
-    public Integer getPreservationFacility() {
-        return PreservationFacility;
-    }
-
-    public void setPreservationFacility(Integer preservationFacility) {
-        PreservationFacility = preservationFacility;
-    }
-
-    public Integer getGermplasmType() {
-        return GermplasmType;
-    }
-
-    public void setGermplasmType(Integer germplasmType) {
-        GermplasmType = germplasmType;
     }
 
     public Integer getSaveQuantity() {
@@ -156,6 +124,38 @@ public class SaveInfo {
 
     public Integer getSaveYear() {
         return SaveYear;
+    }
+
+    public Integer getMainPreference() {
+        return MainPreference;
+    }
+
+    public void setMainPreference(Integer mainPreference) {
+        MainPreference = mainPreference;
+    }
+
+    public String getMainUse() {
+        return MainUse;
+    }
+
+    public void setMainUse(String mainUse) {
+        MainUse = mainUse;
+    }
+
+    public String getPreservationFacility() {
+        return PreservationFacility;
+    }
+
+    public void setPreservationFacility(String preservationFacility) {
+        PreservationFacility = preservationFacility;
+    }
+
+    public String getGermplasmType() {
+        return GermplasmType;
+    }
+
+    public void setGermplasmType(String germplasmType) {
+        GermplasmType = germplasmType;
     }
 
     public void setSaveYear(Integer saveYear) {
