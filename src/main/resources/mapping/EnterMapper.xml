@@ -33,6 +33,8 @@
 
     <resultMap id="enterMap" type="com.example.foodtrace.entity.EnterInfo">
         <id column="EnterID" property="EnterID"/>
+        <result column="Type" property="Type"/>
+        <result column="Name" property="Name"/>
         <result column="Certifier" property="Certifier"/>
         <result column="CertifyOrg" property="CertifyOrg"/>
         <result column="CertifyPlace" property="CertifyPlace"/>
@@ -52,6 +54,8 @@
 
     <select id="queryEnterInfosByPage" resultMap="enterMap">
         select a.*,
+               b.Type,
+               b.Name,
                b.Status,
                b.IsContradict,
                b.IsLoaded

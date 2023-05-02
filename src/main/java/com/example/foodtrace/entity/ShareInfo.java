@@ -7,6 +7,9 @@ import java.util.Map;
 
 public class ShareInfo {
     private String ShareID;
+
+    private Integer Type;
+    private String Name;
     private String ShareObj;
     private String ContactInfo;
     private Integer ShareMode;
@@ -116,5 +119,21 @@ public class ShareInfo {
 
     public void setShareHash(String shareHash) {
         ShareHash = shareHash;
+    }
+
+    public Integer getType() {
+        return Type;
+    }
+
+    public void setType(Integer type) {
+        Type = type;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }

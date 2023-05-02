@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class SaveInfo {
     private String SaveID;
+    private Integer Type;
+    private String Name;
     private Integer MainPreference;
     private String MainUse;
     private String PreservationFacility;
@@ -188,5 +190,21 @@ public class SaveInfo {
 
     public void setSaveYear(Integer saveYear) {
         SaveYear = saveYear;
+    }
+
+    public Integer getType() {
+        return Type;
+    }
+
+    public void setType(Integer type) {
+        Type = type;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }

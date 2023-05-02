@@ -37,6 +37,8 @@
 
     <resultMap id="shareMap" type="com.example.foodtrace.entity.ShareInfo">
         <id column="ShareID" property="ShareID"/>
+        <result column="Type" property="Type"/>
+        <result column="Name" property="Name"/>
         <result column="ShareObj" property="ShareObj"/>
         <result column="ContactInfo" property="ContactInfo"/>
         <result column="ShareMode" property="ShareMode"/>
@@ -57,6 +59,8 @@
 
     <select id="queryShareInfosByPage" resultMap="shareMap">
         select a.*,
+               b.Type,
+               b.Name,
                b.Status,
                b.Iscontradict,
                b.IsLoaded

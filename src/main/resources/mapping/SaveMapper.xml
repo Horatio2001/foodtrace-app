@@ -50,6 +50,8 @@
 
     <resultMap id="saveMap" type="com.example.foodtrace.entity.SaveInfo">
         <id column="SaveID" property="SaveID"/>
+        <result column="Type" property="Type"/>
+        <result column="Name" property="Name"/>
         <result column="MainPreference" property="MainPreference"/>
         <result column="MainUse" property="MainUse"/>
         <result column="PreservationFacility" property="PreservationFacility"/>
@@ -77,6 +79,8 @@
 
     <select id="querySaveInfosByPage" resultMap="saveMap">
         select a.*,
+               b.Type,
+               b.Name,
                b.Status,
                b.IsContradict,
                b.IsLoaded

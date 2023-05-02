@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class EnterInfo {
     private String EnterID;
+    private Integer Type;
+    private String Name;
     private String Certifier;
     private String CertifyOrg;
     private String CertifyPlace;
@@ -114,5 +116,21 @@ public class EnterInfo {
 
     public void setEnterYear(Integer enterYear) {
         EnterYear = enterYear;
+    }
+
+    public Integer getType() {
+        return Type;
+    }
+
+    public void setType(Integer type) {
+        Type = type;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }
