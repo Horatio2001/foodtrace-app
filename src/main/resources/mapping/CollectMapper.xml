@@ -121,8 +121,16 @@
     </select>
 
     <select id="queryInfosByPage" resultMap="collectMap">
-        select *
-        from CollectInfo limit #{pageNum} ,10
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status
+        FROM CollectInfo as a,
+             FruitInfo as b
+        where a.CollectID = b.ID
+        ORDER BY field(Status,3,2,1,0) , field(IsLoaded, 1, 0), field(IsContradict, 0, 1)
+            limit
+                 #{pageNum}, #{pageIdx}
     </select>
 
     <select id="queryDocumentedInfosByPage" resultMap="collectMap">

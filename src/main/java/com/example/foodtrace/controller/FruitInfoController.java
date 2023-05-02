@@ -1162,13 +1162,15 @@ public class FruitInfoController {
     }
 
     @ApiOperation(value = "根据page查询信息")
-    @GetMapping("Info/QueryInfoByPage/{pageNum}")
+    @GetMapping("Info/QueryInfoByPage/{pageNum}/{pageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true),
+            @ApiImplicitParam(name = "pageIdx", value = "每页多少个", required = true)
+
     })
-    public Map<String, Object> queryInfoByPage(@PathVariable int pageNum) {
+    public Map<String, Object> queryInfoByPage(@PathVariable int pageNum, @PathVariable int pageIdx) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryInfosByPage(pageNum));
+        ret.put("data", collectService.queryInfosByPage(pageNum, pageIdx));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
@@ -1178,7 +1180,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryInfoByFirstPage")
     public Map<String, Object> queryInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryInfosByPage(1));
+        ret.put("data", collectService.queryInfosByPage(1, 10));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;

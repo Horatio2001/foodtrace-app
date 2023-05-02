@@ -41,9 +41,9 @@ public class CollectService {
         return collectDao.queryCollectInfo(fruitInfoID);
     }
 
-    public List<CollectInfo> queryInfosByPage(int pageNum) {
-        int index = (pageNum - 1) * 10;
-        return collectDao.queryInfosByPage(index);
+    public List<CollectInfo> queryInfosByPage(int pageNum, int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return collectDao.queryInfosByPage(index, pageIdx);
     }
 
     public List<CollectInfo> queryDocumentedInfosByPage(int pageNum,int pageIdx) {
