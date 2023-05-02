@@ -202,7 +202,7 @@ public class FruitInfoController {
                 , Image == null ? "\"\"" : "\"" + Image + "\"", CollectRemark == null ? "\"\"" : "\"" + CollectRemark + "\""
         };
         try {
-            fruitInfoService.createFruitInfo(CollectID);
+            fruitInfoService.createFruitInfo(CollectID, Type, Name);
             collectService.addCollectInfo(collectInfo);
             ret.put("data", chainCodeService.CreateFruitInfo(CollectID, args));
             ret.put("code", 200);

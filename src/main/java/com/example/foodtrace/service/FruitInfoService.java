@@ -11,8 +11,8 @@ public class FruitInfoService {
     @Autowired
     private FruitInfoDao fruitInfoDao;
 
-    public void createFruitInfo(String fruitInfoID) {
-        fruitInfoDao.createFruitInfo(fruitInfoID);
+    public void createFruitInfo(String fruitInfoID, int fruitInfoType, String fruitInfoName) {
+        fruitInfoDao.createFruitInfo(fruitInfoID, fruitInfoType, fruitInfoName);
     }
 
     public void deleteFruitInfo(String fruitInfoID) {

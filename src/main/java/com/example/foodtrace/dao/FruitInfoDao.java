@@ -17,7 +17,7 @@ import java.sql.SQLException;
 @Repository
 @Mapper
 public interface FruitInfoDao {
-    int createFruitInfo(@Param("fruitInfoID") String fruitInfoID);
+    int createFruitInfo(@Param("fruitInfoID") String fruitInfoID, @Param("fruitInfoType") int fruitInfoType, @Param("fruitInfoName") String fruitInfoName);
 
     Integer deleteFruitInfo(@Param("fruitInfoID") String fruitInfoID);
 

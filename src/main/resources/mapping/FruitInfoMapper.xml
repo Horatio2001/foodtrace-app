@@ -3,8 +3,10 @@
 <mapper namespace="com.example.foodtrace.dao.FruitInfoDao">
     <insert id="createFruitInfo">
         insert
-        ignore into FruitInfo(ID, Status, IsContradict, Isdeleted, IsLoaded) VALUES (
+        ignore into FruitInfo(ID, Type, Name, Status, IsContradict, Isdeleted, IsLoaded) VALUES (
         #{fruitInfoID},
+        #{fruitInfoType},
+        #{fruitInfoName},
         0,
         0,
         0,
@@ -14,6 +16,8 @@
 
     <resultMap id="statusMap" type="com.example.foodtrace.entity.FruitInfo">
         <id column="ID" property="ID"/>
+        <result column="Type" property="Type"/>
+        <result column="Name" property="Name"/>
         <result column="Status" property="Status"/>
         <result column="IsContradict" property="IsContradict"/>
         <result column="IsLoaded" property="IsLoaded"/>

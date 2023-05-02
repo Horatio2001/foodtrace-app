@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 public class FruitInfo {
     private String ID;
+    private Integer Type;
+    private String Name;
     private int Status;
     private int IsContradict;
     private int IsDeleted;
@@ -93,5 +95,21 @@ public class FruitInfo {
 
     public void setShareInfo(ShareInfo shareInfo) {
         this.shareInfo = shareInfo;
+    }
+
+    public Integer getType() {
+        return Type;
+    }
+
+    public void setType(Integer type) {
+        Type = type;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
     }
 }
