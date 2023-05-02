@@ -178,5 +178,9 @@ public class BlockService {
         return chaincodesDao.queryChaincodesByPage(index, pageIdx);
     }
 
+    public void updateTxByOrg() {
+        blockDao.updateTxByOrg();
+    }
+
     //todo: add date
 }

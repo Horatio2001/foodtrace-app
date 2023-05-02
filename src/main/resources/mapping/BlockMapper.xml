@@ -10,4 +10,10 @@
         select *
         from OrgTable
     </select>
+
+    <update id="updateTxByOrg">
+        update OrgTable
+        set transactions = transactions + 1
+        where Name = 'org0-foodtrace-com'
+    </update>
 </mapper>

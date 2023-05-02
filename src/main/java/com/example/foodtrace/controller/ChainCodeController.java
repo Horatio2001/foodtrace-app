@@ -2,6 +2,7 @@ package com.example.foodtrace.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.example.foodtrace.service.BlockService;
 import com.example.foodtrace.service.ChainCodeService;
 import com.example.foodtrace.service.FruitInfoService;
 import io.swagger.annotations.Api;
@@ -27,6 +28,8 @@ public class ChainCodeController {
     private ChainCodeService chainCodeService;
     @Autowired
     private FruitInfoService fruitInfoService;
+    @Autowired
+    private BlockService blockService;
 
     @ApiOperation(value = "创建水果信息")
     @PostMapping("/CreateFruitInfo")
@@ -44,6 +47,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -61,6 +65,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -80,6 +85,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -99,6 +105,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -116,6 +123,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -135,6 +143,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -154,6 +163,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -171,6 +181,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -190,6 +201,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -209,6 +221,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -226,6 +239,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -245,6 +259,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -265,6 +280,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -282,6 +298,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -301,6 +318,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -318,6 +336,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -336,6 +355,7 @@ public class ChainCodeController {
             ret.put("data", "你无法删除已经存证的信息！");
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -353,6 +373,7 @@ public class ChainCodeController {
             e.printStackTrace();
             ret.put("code", -200);
         }
+        blockService.updateTxByOrg();
         return ret;
     }
 }

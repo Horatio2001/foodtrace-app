@@ -12,4 +12,5 @@ import java.util.Map;
 @Mapper
 public interface BlockDao {
     List<Organization> getTxByOrg();
+    void updateTxByOrg();
 }
