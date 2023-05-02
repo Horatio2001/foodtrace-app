@@ -37,22 +37,19 @@
 
     <update id="refuseSave">
         update FruitInfo
-        set IsContradict = 1,
-            Status       = 0
+        set IsContradict = 1
         where ID = #{fruitInfoID}
     </update>
 
     <update id="refuseEnter">
         update FruitInfo
-        set IsContradict = 1,
-            Status       = 1
+        set IsContradict = 1
         where ID = #{fruitInfoID}
     </update>
 
     <update id="refuseShare">
         update FruitInfo
-        set IsContradict = 1,
-            Status       = 2
+        set IsContradict = 1
         where ID = #{fruitInfoID}
     </update>
 
