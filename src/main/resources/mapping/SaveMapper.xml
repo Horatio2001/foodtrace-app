@@ -72,9 +72,15 @@
     </resultMap>
 
     <select id="querySaveInfo" resultMap="saveMap">
-        select *
-        from SaveInfo
-        where SaveID = #{fruitInfoID}
+        select a.*,
+               b.Type,
+               b.Name,
+               b.Status,
+               b.IsContradict,
+               b.IsLoaded
+        from SaveInfo as a,
+             FruitInfo as b
+        where SaveID = #{fruitInfoID} &amp;&amp; a.SaveID = b.ID
     </select>
 
     <select id="querySaveInfosByPage" resultMap="saveMap">

@@ -47,9 +47,15 @@
     </resultMap>
 
     <select id="queryEnterInfo" resultMap="enterMap">
-        select *
-        from EnterInfo
-        where EnterID = #{fruitInfoID}
+        select a.*,
+               b.Type,
+               b.Name,
+               b.Status,
+               b.IsContradict,
+               b.IsLoaded
+        from EnterInfo as a,
+             FruitInfo as b
+        where EnterID = #{fruitInfoID} &amp;&amp; a.EnterID = b.ID
     </select>
 
     <select id="queryEnterInfosByPage" resultMap="enterMap">

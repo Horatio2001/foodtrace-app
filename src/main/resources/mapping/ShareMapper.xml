@@ -52,9 +52,15 @@
     </resultMap>
 
     <select id="queryShareInfo" resultMap="shareMap">
-        select *
-        from ShareInfo
-        where ShareID = #{fruitInfoID}
+        select a.*,
+               b.Type,
+               b.Name,
+               b.Status,
+               b.IsContradict,
+               b.IsLoaded
+        from ShareInfo as a,
+             FruitInfo as b
+        where ShareID = #{fruitInfoID} &amp;&amp; a.ShareID = b.ID
     </select>
 
     <select id="queryShareInfosByPage" resultMap="shareMap">
