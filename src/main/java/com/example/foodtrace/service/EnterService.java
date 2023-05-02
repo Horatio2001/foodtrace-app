@@ -30,9 +30,9 @@ public class EnterService {
         return enterDao.queryEnterInfo(fruitInfoID);
     }
 
-    public List<EnterInfo> queryEnterInfosByPage(int pageNum) {
-        int index = (pageNum - 1) * 10;
-        return enterDao.queryEnterInfosByPage(index);
+    public List<EnterInfo> queryEnterInfosByPage(int pageNum, int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return enterDao.queryEnterInfosByPage(index, pageIdx);
     }
 
     public int enterCount() {

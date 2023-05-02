@@ -143,7 +143,7 @@
         FROM CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID
-        ORDER BY IF(b.status = 0, 0, 1), a.CollectID ASC
+        ORDER BY IF(b.status = 0, 0, 1), a.CollectID DESC
         limit
         #{pageNum}, #{pageIdx}
     </select>

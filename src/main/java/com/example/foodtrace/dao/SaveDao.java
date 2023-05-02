@@ -20,7 +20,7 @@ public interface SaveDao {
 
     SaveInfo querySaveInfo(@Param("fruitInfoID") String fruitInfoID);
 
-    List<SaveInfo> querySaveInfosByPage(@Param("pageNum") int pageNum);
+    List<SaveInfo> querySaveInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
     int saveCount();
 

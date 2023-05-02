@@ -39,21 +39,27 @@
         <result column="CertifyYear" property="CertifyYear"/>
         <result column="OperationRange" property="OperationRange"/>
         <result column="EnterRemark" property="EnterRemark"/>
+        <result column="IsLoaded" property="IsLoaded"/>
+        <result column="IsContradict" property="IsContradict"/>
+        <result column="Status" property="Status"/>
     </resultMap>
 
     <select id="queryEnterInfo" resultMap="enterMap">
-        select EnterID, Certifier, CertifyOrg, CertifyPlace, CertifyYear, OperationRange, EnterRemark
+        select *
         from EnterInfo
         where EnterID = #{fruitInfoID}
     </select>
 
     <select id="queryEnterInfosByPage" resultMap="enterMap">
-        select a.Certifier, a.CertifyOrg, a.CertifyPlace, a.CertifyYear, a.OperationRange, a.EnterRemark
+        select a.*,
+               b.Status,
+               b.IsContradict,
+               b.IsLoaded
         FROM EnterInfo as a,
              FruitInfo as b
         where a.EnterID = b.ID
-        ORDER BY IF(b.status = 2, 0, 1), a.EnterID ASC
-            limit #{pageNum}, 10
+        ORDER BY IF(b.status = 2, 0, 1), a.EnterID DESC
+            limit #{pageNum}, #{pageIdx}
     </select>
 
     <select id="enterCount" resultType="int">

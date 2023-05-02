@@ -44,28 +44,27 @@
         <result column="ShareNum" property="ShareNum"/>
         <result column="ShareBeginTime" property="ShareBeginTime"/>
         <result column="ShareEndTime" property="ShareEndTime"/>
+        <result column="IsLoaded" property="IsLoaded"/>
+        <result column="IsContradict" property="IsContradict"/>
+        <result column="Status" property="Status"/>
     </resultMap>
 
     <select id="queryShareInfo" resultMap="shareMap">
-        select ShareID, ShareObj, ContactInfo, ShareMode, ShareUse, ShareNum , ShareBeginTime, ShareEndTime
+        select *
         from ShareInfo
         where ShareID = #{fruitInfoID}
     </select>
 
     <select id="queryShareInfosByPage" resultMap="shareMap">
-        select a.ShareID,
-               a.ShareObj,
-               a.ContactInfo,
-               a.ShareMode,
-               a.ShareUse,
-               a.ShareNum,
-               a.ShareBeginTime,
-               a.ShareEndTime
+        select a.*,
+               b.Status,
+               b.Iscontradict,
+               b.IsLoaded
         FROM ShareInfo as a,
              FruitInfo as b
         where a.ShareID = b.ID
-        ORDER BY IF(b.status = 3, 0, 1), a.ShareID ASC
-            limit #{pageNum}, 10
+        ORDER BY IF(b.status = 3, 0, 1), a.ShareID DESC
+            limit #{pageNum}, #{pageIdx}
     </select>
 
     <select id="shareCount" resultType="int">

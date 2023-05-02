@@ -19,7 +19,7 @@ public interface EnterDao {
 
     EnterInfo queryEnterInfo(@Param("fruitInfoID") String fruitInfoID);
 
-    List<EnterInfo> queryEnterInfosByPage(@Param("pageNum") int pageNum);
+    List<EnterInfo> queryEnterInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
     int enterCount();
 

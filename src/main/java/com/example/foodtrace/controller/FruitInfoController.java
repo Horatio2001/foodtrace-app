@@ -1233,13 +1233,15 @@ public class FruitInfoController {
     }
 
     @ApiOperation(value = "根据page查询保存信息")
-    @GetMapping("Info/QuerySaveInfosByPage/{pageNum}")
+    @GetMapping("Info/QuerySaveInfosByPage/{pageNum}/{pageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true),
+            @ApiImplicitParam(name = "pageIdx", value = "每页多少个", required = true)
+
     })
-    public Map<String, Object> querySaveInfosByPage(@PathVariable int pageNum) {
+    public Map<String, Object> querySaveInfosByPage(@PathVariable int pageNum, @PathVariable int pageIdx) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", saveService.querySaveInfosByPage(pageNum));
+        ret.put("data", saveService.querySaveInfosByPage(pageNum, pageIdx));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
@@ -1249,20 +1251,22 @@ public class FruitInfoController {
     @GetMapping("Info/QuerySaveInfosByFirstPage")
     public Map<String, Object> querySaveInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", saveService.querySaveInfosByPage(1));
+        ret.put("data", saveService.querySaveInfosByPage(1, 10));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
 
     @ApiOperation(value = "根据page查询录入信息")
-    @GetMapping("Info/QueryEnterInfosByPage/{pageNum}")
+    @GetMapping("Info/QueryEnterInfosByPage/{pageNum}/{pageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true),
+            @ApiImplicitParam(name = "pageIdx", value = "每页多少个", required = true)
+
     })
-    public Map<String, Object> queryEnterInfosByPage(@PathVariable int pageNum) {
+    public Map<String, Object> queryEnterInfosByPage(@PathVariable int pageNum, @PathVariable int pageIdx) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", enterService.queryEnterInfosByPage(pageNum));
+        ret.put("data", enterService.queryEnterInfosByPage(pageNum, pageIdx));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
@@ -1272,20 +1276,22 @@ public class FruitInfoController {
     @GetMapping("Info/QueryEnterInfosByPage")
     public Map<String, Object> queryEnterInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", enterService.queryEnterInfosByPage(1));
+        ret.put("data", enterService.queryEnterInfosByPage(1, 10));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
     }
 
     @ApiOperation(value = "根据page查询分享信息")
-    @GetMapping("Info/QueryShareInfosByPage/{pageNum}")
+    @GetMapping("Info/QueryShareInfosByPage/{pageNum}/{pageIdx}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true)
+            @ApiImplicitParam(name = "pageNum", value = "pageNum", required = true),
+            @ApiImplicitParam(name = "pageIdx", value = "每页多少个", required = true)
+
     })
-    public Map<String, Object> queryShareInfosByPage(@PathVariable int pageNum) {
+    public Map<String, Object> queryShareInfosByPage(@PathVariable int pageNum, @PathVariable int pageIdx) {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", shareService.queryShareInfosByPage(pageNum));
+        ret.put("data", shareService.queryShareInfosByPage(pageNum, pageIdx));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
@@ -1295,7 +1301,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryShareInfosByFirstPage")
     public Map<String, Object> queryShareInfosByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", shareService.queryShareInfosByPage(1));
+        ret.put("data", shareService.queryShareInfosByPage(1, 10));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;

@@ -64,48 +64,27 @@
         <result column="ResourceDescription" property="ResourceDescription"/>
         <result column="ResourceRemark" property="ResourceRemark"/>
         <result column="GermplasmImage" property="GermplasmImage"/>
+        <result column="IsLoaded" property="IsLoaded"/>
+        <result column="IsContradict" property="IsContradict"/>
+        <result column="Status" property="Status"/>
     </resultMap>
 
     <select id="querySaveInfo" resultMap="saveMap">
-        select SaveID
-             , MainPreference
-             , MainUse
-             , PreservationFacility
-             , GermplasmType
-             , SaveQuantity
-             , MeasuringUnit
-             , SaveUnit
-             , SaveVault
-             , SavePlace
-             , WarehousingYear
-             , SaveProperty
-             , ResourceDescription
-             , ResourceRemark
-             , GermplasmImage
+        select *
         from SaveInfo
         where SaveID = #{fruitInfoID}
     </select>
 
     <select id="querySaveInfosByPage" resultMap="saveMap">
-        select a.MainPreference
-             , a.MainUse
-             , a.PreservationFacility
-             , a.GermplasmType
-             , a.SaveQuantity
-             , a.MeasuringUnit
-             , a.SaveUnit
-             , a.SaveVault
-             , a.SavePlace
-             , a.WarehousingYear
-             , a.SaveProperty
-             , a.ResourceDescription
-             , a.ResourceRemark
-             , a.GermplasmImage
+        select a.*,
+               b.Status,
+               b.IsContradict,
+               b.IsLoaded
         FROM SaveInfo as a,
              FruitInfo as b
         where a.SaveID = b.ID
-        ORDER BY IF(b.status = 1, 0, 1), a.SaveID ASC
-            limit #{pageNum}, 10
+        ORDER BY IF(b.status = 1, 0, 1), a.SaveID DESC
+            limit #{pageNum}, #{pageIdx}
     </select>
 
     <select id="saveCount" resultType="int">

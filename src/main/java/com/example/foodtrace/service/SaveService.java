@@ -29,9 +29,9 @@ public class SaveService {
         return saveDao.querySaveInfo(fruitInfoID);
     }
 
-    public List<SaveInfo> querySaveInfosByPage(int pageNum) {
-        int index = (pageNum - 1) * 10;
-        return saveDao.querySaveInfosByPage(index);
+    public List<SaveInfo> querySaveInfosByPage(int pageNum , int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return saveDao.querySaveInfosByPage(index, pageIdx);
     }
 
     public int saveCount() {

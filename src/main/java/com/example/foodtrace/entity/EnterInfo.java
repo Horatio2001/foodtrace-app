@@ -15,11 +15,34 @@ public class EnterInfo {
     private String OperationRange;
     private String EnterRemark;
     private String EnterHash;
-
     private Integer EnterYear;
-
+    private int IsLoaded;
+    private int IsContradict;
+    private int Status;
     private Map<String, Timestamp> EnterTransactions;
+    public int getIsLoaded() {
+        return IsLoaded;
+    }
 
+    public void setIsLoaded(int isLoaded) {
+        IsLoaded = isLoaded;
+    }
+
+    public int getIsContradict() {
+        return IsContradict;
+    }
+
+    public void setIsContradict(int isContradict) {
+        IsContradict = isContradict;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
+    }
 
     public String getEnterID() {
         return EnterID;

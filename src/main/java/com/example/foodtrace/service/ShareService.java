@@ -28,9 +28,9 @@ public class ShareService {
         return shareDao.queryShareInfo(fruitInfoID);
     }
 
-    public List<ShareInfo> queryShareInfosByPage(int pageNum) {
-        int index = (pageNum - 1) * 10;
-        return shareDao.queryShareInfosByPage(index);
+    public List<ShareInfo> queryShareInfosByPage(int pageNum, int pageIdx) {
+        int index = (pageNum - 1) * pageIdx;
+        return shareDao.queryShareInfosByPage(index, pageIdx);
     }
 
     public int shareCount() {

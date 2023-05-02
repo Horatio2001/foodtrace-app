@@ -24,7 +24,35 @@ public class SaveInfo {
     private String GermplasmImage;
     private String SaveHash;
     private Integer SaveYear;
+
+    private int IsLoaded;
+    private int IsContradict;
+    private int Status;
     private Map<String, Timestamp> SaveTransactions;
+
+    public int getIsLoaded() {
+        return IsLoaded;
+    }
+
+    public void setIsLoaded(int isLoaded) {
+        IsLoaded = isLoaded;
+    }
+
+    public int getIsContradict() {
+        return IsContradict;
+    }
+
+    public void setIsContradict(int isContradict) {
+        IsContradict = isContradict;
+    }
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int status) {
+        Status = status;
+    }
 
     public String getSaveID() {
         return SaveID;
