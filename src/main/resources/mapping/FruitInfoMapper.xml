@@ -73,6 +73,12 @@
         where ID = #{fruitInfoID}
     </update>
 
+    <update id="certify">
+        update FruitInfo
+        set IsCertified = 1
+        where ID = #{fruitInfoID}
+    </update>
+
     <select id="fruitCount" resultType="int">
         select COUNT(*)
         from FruitInfo

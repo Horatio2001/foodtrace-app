@@ -1034,6 +1034,7 @@ public class FruitInfoController {
         certificate.setCollectUnit(collectInfo.getCollectUnit());
         certificate.setMainUse(saveInfo.getMainUse());
         certificate.setResourceRemark(saveInfo.getResourceRemark());
+        fruitInfoService.certify(fruitInfoID);
 
 //        MyBlockInfo myBlockInfo = chainCodeService.ReadFruitInfo(fruitInfoID)
         certificateService.generateCertificate(certificate);

@@ -51,4 +51,8 @@ public class FruitInfoService {
         return fruitInfoDao.fruitCount();
     }
 
+    public void certify(String fruitInfoID) {
+        fruitInfoDao.certify(fruitInfoID);
+    }
+
 }
