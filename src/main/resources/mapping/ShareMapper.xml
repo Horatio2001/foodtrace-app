@@ -73,7 +73,7 @@
         FROM ShareInfo as a,
              FruitInfo as b
         where a.ShareID = b.ID
-        ORDER BY IF(b.status = 3, 0, 1), a.ShareID DESC
+        ORDER BY field(Status,0,1,2,3) , field(IsContradict, 0, 1) , field(IsLoaded, 0, 1)
             limit #{pageNum}, #{pageIdx}
     </select>
 

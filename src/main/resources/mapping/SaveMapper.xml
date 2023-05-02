@@ -93,7 +93,7 @@
         FROM SaveInfo as a,
              FruitInfo as b
         where a.SaveID = b.ID
-        ORDER BY IF(b.status = 1, 0, 1), a.SaveID DESC
+        ORDER BY field(Status,0,1,2,3) , field(IsContradict, 0, 1) , field(IsLoaded, 0, 1)
             limit #{pageNum}, #{pageIdx}
     </select>
 
