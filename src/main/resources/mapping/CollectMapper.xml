@@ -124,7 +124,8 @@
         select a.*,
                b.IsLoaded,
                b.IsContradict,
-               b.Status
+               b.Status,
+               b.IsCertified
         FROM CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID
