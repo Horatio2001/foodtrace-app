@@ -42,12 +42,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.CreateFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -60,12 +61,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.RejectCreate(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -80,12 +82,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ModifyCreateFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -100,12 +103,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.SaveFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -118,12 +122,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.RejectSave(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -138,12 +143,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ModifySaveFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -158,12 +164,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.EnterFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -176,12 +183,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.RejectEnter(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -196,12 +204,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ModifyEnterFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -216,12 +225,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ShareFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -234,12 +244,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.RejectShare(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -254,12 +265,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ModifyShareFruitInfo(fruitInfoID, args));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -274,13 +286,14 @@ public class ChainCodeController {
         try {
             String[] loadConfig = chainCodeService.LoadFruitInfo(fruitInfoID);
             ret.put("data", loadConfig[0]);
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
             fruitInfoService.loadInfo(fruitInfoID, loadConfig[1]);
         } catch (ContractException | TimeoutException | InterruptedException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -293,12 +306,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ReadFruitInfo(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -313,12 +327,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ReadFruitInfoByRange(fruitInfoStartID, fruitInfoEndID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -331,12 +346,13 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.ReadFruitInfoHistory(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -349,13 +365,14 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.DeleteFruitInfo(fruitInfoID));
+            blockService.updateTxByOrg();
+
             ret.put("code", 200);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
             ret.put("data", "你无法删除已经存证的信息！");
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 
@@ -368,12 +385,12 @@ public class ChainCodeController {
         JSONObject ret = new JSONObject();
         try {
             ret.put("data", chainCodeService.DeleteFruitInfoByAdmin(fruitInfoID));
+            blockService.updateTxByOrg();
             ret.put("code", 200);
         } catch (ContractException | InterruptedException | TimeoutException e) {
             e.printStackTrace();
             ret.put("code", -200);
         }
-        blockService.updateTxByOrg();
         return ret;
     }
 }
