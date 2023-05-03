@@ -1071,7 +1071,7 @@ public class FruitInfoController {
         Map<String, Object> ret = new HashMap<>();
         Certificate certificate = certificateService.queryCertificateByHash(hash);
         if (certificate == null) {
-            ret.put("code", "200");
+            ret.put("code", 200);
             ret.put("data", 200);
             ret.put("description", "证书不存在");
             return ret;
