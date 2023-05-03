@@ -16,4 +16,8 @@ public class CertificateService {
     public Certificate queryCertificate(String fruitInfoID) {
         return certificateDao.queryCertificate(fruitInfoID);
     }
+
+    public Certificate queryCertificateByHash(String hash) {
+        return certificateDao.queryCertificateByHash(hash);
+    }
 }

@@ -1062,6 +1062,26 @@ public class FruitInfoController {
         return ret;
     }
 
+    @ApiOperation(value = "根据哈希查询证书")
+    @GetMapping("Info/queryCertificateByHash/{hash}")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "hash", value = "交易哈希", required = true)
+    })
+    public Map<String, Object> queryCertificateByHash(@PathVariable String hash) {
+        Map<String, Object> ret = new HashMap<>();
+        Certificate certificate = certificateService.queryCertificateByHash(hash);
+        if (certificate == null) {
+            ret.put("code", "200");
+            ret.put("data", 200);
+            ret.put("description", "证书不存在");
+            return ret;
+        }
+        ret.put("data", certificate);
+        ret.put("code", 200);
+        ret.put("description", "查询成功");
+        return ret;
+    }
+
     @ApiOperation(value = "根据id查询信息")
     @GetMapping("Info/QueryInfoByID/{fruitInfoID}")
     @ApiImplicitParams({

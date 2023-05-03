@@ -13,4 +13,5 @@ public interface CertificateDao {
 
     Certificate queryCertificate(@Param("fruitInfoID") String fruitInfoID);
 
+    Certificate queryCertificateByHash(@Param("hash") String hash);
 }

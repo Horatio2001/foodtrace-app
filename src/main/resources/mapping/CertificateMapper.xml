@@ -29,4 +29,10 @@
         from Certificate
         where ID = #{fruitInfoID}
     </select>
+
+    <select id="queryCertificateByHash" resultMap="certificateMap">
+        select *
+        from Certificate
+        where Hash = #{hash}
+    </select>
 </mapper>
