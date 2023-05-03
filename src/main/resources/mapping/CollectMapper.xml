@@ -144,9 +144,14 @@
     </select>
 
     <select id="queryDocumentedInfosByPage" resultMap="collectMap">
-        select *
-        from CollectInfo
-        where CollectID in (select ID
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status,
+               b.IsCertified
+        from CollectInfo as a,
+             FruitInfo as b
+        where a.CollectID = b.ID &amp;&amp; CollectID in (select ID
                             from FruitInfo
                             where IsLoaded = 1)
             limit #{pageNum}
