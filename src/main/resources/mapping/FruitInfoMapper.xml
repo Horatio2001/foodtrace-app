@@ -54,7 +54,7 @@
     </update>
 
     <select id="getStatus" resultMap="statusMap">
-        select ID, Status, IsContradict, IsLoaded, BlockHash
+        select *
         from FruitInfo
         where ID = #{fruitInfoID}
     </select>

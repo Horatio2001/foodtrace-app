@@ -117,8 +117,16 @@
     </resultMap>
 
     <select id="queryCollectInfo" resultMap="collectMap">
-        select *
-        from CollectInfo
+        select a.*,
+               b.Type,
+               b.Name,
+               b.Status,
+               b.IsContradict,
+               b.IsLoaded,
+               b.IsCertified
+
+        from CollectInfo as a,
+             FruitInfo as b
         where CollectID = #{fruitInfoID}
     </select>
 
