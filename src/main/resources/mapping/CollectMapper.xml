@@ -124,10 +124,9 @@
                b.IsContradict,
                b.IsLoaded,
                b.IsCertified
-
         from CollectInfo as a,
              FruitInfo as b
-        where CollectID = #{fruitInfoID}
+        where CollectID = #{fruitInfoID} &amp;&amp; a.CollectID = b.ID
     </select>
 
     <select id="queryInfosByPage" resultMap="collectMap">
