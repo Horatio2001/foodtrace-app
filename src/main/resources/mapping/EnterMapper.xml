@@ -43,6 +43,8 @@
         <result column="EnterRemark" property="EnterRemark"/>
         <result column="IsLoaded" property="IsLoaded"/>
         <result column="IsContradict" property="IsContradict"/>
+        <result column="IsCertified" property="IsCertified"/>
+
         <result column="Status" property="Status"/>
     </resultMap>
 
@@ -52,7 +54,9 @@
                b.Name,
                b.Status,
                b.IsContradict,
-               b.IsLoaded
+               b.IsLoaded,
+               b.IsCertified
+
         from EnterInfo as a,
              FruitInfo as b
         where EnterID = #{fruitInfoID} &amp;&amp; a.EnterID = b.ID
@@ -64,11 +68,13 @@
                b.Name,
                b.Status,
                b.IsContradict,
-               b.IsLoaded
+               b.IsLoaded,
+               b.IsCertified
+
         FROM EnterInfo as a,
              FruitInfo as b
         where a.EnterID = b.ID
-        ORDER BY field(Status,0,1,2,3) , field(IsContradict, 0, 1) , field(IsLoaded, 0, 1)
+        ORDER BY field(Status, 0, 1, 2, 3), field(IsContradict, 0, 1), field(IsLoaded, 0, 1)
             limit #{pageNum}, #{pageIdx}
     </select>
 

@@ -68,6 +68,8 @@
         <result column="GermplasmImage" property="GermplasmImage"/>
         <result column="IsLoaded" property="IsLoaded"/>
         <result column="IsContradict" property="IsContradict"/>
+        <result column="IsCertified" property="IsCertified"/>
+
         <result column="Status" property="Status"/>
     </resultMap>
 
@@ -77,7 +79,9 @@
                b.Name,
                b.Status,
                b.IsContradict,
-               b.IsLoaded
+               b.IsLoaded,
+               b.IsCertified
+
         from SaveInfo as a,
              FruitInfo as b
         where SaveID = #{fruitInfoID} &amp;&amp; a.SaveID = b.ID
@@ -89,7 +93,9 @@
                b.Name,
                b.Status,
                b.IsContradict,
-               b.IsLoaded
+               b.IsLoaded,
+               b.IsCertified
+
         FROM SaveInfo as a,
              FruitInfo as b
         where a.SaveID = b.ID

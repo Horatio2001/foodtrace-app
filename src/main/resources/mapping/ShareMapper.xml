@@ -48,6 +48,8 @@
         <result column="ShareEndTime" property="ShareEndTime"/>
         <result column="IsLoaded" property="IsLoaded"/>
         <result column="IsContradict" property="IsContradict"/>
+        <result column="IsCertified" property="IsCertified"/>
+
         <result column="Status" property="Status"/>
     </resultMap>
 
@@ -57,7 +59,9 @@
                b.Name,
                b.Status,
                b.IsContradict,
-               b.IsLoaded
+               b.IsLoaded,
+               b.IsCertified
+
         from ShareInfo as a,
              FruitInfo as b
         where ShareID = #{fruitInfoID} &amp;&amp; a.ShareID = b.ID
@@ -69,7 +73,9 @@
                b.Name,
                b.Status,
                b.Iscontradict,
-               b.IsLoaded
+               b.IsLoaded,
+               b.IsCertified
+
         FROM ShareInfo as a,
              FruitInfo as b
         where a.ShareID = b.ID

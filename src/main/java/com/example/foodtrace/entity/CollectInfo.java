@@ -41,6 +41,16 @@ public class CollectInfo {
     private int IsLoaded;
     private int IsContradict;
     private int Status;
+
+    private int IsCertified;
+
+    public int getIsCertified() {
+        return IsCertified;
+    }
+
+    public void setIsCertified(int isCertified) {
+        IsCertified = isCertified;
+    }
     public String getCollectID() {
         return CollectID;
     }

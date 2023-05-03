@@ -32,6 +32,16 @@ public class SaveInfo {
     private int Status;
     private Map<String, Timestamp> SaveTransactions;
 
+    private int IsCertified;
+
+    public int getIsCertified() {
+        return IsCertified;
+    }
+
+    public void setIsCertified(int isCertified) {
+        IsCertified = isCertified;
+    }
+
     public int getIsLoaded() {
         return IsLoaded;
     }

@@ -22,6 +22,17 @@ public class EnterInfo {
     private int IsContradict;
     private int Status;
     private Map<String, Timestamp> EnterTransactions;
+
+    private int IsCertified;
+
+    public int getIsCertified() {
+        return IsCertified;
+    }
+
+    public void setIsCertified(int isCertified) {
+        IsCertified = isCertified;
+    }
+
     public int getIsLoaded() {
         return IsLoaded;
     }

@@ -24,6 +24,16 @@ public class ShareInfo {
     private int Status;
     private Map<String, Timestamp> ShareTransactions;
 
+    private int IsCertified;
+
+    public int getIsCertified() {
+        return IsCertified;
+    }
+
+    public void setIsCertified(int isCertified) {
+        IsCertified = isCertified;
+    }
+
 
     public int getIsLoaded() {
         return IsLoaded;

@@ -110,6 +110,8 @@
         <result column="CollectRemark" property="CollectRemark"/>
         <result column="IsLoaded" property="IsLoaded"/>
         <result column="IsContradict" property="IsContradict"/>
+        <result column="IsCertified" property="IsCertified"/>
+
         <result column="Status" property="Status"/>
 
     </resultMap>
@@ -148,13 +150,14 @@
         select a.*,
                b.IsLoaded,
                b.IsContradict,
-               b.Status
+               b.Status,
+               b.IsCertified
+
         FROM CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID
-        ORDER BY field(Status,0,1,2,3) , field(IsContradict, 0, 1) , field(IsLoaded, 0, 1)
-        limit
-        #{pageNum}, #{pageIdx}
+        ORDER BY field(Status, 0, 1, 2, 3), field(IsContradict, 0, 1), field(IsLoaded, 0, 1)
+            limit #{pageNum}, #{pageIdx}
     </select>
 
     <select id="collectCount" resultType="int">
