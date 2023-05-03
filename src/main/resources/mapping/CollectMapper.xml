@@ -153,6 +153,14 @@
             , #{pageIdx}
     </select>
 
+    <select id="queryDocumentedInfosTotal" resultType="int">
+        select COUNT(*)
+        from CollectInfo
+        where CollectID in (select ID
+                            from FruitInfo
+                            where IsLoaded = 1)
+    </select>
+
     <select id="queryCollectInfosByPage" resultMap="collectMap">
         select a.*,
                b.IsLoaded,

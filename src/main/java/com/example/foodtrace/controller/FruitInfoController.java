@@ -1359,4 +1359,14 @@ public class FruitInfoController {
         ret.put("description", "查询成功");
         return ret;
     }
+
+    @ApiOperation(value = "查寻存证信息数量")
+    @GetMapping("Info/loadCount")
+    public Map<String, Object> loadCount() {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("data", collectService.queryDocumentedInfosTotal());
+        ret.put("code", 200);
+        ret.put("description", "查询成功");
+        return ret;
+    }
 }

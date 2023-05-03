@@ -59,4 +59,8 @@ public class CollectService {
     public int collectCount() {
         return collectDao.collectCount();
     }
+
+    public int queryDocumentedInfosTotal() {
+        return collectDao.queryDocumentedInfosTotal();
+    }
 }
