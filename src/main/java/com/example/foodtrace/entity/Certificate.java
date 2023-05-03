@@ -1,13 +1,14 @@
 package com.example.foodtrace.entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Certificate {
     private String ID;
     private String Name;
     private String Hash;
     private String CollectUnit;
-    private Timestamp CertifyTime;
+    private Date CertifyTime;
     private String MainUse;
     private String ResourceRemark;
 
@@ -43,11 +44,11 @@ public class Certificate {
         CollectUnit = collectUnit;
     }
 
-    public Timestamp getCertifyTime() {
+    public Date getCertifyTime() {
         return CertifyTime;
     }
 
-    public void setCertifyTime(Timestamp certifyTime) {
+    public void setCertifyTime(Date certifyTime) {
         CertifyTime = certifyTime;
     }
 

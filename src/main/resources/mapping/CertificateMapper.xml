@@ -19,12 +19,13 @@
         <result column="Name" property="Name"/>
         <result column="Hash" property="Hash"/>
         <result column="CollectUnit" property="CollectUnit"/>
+        <result column="CertifyTime" property="CertifyTime"/>
         <result column="MainUse" property="MainUse"/>
         <result column="ResourceRemark" property="ResourceRemark"/>
     </resultMap>
 
     <select id="queryCertificate" resultMap="certificateMap">
-        select ID, Name, Hash, CollectUnit, MainUse, ResourceRemark
+        select *
         from Certificate
         where ID = #{fruitInfoID}
     </select>
