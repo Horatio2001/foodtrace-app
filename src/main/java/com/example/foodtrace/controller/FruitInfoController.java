@@ -298,7 +298,7 @@ public class FruitInfoController {
             @ApiImplicitParam(name = "CollectUnit", value = "CollectUnit", required = true),
             @ApiImplicitParam(name = "CollectTime", value = "CollectTime"),
             @ApiImplicitParam(name = "SpeciesName", value = "SpeciesName"),
-            @ApiImplicitParam(name = "Image", value = "Image"),
+//            @ApiImplicitParam(name = "Image", value = "Image"),
             @ApiImplicitParam(name = "CollectRemark", value = "CollectRemark")
     })
     public Map<String, Object> modifyCollectInfoInSql(@RequestParam("CollectID") String CollectID,
@@ -326,8 +326,8 @@ public class FruitInfoController {
                                                       @RequestParam("CollectUnit") String CollectUnit,
                                                       @RequestParam(value = "CollectTime", required = false) String CollectTime,
                                                       @RequestParam(value = "SpeciesName", required = false) String SpeciesName,
-                                                      @RequestParam(value = "Image", required = false) String Image,
-                                                      @RequestParam(value = "CollectRemark", required = false) String CollectRemark) {
+                                                      @RequestPart(value = "Image", required = false) MultipartFile uploadFile,
+                                                      @RequestParam(value = "CollectRemark", required = false) String CollectRemark) throws IOException {
         Map<String, Object> ret = new HashMap<>();
         FruitInfo previousStatus = fruitInfoService.getStatus(CollectID);
         if (previousStatus.getIsLoaded() == 1) {
@@ -370,7 +370,25 @@ public class FruitInfoController {
         }
 
         collectInfo.setSpeciesName(SpeciesName);
-        collectInfo.setImage(Image);
+
+
+//        collectInfo.setImage(Image);
+        String Image;
+        String path = "/www/wwwroot/101.43.206.180";
+        File folder = new File(path);
+
+        if (uploadFile.isEmpty()) {
+            collectInfo.setImage("/defaultImage.png");
+            Image = "/defaultImage.png";
+        } else {
+            String oldName = uploadFile.getOriginalFilename();
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            uploadFile.transferTo(new File(folder, newName));
+            String picPath = '/' + newName;
+            collectInfo.setImage(picPath);
+            Image = newName;
+        }
+
         collectInfo.setCollectRemark(CollectRemark);
         String[] args = new String[]{CollectID == null ? "\"\"" : "\"" + CollectID + "\"", Type == null ? "\"\"" : "\"" + Type + "\""
                 , Name == null ? "\"\"" : "\"" + Name + "\"", GermplasmName == null ? "\"\"" : "\"" + GermplasmName + "\""
@@ -421,8 +439,8 @@ public class FruitInfoController {
             @ApiImplicitParam(name = "WarehousingYear", value = "WarehousingYear"),
             @ApiImplicitParam(name = "SaveProperty", value = "SaveProperty"),
             @ApiImplicitParam(name = "ResourceDescription", value = "ResourceDescription"),
-            @ApiImplicitParam(name = "ResourceMark", value = "ResourceMark"),
-            @ApiImplicitParam(name = "GermplasmImage", value = "GermplasmImage")
+            @ApiImplicitParam(name = "ResourceMark", value = "ResourceMark")
+//            @ApiImplicitParam(name = "GermplasmImage", value = "GermplasmImage")
     })
     public Map<String, Object> addSaveInfoInSql(@RequestParam("SaveID") String SaveID,
                                                 @RequestParam("MainPreference") Integer MainPreference,
@@ -438,7 +456,7 @@ public class FruitInfoController {
                                                 @RequestParam(value = "SaveProperty", required = false) String SaveProperty,
                                                 @RequestParam(value = "ResourceDescription", required = false) String ResourceDescription,
                                                 @RequestParam(value = "ResourceMark", required = false) String ResourceRemark,
-                                                @RequestParam(value = "GermplasmImage", required = false) String GermplasmImage) {
+                                                @RequestPart(value = "GermplasmImage", required = false) MultipartFile uploadFile) throws IOException {
         Map<String, Object> ret = new HashMap<>();
 
         FruitInfo previousStatus = fruitInfoService.getStatus(SaveID);
@@ -478,7 +496,25 @@ public class FruitInfoController {
         saveInfo.setSaveProperty(SaveProperty);
         saveInfo.setResourceDescription(ResourceDescription);
         saveInfo.setResourceRemark(ResourceRemark);
-        saveInfo.setGermplasmImage(GermplasmImage);
+
+
+//        saveInfo.setGermplasmImage(GermplasmImage);
+        String GermplasmImage;
+        String path = "/www/wwwroot/101.43.206.180";
+        File folder = new File(path);
+
+        if (uploadFile.isEmpty()) {
+            saveInfo.setGermplasmImage("/defaultImage.png");
+            GermplasmImage = "/defaultImage.png";
+        } else {
+            String oldName = uploadFile.getOriginalFilename();
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            uploadFile.transferTo(new File(folder, newName));
+            String picPath = '/' + newName;
+            saveInfo.setGermplasmImage(picPath);
+            GermplasmImage = newName;
+        }
+
         String[] args = new String[]{MainPreference == null ? "\"\"" : "\"" + MainPreference + "\""
                 , MainUse == null ? "\"\"" : "\"" + MainUse + "\""
                 , PreservationFacility == null ? "\"\"" : "\"" + PreservationFacility + "\""
@@ -560,8 +596,8 @@ public class FruitInfoController {
             @ApiImplicitParam(name = "WarehousingYear", value = "WarehousingYear"),
             @ApiImplicitParam(name = "SaveProperty", value = "SaveProperty"),
             @ApiImplicitParam(name = "ResourceDescription", value = "ResourceDescription"),
-            @ApiImplicitParam(name = "ResourceMark", value = "ResourceMark"),
-            @ApiImplicitParam(name = "GermplasmImage", value = "GermplasmImage"),
+            @ApiImplicitParam(name = "ResourceMark", value = "ResourceMark")
+//            @ApiImplicitParam(name = "GermplasmImage", value = "GermplasmImage"),
     })
     public Map<String, Object> modifySaveInfoInSql(@RequestParam("SaveID") String SaveID,
                                                    @RequestParam("MainPreference") Integer MainPreference,
@@ -577,7 +613,7 @@ public class FruitInfoController {
                                                    @RequestParam(value = "SaveProperty", required = false) String SaveProperty,
                                                    @RequestParam(value = "ResourceDescription", required = false) String ResourceDescription,
                                                    @RequestParam(value = "ResourceMark", required = false) String ResourceRemark,
-                                                   @RequestParam(value = "GermplasmImage", required = false) String GermplasmImage) {
+                                                   @RequestPart(value = "GermplasmImage", required = false) MultipartFile uploadFile) throws IOException {
         Map<String, Object> ret = new HashMap<>();
 
         FruitInfo previousStatus = fruitInfoService.getStatus(SaveID);
@@ -607,7 +643,23 @@ public class FruitInfoController {
         saveInfo.setSaveProperty(SaveProperty);
         saveInfo.setResourceDescription(ResourceDescription);
         saveInfo.setResourceRemark(ResourceRemark);
-        saveInfo.setGermplasmImage(GermplasmImage);
+//        saveInfo.setGermplasmImage(GermplasmImage);
+        String GermplasmImage;
+        String path = "/www/wwwroot/101.43.206.180";
+        File folder = new File(path);
+
+        if (uploadFile.isEmpty()) {
+            saveInfo.setGermplasmImage("/defaultImage.png");
+            GermplasmImage = "/defaultImage.png";
+        } else {
+            String oldName = uploadFile.getOriginalFilename();
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            uploadFile.transferTo(new File(folder, newName));
+            String picPath = '/' + newName;
+            saveInfo.setGermplasmImage(picPath);
+            GermplasmImage = newName;
+        }
+
         String[] args = new String[]{MainPreference == null ? "\"\"" : "\"" + MainPreference + "\""
                 , MainUse == null ? "\"\"" : "\"" + MainUse + "\""
                 , PreservationFacility == null ? "\"\"" : "\"" + PreservationFacility + "\""
