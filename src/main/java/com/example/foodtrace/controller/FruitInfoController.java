@@ -5,7 +5,10 @@ import com.example.foodtrace.entity.*;
 import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.service.*;
 import com.example.foodtrace.util.DateParser;
-import io.swagger.annotations.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.checkerframework.checker.units.qual.C;
 import org.hyperledger.fabric.gateway.ContractException;
 import org.hyperledger.fabric.sdk.BlockInfo;
@@ -13,14 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 @CrossOrigin
@@ -116,7 +116,7 @@ public class FruitInfoController {
             @ApiImplicitParam(name = "CollectUnit", value = "CollectUnit", required = true),
             @ApiImplicitParam(name = "CollectTime", value = "CollectTime"),
             @ApiImplicitParam(name = "SpeciesName", value = "SpeciesName"),
-//            @ApiImplicitParam(name = "Image", value = "Image"),
+            @ApiImplicitParam(name = "Image", value = "Image"),
             @ApiImplicitParam(name = "CollectRemark", value = "CollectRemark")
     })
     public Map<String, Object> addCollectInfoInSql(@RequestParam("CollectID") String CollectID,
@@ -146,8 +146,8 @@ public class FruitInfoController {
                                                    @RequestParam("CollectUnit") String CollectUnit,
                                                    @RequestParam(value = "CollectTime", required = false) String CollectTime,
                                                    @RequestParam(value = "SpeciesName", required = false) String SpeciesName,
-                                                   @ApiParam(value="选择图片")@RequestPart(value = "Image", required = false) MultipartFile uploadFile,
-                                                   @RequestParam(value = "CollectRemark", required = false) String CollectRemark) throws IOException {
+                                                   @RequestParam(value = "Image", required = false) String Image,
+                                                   @RequestParam(value = "CollectRemark", required = false) String CollectRemark) {
         Map<String, Object> ret = new HashMap<>();
         CollectInfo collectInfo = new CollectInfo();
         collectInfo.setCollectID(CollectID);
@@ -181,21 +181,7 @@ public class FruitInfoController {
         }
 
         collectInfo.setSpeciesName(SpeciesName);
-        String Image;
-        String path = "/infoPics";
-        File folder = new File(path);
-
-        if (uploadFile.isEmpty()) {
-            collectInfo.setImage("/defaultImage.png");
-            Image = "/defaultImage.png";
-        } else {
-            String oldName = uploadFile.getOriginalFilename();
-            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
-            uploadFile.transferTo(new File(folder, newName));
-            String picPath = '/' + newName;
-            collectInfo.setImage(picPath);
-            Image = newName;
-        }
+        collectInfo.setImage(Image);
 
         collectInfo.setCollectRemark(CollectRemark);
         String[] args = new String[]{CollectID == null ? "\"\"" : "\"" + CollectID + "\"", Type == null ? "\"\"" : "\"" + Type + "\""
@@ -816,9 +802,9 @@ public class FruitInfoController {
 
     })
     public Map<String, Object> addShareInfoInSql(@RequestParam("ShareID") String ShareID,
-                                                 @RequestParam(value = "ShareObj", required = false) String ShareObj,
+                                                 @RequestParam(value="ShareObj", required = false) String ShareObj,
                                                  @RequestParam("ContactInfo") String ContactInfo,
-                                                 @RequestParam(value = "ShareMode", required = false) Integer ShareMode,
+                                                 @RequestParam(value="ShareMode", required = false) Integer ShareMode,
                                                  @RequestParam("ShareUse") Integer ShareUse,
                                                  @RequestParam("ShareNum") Integer ShareNum,
                                                  @RequestParam("ShareBeginTime") String ShareBeginTime,
@@ -895,9 +881,9 @@ public class FruitInfoController {
 
     })
     public Map<String, Object> modifyShareInfoInSql(@RequestParam("ShareID") String ShareID,
-                                                    @RequestParam(value = "ShareObj", required = false) String ShareObj,
+                                                    @RequestParam(value="ShareObj", required = false) String ShareObj,
                                                     @RequestParam("ContactInfo") String ContactInfo,
-                                                    @RequestParam(value = "ShareMode", required = false) Integer ShareMode,
+                                                    @RequestParam(value="ShareMode", required = false) Integer ShareMode,
                                                     @RequestParam("ShareUse") Integer ShareUse,
                                                     @RequestParam("ShareNum") Integer ShareNum,
                                                     @RequestParam("ShareBeginTime") String ShareBeginTime,
@@ -1241,7 +1227,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryDocumentedInfoByFirstPage")
     public Map<String, Object> queryDocumentedInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryDocumentedInfosByPage(1, 10));
+        ret.put("data", collectService.queryDocumentedInfosByPage(1,10));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
