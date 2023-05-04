@@ -186,7 +186,7 @@ public class FruitInfoController {
         collectInfo.setSpeciesName(SpeciesName);
 //        collectInfo.setImage(Image);
         String Image;
-        String path = "/infoPics";
+        String path = "/www/wwwroot/101.43.206.180";
         File folder = new File(path);
 
         if (uploadFile.isEmpty()) {
