@@ -16,11 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.Year;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeoutException;
 
 @CrossOrigin
@@ -116,7 +119,7 @@ public class FruitInfoController {
             @ApiImplicitParam(name = "CollectUnit", value = "CollectUnit", required = true),
             @ApiImplicitParam(name = "CollectTime", value = "CollectTime"),
             @ApiImplicitParam(name = "SpeciesName", value = "SpeciesName"),
-            @ApiImplicitParam(name = "Image", value = "Image"),
+//            @ApiImplicitParam(name = "Image", value = "Image"),
             @ApiImplicitParam(name = "CollectRemark", value = "CollectRemark")
     })
     public Map<String, Object> addCollectInfoInSql(@RequestParam("CollectID") String CollectID,
@@ -146,8 +149,8 @@ public class FruitInfoController {
                                                    @RequestParam("CollectUnit") String CollectUnit,
                                                    @RequestParam(value = "CollectTime", required = false) String CollectTime,
                                                    @RequestParam(value = "SpeciesName", required = false) String SpeciesName,
-                                                   @RequestParam(value = "Image", required = false) String Image,
-                                                   @RequestParam(value = "CollectRemark", required = false) String CollectRemark) {
+                                                   @RequestPart(value = "Image", required = false) MultipartFile uploadFile,
+                                                   @RequestParam(value = "CollectRemark", required = false) String CollectRemark) throws IOException {
         Map<String, Object> ret = new HashMap<>();
         CollectInfo collectInfo = new CollectInfo();
         collectInfo.setCollectID(CollectID);
@@ -181,7 +184,22 @@ public class FruitInfoController {
         }
 
         collectInfo.setSpeciesName(SpeciesName);
-        collectInfo.setImage(Image);
+//        collectInfo.setImage(Image);
+        String Image;
+        String path = "/infoPics";
+        File folder = new File(path);
+
+        if (uploadFile.isEmpty()) {
+            collectInfo.setImage("/defaultImage.png");
+            Image = "/defaultImage.png";
+        } else {
+            String oldName = uploadFile.getOriginalFilename();
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            uploadFile.transferTo(new File(folder, newName));
+            String picPath = '/' + newName;
+            collectInfo.setImage(picPath);
+            Image = newName;
+        }
 
         collectInfo.setCollectRemark(CollectRemark);
         String[] args = new String[]{CollectID == null ? "\"\"" : "\"" + CollectID + "\"", Type == null ? "\"\"" : "\"" + Type + "\""
