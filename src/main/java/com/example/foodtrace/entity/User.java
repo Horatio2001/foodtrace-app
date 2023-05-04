@@ -5,6 +5,8 @@ public class User {
     private String Pwd;
     private String token;
 
+    private String avatarUrl;
+
     public String getID() {
         return ID;
     }
@@ -27,5 +29,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl;
     }
 }

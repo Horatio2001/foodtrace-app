@@ -5,6 +5,7 @@
         <id column="ID" property="ID"/>
         <result column="Pwd" property="Pwd"/>
         <result column="token" property="token"/>
+        <result column="avatarUrl" property="avatarUrl"/>
     </resultMap>
 
     <insert id="register">
@@ -24,6 +25,12 @@
 
     <select id="logIn" resultType="String">
         select Pwd
+        from UserTable
+        where ID = #{ID}
+    </select>
+
+    <select id="getUserInfo" resultMap="userMap">
+        select ID, avatarUrl
         from UserTable
         where ID = #{ID}
     </select>

@@ -1,6 +1,7 @@
 package com.example.foodtrace.service;
 
 import com.example.foodtrace.dao.UserDao;
+import com.example.foodtrace.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,5 +16,9 @@ public class UserService {
 
     public String logIn(String ID) {
         return userDao.logIn(ID);
+    }
+
+    public User getUserInfo(String ID) {
+        return userDao.getUserInfo(ID);
     }
 }

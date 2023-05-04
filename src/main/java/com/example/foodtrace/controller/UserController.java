@@ -71,4 +71,16 @@ public class UserController {
         return SaResult.ok();
     }
 
+    @ApiOperation(value = "获取用户信息")
+    @GetMapping("getUserInfo")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "ID", value = "ID", required = true)
+    })
+    public Map<String, Object> getUserInfo(String ID) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("data",userService.getUserInfo(ID));
+        ret.put("code",200);
+        return ret;
+    }
+
 }
