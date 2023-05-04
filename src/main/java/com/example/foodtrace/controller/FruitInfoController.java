@@ -5,10 +5,7 @@ import com.example.foodtrace.entity.*;
 import com.example.foodtrace.pojo.MyBlockInfo;
 import com.example.foodtrace.service.*;
 import com.example.foodtrace.util.DateParser;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.checkerframework.checker.units.qual.C;
 import org.hyperledger.fabric.gateway.ContractException;
 import org.hyperledger.fabric.sdk.BlockInfo;
@@ -298,7 +295,6 @@ public class FruitInfoController {
             @ApiImplicitParam(name = "CollectUnit", value = "CollectUnit", required = true),
             @ApiImplicitParam(name = "CollectTime", value = "CollectTime"),
             @ApiImplicitParam(name = "SpeciesName", value = "SpeciesName"),
-//            @ApiImplicitParam(name = "Image", value = "Image"),
             @ApiImplicitParam(name = "CollectRemark", value = "CollectRemark")
     })
     public Map<String, Object> modifyCollectInfoInSql(@RequestParam("CollectID") String CollectID,
@@ -326,7 +322,7 @@ public class FruitInfoController {
                                                       @RequestParam("CollectUnit") String CollectUnit,
                                                       @RequestParam(value = "CollectTime", required = false) String CollectTime,
                                                       @RequestParam(value = "SpeciesName", required = false) String SpeciesName,
-                                                      @RequestPart(value = "Image", required = false) MultipartFile uploadFile,
+                                                      @ApiParam(value = "选择图片") @RequestPart(value = "Image", required = false) MultipartFile uploadFile,
                                                       @RequestParam(value = "CollectRemark", required = false) String CollectRemark) throws IOException {
         Map<String, Object> ret = new HashMap<>();
         FruitInfo previousStatus = fruitInfoService.getStatus(CollectID);
