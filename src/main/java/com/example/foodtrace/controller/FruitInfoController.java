@@ -186,7 +186,7 @@ public class FruitInfoController {
         String path = "/www/wwwroot/101.43.206.180";
         File folder = new File(path);
 
-        if (uploadFile.isEmpty()) {
+        if (uploadFile == null) {
             collectInfo.setImage("/defaultImage.png");
             Image = "/defaultImage.png";
         } else {
@@ -373,7 +373,7 @@ public class FruitInfoController {
         String path = "/www/wwwroot/101.43.206.180";
         File folder = new File(path);
 
-        if (uploadFile.isEmpty()) {
+        if (uploadFile == null) {
             collectInfo.setImage("/defaultImage.png");
             Image = "/defaultImage.png";
         } else {
@@ -499,7 +499,7 @@ public class FruitInfoController {
         String path = "/www/wwwroot/101.43.206.180";
         File folder = new File(path);
 
-        if (uploadFile.isEmpty()) {
+        if (uploadFile == null) {
             saveInfo.setGermplasmImage("/defaultImage.png");
             GermplasmImage = "/defaultImage.png";
         } else {
@@ -644,7 +644,7 @@ public class FruitInfoController {
         String path = "/www/wwwroot/101.43.206.180";
         File folder = new File(path);
 
-        if (uploadFile.isEmpty()) {
+        if (uploadFile == null) {
             saveInfo.setGermplasmImage("/defaultImage.png");
             GermplasmImage = "/defaultImage.png";
         } else {
