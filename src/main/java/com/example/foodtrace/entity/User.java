@@ -4,8 +4,8 @@ public class User {
     private String ID;
     private String Pwd;
     private String token;
-
     private String avatarUrl;
+    private String identity;
 
     public String getID() {
         return ID;
@@ -37,5 +37,13 @@ public class User {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 }

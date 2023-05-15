@@ -5,6 +5,7 @@
         <id column="ID" property="ID"/>
         <result column="Pwd" property="Pwd"/>
         <result column="token" property="token"/>
+        <result column="identity" property="identity"/>
         <result column="avatarUrl" property="avatarUrl"/>
     </resultMap>
 
@@ -30,7 +31,7 @@
     </select>
 
     <select id="getUserInfo" resultMap="userMap">
-        select ID, avatarUrl
+        select ID, avatarUrl, identity
         from UserTable
         where ID = #{ID}
     </select>
