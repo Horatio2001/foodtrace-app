@@ -10,6 +10,7 @@ public class UserService {
 
     @Autowired
     private UserDao userDao;
+
     public void register(String ID, String Pwd) {
         userDao.register(ID, Pwd);
     }
@@ -20,5 +21,16 @@ public class UserService {
 
     public User getUserInfo(String ID) {
         return userDao.getUserInfo(ID);
+    }
+
+    public void setToken(String ID, String token) {
+        userDao.setToken(ID, token);
+    }
+    public void clearToken(String ID) {
+        userDao.clearToken(ID);
+    }
+
+    public User getUserInfoByToken(String token) {
+        return userDao.getUserInfoByToken(token);
     }
 }

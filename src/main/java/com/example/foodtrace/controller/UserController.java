@@ -47,6 +47,7 @@ public class UserController {
         String tmp = userService.logIn(ID);
         if (tmp.equals(PWD)) {
             StpUtil.login(ID);
+            userService.setToken(ID, StpUtil.getTokenInfo().getTokenValue());
             return SaResult.data(StpUtil.getTokenInfo().getTokenValue());
         }
         return SaResult.error("登录失败");
@@ -83,4 +84,15 @@ public class UserController {
         return ret;
     }
 
+    @ApiOperation(value = "用token获取用户信息")
+    @GetMapping("getUserInfoByToken")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "token", value = "token", required = true)
+    })
+    public Map<String, Object> getUserInfoByToken(String token) {
+        Map<String, Object> ret = new HashMap<>();
+        ret.put("data",userService.getUserInfoByToken(token));
+        ret.put("code",200);
+        return ret;
+    }
 }

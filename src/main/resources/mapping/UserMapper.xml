@@ -18,6 +18,18 @@
         )
     </insert>
 
+    <update id="setToken">
+        update UserTable
+        set token = #{token}
+        where ID = #{ID}
+    </update>
+
+    <update id="clearToken">
+        update UserTable
+        set token = null
+        where ID = #{ID}
+    </update>
+
     <delete id="logOff">
         delete
         from UserTable
@@ -31,8 +43,14 @@
     </select>
 
     <select id="getUserInfo" resultMap="userMap">
-        select ID, avatarUrl, identity
+        select ID, avatarUrl, identity, token
         from UserTable
         where ID = #{ID}
+    </select>
+
+    <select id="getUserInfoByToken" resultMap="userMap">
+        select ID, avatarUrl, identity, token
+        from UserTable
+        where token = #{token}
     </select>
 </mapper>

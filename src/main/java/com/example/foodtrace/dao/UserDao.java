@@ -12,4 +12,7 @@ public interface UserDao {
     String logIn(@Param("ID") String ID);
     Integer logOff(@Param("ID") String ID);
     User getUserInfo(@Param("ID") String ID);
+    void clearToken(@Param("ID") String ID);
+    void setToken(@Param("ID") String ID, @Param("token") String token);
+    User getUserInfoByToken(@Param("token") String token);
 }
