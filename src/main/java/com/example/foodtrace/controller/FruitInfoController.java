@@ -1071,6 +1071,7 @@ public class FruitInfoController {
             String[] loadConfig = chainCodeService.LoadFruitInfo(fruitInfoID);
             ret.put("data", loadConfig[0]);
             fruitInfoService.loadInfo(fruitInfoID, loadConfig[1]);
+            ret.put("hash", loadConfig[1]);
             ret.put("code", 200);
             ret.put("description", "存证成功");
         } catch (ContractException | TimeoutException | InterruptedException e) {

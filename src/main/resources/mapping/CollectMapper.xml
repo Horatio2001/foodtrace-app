@@ -112,7 +112,6 @@
         <result column="IsContradict" property="IsContradict"/>
         <result column="IsCertified" property="IsCertified"/>
         <result column="BlockHash" property="BlockHash"/>
-
         <result column="Status" property="Status"/>
 
     </resultMap>
