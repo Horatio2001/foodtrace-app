@@ -197,7 +197,7 @@ public class FruitInfoController {
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             collectInfo.setImage(picPath);
-            Image = newName;
+            Image = picPath;
         }
 
         collectInfo.setCollectRemark(CollectRemark);
@@ -384,7 +384,7 @@ public class FruitInfoController {
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             collectInfo.setImage(picPath);
-            Image = newName;
+            Image = picPath;
         }
 
         collectInfo.setCollectRemark(CollectRemark);
@@ -511,7 +511,7 @@ public class FruitInfoController {
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             saveInfo.setGermplasmImage(picPath);
-            GermplasmImage = newName;
+            GermplasmImage = picPath;
         }
 
         String[] args = new String[]{MainPreference == null ? "\"\"" : "\"" + MainPreference + "\""
@@ -656,7 +656,7 @@ public class FruitInfoController {
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             saveInfo.setGermplasmImage(picPath);
-            GermplasmImage = newName;
+            GermplasmImage = picPath;
         }
 
         String[] args = new String[]{MainPreference == null ? "\"\"" : "\"" + MainPreference + "\""
