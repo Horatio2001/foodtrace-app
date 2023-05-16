@@ -111,7 +111,7 @@
         <result column="IsLoaded" property="IsLoaded"/>
         <result column="IsContradict" property="IsContradict"/>
         <result column="IsCertified" property="IsCertified"/>
-        <result column="BLockHash" property="BlockHash"/>
+        <result column="BlockHash" property="BlockHash"/>
 
         <result column="Status" property="Status"/>
 
