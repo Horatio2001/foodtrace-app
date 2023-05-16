@@ -135,7 +135,8 @@
                b.IsLoaded,
                b.IsContradict,
                b.Status,
-               b.IsCertified
+               b.IsCertified,
+               b.BlockHash
         FROM CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID
@@ -173,7 +174,8 @@
                b.IsLoaded,
                b.IsContradict,
                b.Status,
-               b.IsCertified
+               b.IsCertified,
+               b.BlockHash
 
         FROM CollectInfo as a,
              FruitInfo as b
