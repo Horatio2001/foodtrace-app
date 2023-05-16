@@ -111,6 +111,7 @@
         <result column="IsLoaded" property="IsLoaded"/>
         <result column="IsContradict" property="IsContradict"/>
         <result column="IsCertified" property="IsCertified"/>
+        <result column="BLockHash" property="BlockHash"/>
 
         <result column="Status" property="Status"/>
 
@@ -138,7 +139,7 @@
         FROM CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID
-        ORDER BY field(Status,3,2,1,0) , field(IsLoaded, 1, 0), field(IsContradict, 0, 1)
+        ORDER BY field(Status,3,2,1,0) , field(IsCertified, 0, 1),field(IsLoaded, 1, 0), field(IsContradict, 0, 1)
             limit
                  #{pageNum}, #{pageIdx}
     </select>
@@ -148,12 +149,13 @@
                b.IsLoaded,
                b.IsContradict,
                b.Status,
-               b.IsCertified
+               b.IsCertified,
+               b.BlockHash
         from CollectInfo as a,
              FruitInfo as b
         where a.CollectID = b.ID &amp;&amp; CollectID in (select ID
                             from FruitInfo
-                            where IsLoaded = 1)
+                            where IsLoaded = 1 and IsCertified = 1)
             limit #{pageNum}
             , #{pageIdx}
     </select>
@@ -163,7 +165,7 @@
         from CollectInfo
         where CollectID in (select ID
                             from FruitInfo
-                            where IsLoaded = 1)
+                            where IsLoaded = 1 and IsCertified = 1)
     </select>
 
     <select id="queryCollectInfosByPage" resultMap="collectMap">

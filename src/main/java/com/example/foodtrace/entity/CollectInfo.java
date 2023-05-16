@@ -43,6 +43,15 @@ public class CollectInfo {
     private int Status;
 
     private int IsCertified;
+    private String BlockHash;
+
+    public String getBlockHash() {
+        return BlockHash;
+    }
+
+    public void setBlockHash(String blockHash) {
+        BlockHash = blockHash;
+    }
 
     public int getIsCertified() {
         return IsCertified;
