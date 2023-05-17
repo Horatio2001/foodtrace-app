@@ -20,6 +20,8 @@ public interface SaveDao {
 
     SaveInfo querySaveInfo(@Param("fruitInfoID") String fruitInfoID);
 
+    List<SaveInfo> querySaveInfoByBlurID(@Param("BlurID") String BlurID);
+
     List<SaveInfo> querySaveInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
     int saveCount();

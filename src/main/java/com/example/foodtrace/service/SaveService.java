@@ -1,6 +1,7 @@
 package com.example.foodtrace.service;
 
 import com.example.foodtrace.dao.SaveDao;
+import com.example.foodtrace.entity.CollectInfo;
 import com.example.foodtrace.entity.SaveInfo;
 import org.bouncycastle.asn1.pkcs.SafeBag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class SaveService {
 
     public int saveCount() {
         return saveDao.saveCount();
+    }
+    public List<SaveInfo> queryCollectInfoByBlurID(String BlurID) {
+        return saveDao.querySaveInfoByBlurID(BlurID);
     }
 
 }

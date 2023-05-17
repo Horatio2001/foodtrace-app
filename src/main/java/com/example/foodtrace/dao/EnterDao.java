@@ -18,7 +18,7 @@ public interface EnterDao {
     Integer modifyEnterInfo(@Param("enterInfo") EnterInfo enterInfo);
 
     EnterInfo queryEnterInfo(@Param("fruitInfoID") String fruitInfoID);
-
+    List<EnterInfo> queryEnterInfoByBlurID(@Param("BlurID") String BlurID);
     List<EnterInfo> queryEnterInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
     int enterCount();

@@ -63,4 +63,8 @@ public class CollectService {
     public int queryDocumentedInfosTotal() {
         return collectDao.queryDocumentedInfosTotal();
     }
+
+    public List<CollectInfo> queryCollectInfoByBlurID(String BlurID) {
+        return collectDao.queryCollectInfoByBlurID(BlurID);
+    }
 }

@@ -36,5 +36,8 @@ public class ShareService {
     public int shareCount() {
         return shareDao.shareCount();
     }
+    public List<ShareInfo> queryShareInfoByBlurID(String BlurID) {
+        return shareDao.queryShareInfoByBlurID(BlurID);
+    }
 
 }

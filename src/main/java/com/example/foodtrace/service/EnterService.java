@@ -38,6 +38,8 @@ public class EnterService {
     public int enterCount() {
         return enterDao.enterCount();
     }
-
+    public List<EnterInfo> queryEnterInfoByBlurID(String BlurID) {
+        return enterDao.queryEnterInfoByBlurID(BlurID);
+    }
 
 }

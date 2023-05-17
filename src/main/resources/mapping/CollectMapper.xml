@@ -183,6 +183,18 @@
             limit #{pageNum}, #{pageIdx}
     </select>
 
+    <select id="queryCollectInfoByBlurID" resultMap="collectMap">
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status,
+               b.IsCertified,
+               b.BlockHash
+        FROM CollectInfo as a,
+             FruitInfo as b
+        where a.CollectID like concat('%',#{BlurID},'%') and a.CollectID = b.ID
+    </select>
+
     <select id="collectCount" resultType="int">
         select COUNT(*)
         from CollectInfo

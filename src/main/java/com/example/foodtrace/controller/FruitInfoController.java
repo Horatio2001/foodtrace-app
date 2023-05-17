@@ -20,6 +20,7 @@ import java.sql.Timestamp;
 import java.sql.Date;
 import java.time.Year;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeoutException;
@@ -193,7 +194,7 @@ public class FruitInfoController {
             Image = "/defaultImage.png";
         } else {
             String oldName = uploadFile.getOriginalFilename();
-            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."), oldName.length());
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             collectInfo.setImage(picPath);
@@ -380,7 +381,7 @@ public class FruitInfoController {
             Image = "/defaultImage.png";
         } else {
             String oldName = uploadFile.getOriginalFilename();
-            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."), oldName.length());
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             collectInfo.setImage(picPath);
@@ -507,7 +508,7 @@ public class FruitInfoController {
             GermplasmImage = "/defaultImage.png";
         } else {
             String oldName = uploadFile.getOriginalFilename();
-            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."), oldName.length());
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             saveInfo.setGermplasmImage(picPath);
@@ -652,7 +653,7 @@ public class FruitInfoController {
             GermplasmImage = "/defaultImage.png";
         } else {
             String oldName = uploadFile.getOriginalFilename();
-            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."),oldName.length());
+            String newName = UUID.randomUUID().toString() + oldName.substring(oldName.lastIndexOf("."), oldName.length());
             uploadFile.transferTo(new File(folder, newName));
             String picPath = '/' + newName;
             saveInfo.setGermplasmImage(picPath);
@@ -873,9 +874,9 @@ public class FruitInfoController {
 
     })
     public Map<String, Object> addShareInfoInSql(@RequestParam("ShareID") String ShareID,
-                                                 @RequestParam(value="ShareObj", required = false) String ShareObj,
+                                                 @RequestParam(value = "ShareObj", required = false) String ShareObj,
                                                  @RequestParam("ContactInfo") String ContactInfo,
-                                                 @RequestParam(value="ShareMode", required = false) Integer ShareMode,
+                                                 @RequestParam(value = "ShareMode", required = false) Integer ShareMode,
                                                  @RequestParam("ShareUse") Integer ShareUse,
                                                  @RequestParam("ShareNum") Integer ShareNum,
                                                  @RequestParam("ShareBeginTime") String ShareBeginTime,
@@ -952,9 +953,9 @@ public class FruitInfoController {
 
     })
     public Map<String, Object> modifyShareInfoInSql(@RequestParam("ShareID") String ShareID,
-                                                    @RequestParam(value="ShareObj", required = false) String ShareObj,
+                                                    @RequestParam(value = "ShareObj", required = false) String ShareObj,
                                                     @RequestParam("ContactInfo") String ContactInfo,
-                                                    @RequestParam(value="ShareMode", required = false) Integer ShareMode,
+                                                    @RequestParam(value = "ShareMode", required = false) Integer ShareMode,
                                                     @RequestParam("ShareUse") Integer ShareUse,
                                                     @RequestParam("ShareNum") Integer ShareNum,
                                                     @RequestParam("ShareBeginTime") String ShareBeginTime,
@@ -1299,7 +1300,7 @@ public class FruitInfoController {
     @GetMapping("Info/QueryDocumentedInfoByFirstPage")
     public Map<String, Object> queryDocumentedInfoByFirstPage() {
         Map<String, Object> ret = new HashMap<>();
-        ret.put("data", collectService.queryDocumentedInfosByPage(1,10));
+        ret.put("data", collectService.queryDocumentedInfosByPage(1, 10));
         ret.put("code", 200);
         ret.put("description", "查询成功");
         return ret;
@@ -1461,6 +1462,82 @@ public class FruitInfoController {
         ret.put("data", collectService.queryDocumentedInfosTotal());
         ret.put("code", 200);
         ret.put("description", "查询成功");
+        return ret;
+    }
+
+    @ApiOperation(value = "模糊查询采集信息")
+    @GetMapping("BlurInfo/queryCollectInfoByBlurID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "BlurID", value = "BlurID", required = true)
+    })
+    public Map<String, Object> queryCollectInfoByBlurID(@RequestParam("BlurID") String BlurID) {
+        Map<String, Object> ret = new HashMap<>();
+        List<CollectInfo> collectInfo = collectService.queryCollectInfoByBlurID(BlurID);
+        if (collectInfo == null) {
+            ret.put("code", -200);
+            ret.put("description", "查询失败");
+        } else {
+            ret.put("data", collectInfo);
+            ret.put("code", 200);
+            ret.put("description", "查询成功");
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "模糊查询保存信息")
+    @GetMapping("BlurInfo/querySaveInfoByBlurID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "BlurID", value = "BlurID", required = true)
+    })
+    public Map<String, Object> querySaveInfoByBlurID(@RequestParam("BlurID") String BlurID) {
+        Map<String, Object> ret = new HashMap<>();
+        List<SaveInfo> saveInfos = saveService.queryCollectInfoByBlurID(BlurID);
+        if (saveInfos == null) {
+            ret.put("code", -200);
+            ret.put("description", "查询失败");
+        } else {
+            ret.put("data", saveInfos);
+            ret.put("code", 200);
+            ret.put("description", "查询成功");
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "模糊查询录入信息")
+    @GetMapping("BlurInfo/queryEnterInfoByBlurID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "BlurID", value = "BlurID", required = true)
+    })
+    public Map<String, Object> queryEnterInfoByBlurID(@RequestParam("BlurID") String BlurID) {
+        Map<String, Object> ret = new HashMap<>();
+        List<EnterInfo> enterInfos = enterService.queryEnterInfoByBlurID(BlurID);
+        if (enterInfos == null) {
+            ret.put("code", -200);
+            ret.put("description", "查询失败");
+        } else {
+            ret.put("data", enterInfos);
+            ret.put("code", 200);
+            ret.put("description", "查询成功");
+        }
+        return ret;
+    }
+
+    @ApiOperation(value = "模糊查询共享信息")
+    @GetMapping("BlurInfo/queryShareInfoByBlurID")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "BlurID", value = "BlurID", required = true)
+    })
+    public Map<String, Object> queryShareInfoByBlurID(@RequestParam("BlurID") String BlurID) {
+        Map<String, Object> ret = new HashMap<>();
+        List<ShareInfo> shareInfos = shareService.queryShareInfoByBlurID(BlurID);
+        if (shareInfos == null) {
+            ret.put("code", -200);
+            ret.put("description", "查询失败");
+        } else {
+            ret.put("data", shareInfos);
+            ret.put("code", 200);
+            ret.put("description", "查询成功");
+        }
         return ret;
     }
 }

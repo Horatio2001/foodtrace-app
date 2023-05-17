@@ -67,6 +67,18 @@
         where ShareID = #{fruitInfoID} &amp;&amp; a.ShareID = b.ID
     </select>
 
+    <select id="queryShareInfoByBlurID" resultMap="shareMap">
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status,
+               b.IsCertified,
+               b.BlockHash
+        FROM ShareInfo as a,
+             FruitInfo as b
+        where a.ShareID like concat('%',#{BlurID},'%') and a.ShareID = b.ID
+    </select>
+
     <select id="queryShareInfosByPage" resultMap="shareMap">
         select a.*,
                b.Type,

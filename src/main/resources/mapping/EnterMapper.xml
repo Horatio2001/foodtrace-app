@@ -62,6 +62,18 @@
         where EnterID = #{fruitInfoID} &amp;&amp; a.EnterID = b.ID
     </select>
 
+    <select id="queryEnterInfoByBlurID" resultMap="enterMap">
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status,
+               b.IsCertified,
+               b.BlockHash
+        FROM EnterInfo as a,
+             FruitInfo as b
+        where a.EnterID like concat('%',#{BlurID},'%') and a.EnterID = b.ID
+    </select>
+
     <select id="queryEnterInfosByPage" resultMap="enterMap">
         select a.*,
                b.Type,

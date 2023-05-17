@@ -87,6 +87,18 @@
         where SaveID = #{fruitInfoID} &amp;&amp; a.SaveID = b.ID
     </select>
 
+    <select id="querySaveInfoByBlurID" resultMap="saveMap">
+        select a.*,
+               b.IsLoaded,
+               b.IsContradict,
+               b.Status,
+               b.IsCertified,
+               b.BlockHash
+        FROM SaveInfo as a,
+             FruitInfo as b
+        where a.SaveID like concat('%',#{BlurID},'%') and a.SaveID = b.ID
+    </select>
+
     <select id="querySaveInfosByPage" resultMap="saveMap">
         select a.*,
                b.Type,
@@ -107,4 +119,6 @@
         select COUNT(*)
         from SaveInfo
     </select>
+
+
 </mapper>

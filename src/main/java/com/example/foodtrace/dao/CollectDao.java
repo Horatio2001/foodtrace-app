@@ -32,6 +32,7 @@ public interface CollectDao {
     Integer modifyCollectInfo(@Param("collectInfo") CollectInfo collectInfo);
 
     CollectInfo queryCollectInfo(@Param("fruitInfoID") String fruitInfoID);
+    List<CollectInfo> queryCollectInfoByBlurID(@Param("BlurID") String BlurID);
 
     List<CollectInfo> queryInfosByPage(@Param("pageNum") int pageNum, @Param("pageIdx") int pageIdx);
 
