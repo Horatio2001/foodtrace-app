@@ -117,7 +117,18 @@
     </resultMap>
 
     <select id="queryCollectInfo" resultMap="collectMap">
-        select a.*,
+        select a.CollectID,
+               a.Type,
+               a.Name,
+               a.GermplasmName,
+               a.SectionName,
+               a.GenericName,
+               a.ScientificName,
+               a.ResourceType,
+               a.SpeciesName,
+               a.CollectPeople,
+               a.CollectUnit,
+               a.CollectTime,
                b.Type,
                b.Name,
                b.Status,
@@ -145,7 +156,18 @@
     </select>
 
     <select id="queryDocumentedInfosByPage" resultMap="collectMap">
-        select a.*,
+        select a.CollectID,
+               a.Type,
+               a.Name,
+               a.GermplasmName,
+               a.SectionName,
+               a.GenericName,
+               a.ScientificName,
+               a.ResourceType,
+               a.SpeciesName,
+               a.CollectPeople,
+               a.CollectUnit,
+               a.CollectTime,
                b.IsLoaded,
                b.IsContradict,
                b.Status,
@@ -169,7 +191,19 @@
     </select>
 
     <select id="queryCollectInfosByPage" resultMap="collectMap">
-        select a.*,
+        select a.CollectID,
+               a.Type,
+               a.Name,
+               a.GermplasmName,
+               a.SectionName,
+               a.GenericName,
+               a.ScientificName,
+               a.ResourceType,
+               a.CollectMethod,
+               a.CollectPeople,
+               a.CollectUnit,
+               a.Image,
+               a.SpeciesName,
                b.IsLoaded,
                b.IsContradict,
                b.Status,
